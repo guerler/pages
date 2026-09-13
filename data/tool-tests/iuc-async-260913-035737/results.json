@@ -1,0 +1,1739 @@
+{
+ "tests": [
+  {
+   "id": "metaspades-0",
+   "data": {
+    "tool_id": "metaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 15.567538976669312,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:10:02.866429",
+     "update_time": "2026-09-13T04:10:13.035261"
+    }
+   }
+  },
+  {
+   "id": "metaspades-1",
+   "data": {
+    "tool_id": "metaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 15.053917169570923,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:10:18.005172",
+     "update_time": "2026-09-13T04:10:28.085586"
+    }
+   }
+  },
+  {
+   "id": "metaspades-2",
+   "data": {
+    "tool_id": "metaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 15.314031600952148,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:10:33.240411",
+     "update_time": "2026-09-13T04:10:43.371609"
+    }
+   }
+  },
+  {
+   "id": "metaspades-3",
+   "data": {
+    "tool_id": "metaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 14.107239961624146,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:10:48.374068",
+     "update_time": "2026-09-13T04:10:57.694440"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-0",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.065260648727417,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:14:39.388196",
+     "update_time": "2026-09-13T04:14:48.159957"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-1",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.994635343551636,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:14:53.577974",
+     "update_time": "2026-09-13T04:15:02.357203"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-2",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 14.657040119171143,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:15:07.875854",
+     "update_time": "2026-09-13T04:15:16.766111"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-3",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 13.94283938407898,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:15:22.176509",
+     "update_time": "2026-09-13T04:15:30.980512"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-4",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.957118272781372,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:15:36.456616",
+     "update_time": "2026-09-13T04:15:44.990897"
+    }
+   }
+  },
+  {
+   "id": "rnaspades-5",
+   "data": {
+    "tool_id": "rnaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 13.326357126235962,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:15:49.874164",
+     "update_time": "2026-09-13T04:15:58.521268"
+    }
+   }
+  },
+  {
+   "id": "spades-0",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 18.65446949005127,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:17:31.050359",
+     "update_time": "2026-09-13T04:17:45.155317"
+    }
+   }
+  },
+  {
+   "id": "spades-1",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 19.52014446258545,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:17:50.349061",
+     "update_time": "2026-09-13T04:18:04.612181"
+    }
+   }
+  },
+  {
+   "id": "spades-10",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 10,
+    "time_seconds": 13.04216718673706,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:20:37.524568",
+     "update_time": "2026-09-13T04:20:45.859429"
+    }
+   }
+  },
+  {
+   "id": "spades-11",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 11,
+    "time_seconds": 15.084830284118652,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:20:51.668898",
+     "update_time": "2026-09-13T04:21:01.079596"
+    }
+   }
+  },
+  {
+   "id": "spades-12",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 12,
+    "time_seconds": 16.44485068321228,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:21:05.895148",
+     "update_time": "2026-09-13T04:21:17.572429"
+    }
+   }
+  },
+  {
+   "id": "spades-13",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 13,
+    "time_seconds": 20.44721269607544,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:21:27.174072",
+     "update_time": "2026-09-13T04:21:38.128505"
+    }
+   }
+  },
+  {
+   "id": "spades-14",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 14,
+    "time_seconds": 22.269958972930908,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:21:47.365112",
+     "update_time": "2026-09-13T04:22:00.449365"
+    }
+   }
+  },
+  {
+   "id": "spades-15",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 15,
+    "time_seconds": 17.8956196308136,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:22:05.593596",
+     "update_time": "2026-09-13T04:22:18.460434"
+    }
+   }
+  },
+  {
+   "id": "spades-16",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 16,
+    "time_seconds": 18.0985324382782,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:22:23.824766",
+     "update_time": "2026-09-13T04:22:36.624777"
+    }
+   }
+  },
+  {
+   "id": "spades-17",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 17,
+    "time_seconds": 17.866048097610474,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:22:41.973241",
+     "update_time": "2026-09-13T04:22:54.833990"
+    }
+   }
+  },
+  {
+   "id": "spades-2",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 21.860500812530518,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:18:10.780455",
+     "update_time": "2026-09-13T04:18:26.547557"
+    }
+   }
+  },
+  {
+   "id": "spades-3",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 24.095216035842896,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:18:32.283228",
+     "update_time": "2026-09-13T04:18:50.729001"
+    }
+   }
+  },
+  {
+   "id": "spades-4",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 22.779366970062256,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:18:56.813775",
+     "update_time": "2026-09-13T04:19:13.639822"
+    }
+   }
+  },
+  {
+   "id": "spades-5",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 25.126628637313843,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:19:19.319196",
+     "update_time": "2026-09-13T04:19:38.907900"
+    }
+   }
+  },
+  {
+   "id": "spades-6",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 13.070398807525635,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:19:43.686462",
+     "update_time": "2026-09-13T04:19:52.174034"
+    }
+   }
+  },
+  {
+   "id": "spades-7",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 7,
+    "time_seconds": 13.122905254364014,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:19:56.919599",
+     "update_time": "2026-09-13T04:20:05.503099"
+    }
+   }
+  },
+  {
+   "id": "spades-8",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 8,
+    "time_seconds": 13.40586233139038,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:20:10.181940",
+     "update_time": "2026-09-13T04:20:18.876149"
+    }
+   }
+  },
+  {
+   "id": "spades-9",
+   "data": {
+    "tool_id": "spades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 9,
+    "time_seconds": 13.682678937911987,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:20:24.381183",
+     "update_time": "2026-09-13T04:20:32.720813"
+    }
+   }
+  },
+  {
+   "id": "spades_biosyntheticspades-0",
+   "data": {
+    "tool_id": "spades_biosyntheticspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 104.28962469100952,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:05:53.123772",
+     "update_time": "2026-09-13T04:07:21.417796"
+    }
+   }
+  },
+  {
+   "id": "spades_biosyntheticspades-1",
+   "data": {
+    "tool_id": "spades_biosyntheticspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 19.197914123535156,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:07:30.741264",
+     "update_time": "2026-09-13T04:07:40.813516"
+    }
+   }
+  },
+  {
+   "id": "spades_biosyntheticspades-2",
+   "data": {
+    "tool_id": "spades_biosyntheticspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 14.97381591796875,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:07:45.930769",
+     "update_time": "2026-09-13T04:07:55.810486"
+    }
+   }
+  },
+  {
+   "id": "spades_coronaspades-0",
+   "data": {
+    "tool_id": "spades_coronaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 15.020992517471313,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:08:01.092707",
+     "update_time": "2026-09-13T04:08:10.791342"
+    }
+   }
+  },
+  {
+   "id": "spades_coronaspades-1",
+   "data": {
+    "tool_id": "spades_coronaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 14.664254903793335,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:08:16.234190",
+     "update_time": "2026-09-13T04:08:25.864192"
+    }
+   }
+  },
+  {
+   "id": "spades_coronaspades-2",
+   "data": {
+    "tool_id": "spades_coronaspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 15.494637727737427,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:08:30.458628",
+     "update_time": "2026-09-13T04:08:41.196584"
+    }
+   }
+  },
+  {
+   "id": "spades_metaplasmidspades-0",
+   "data": {
+    "tool_id": "spades_metaplasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 15.657517910003662,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:08:46.726720",
+     "update_time": "2026-09-13T04:08:57.185019"
+    }
+   }
+  },
+  {
+   "id": "spades_metaplasmidspades-1",
+   "data": {
+    "tool_id": "spades_metaplasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 15.010012149810791,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:09:01.976591",
+     "update_time": "2026-09-13T04:09:12.340769"
+    }
+   }
+  },
+  {
+   "id": "spades_metaplasmidspades-2",
+   "data": {
+    "tool_id": "spades_metaplasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 15.349893808364868,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:09:17.199750",
+     "update_time": "2026-09-13T04:09:27.477059"
+    }
+   }
+  },
+  {
+   "id": "spades_metaplasmidspades-3",
+   "data": {
+    "tool_id": "spades_metaplasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 14.912431478500366,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:09:32.417225",
+     "update_time": "2026-09-13T04:09:42.585035"
+    }
+   }
+  },
+  {
+   "id": "spades_metaplasmidspades-4",
+   "data": {
+    "tool_id": "spades_metaplasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 14.531400918960571,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:09:47.657452",
+     "update_time": "2026-09-13T04:09:57.088235"
+    }
+   }
+  },
+  {
+   "id": "spades_metaviralspades-0",
+   "data": {
+    "tool_id": "spades_metaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.24574065208435,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:11:02.602152",
+     "update_time": "2026-09-13T04:11:12.159724"
+    }
+   }
+  },
+  {
+   "id": "spades_metaviralspades-1",
+   "data": {
+    "tool_id": "spades_metaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 15.08407998085022,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:11:17.812916",
+     "update_time": "2026-09-13T04:11:27.507741"
+    }
+   }
+  },
+  {
+   "id": "spades_metaviralspades-2",
+   "data": {
+    "tool_id": "spades_metaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 14.184588193893433,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:11:32.033106",
+     "update_time": "2026-09-13T04:11:41.402713"
+    }
+   }
+  },
+  {
+   "id": "spades_metaviralspades-3",
+   "data": {
+    "tool_id": "spades_metaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 13.767349243164062,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:11:46.244083",
+     "update_time": "2026-09-13T04:11:55.494203"
+    }
+   }
+  },
+  {
+   "id": "spades_metaviralspades-4",
+   "data": {
+    "tool_id": "spades_metaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.72652792930603,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:12:00.486336",
+     "update_time": "2026-09-13T04:12:09.195190"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-0",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 18.506210803985596,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:12:14.726233",
+     "update_time": "2026-09-13T04:12:28.085276"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-1",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 18.230459213256836,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:12:33.027534",
+     "update_time": "2026-09-13T04:12:46.492794"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-2",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 18.872803688049316,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:12:51.349845",
+     "update_time": "2026-09-13T04:13:05.063491"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-3",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 19.84521222114563,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:13:10.747724",
+     "update_time": "2026-09-13T04:13:25.454462"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-4",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 18.704636096954346,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:13:30.063219",
+     "update_time": "2026-09-13T04:13:44.051938"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-5",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 14.044944286346436,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:13:49.388852",
+     "update_time": "2026-09-13T04:13:58.130537"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-6",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 15.840319871902466,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:14:04.692581",
+     "update_time": "2026-09-13T04:14:14.266596"
+    }
+   }
+  },
+  {
+   "id": "spades_plasmidspades-7",
+   "data": {
+    "tool_id": "spades_plasmidspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 7,
+    "time_seconds": 19.536309242248535,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:14:19.130788",
+     "update_time": "2026-09-13T04:14:33.812121"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-0",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.18362045288086,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:16:04.102812",
+     "update_time": "2026-09-13T04:16:12.734334"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-1",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.795376300811768,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:16:18.328752",
+     "update_time": "2026-09-13T04:16:26.869324"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-2",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 14.633983373641968,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:16:31.633334",
+     "update_time": "2026-09-13T04:16:41.098325"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-3",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 14.116990566253662,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:16:46.944789",
+     "update_time": "2026-09-13T04:16:55.634568"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-4",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 15.047863006591797,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:17:01.394410",
+     "update_time": "2026-09-13T04:17:10.557173"
+    }
+   }
+  },
+  {
+   "id": "spades_rnaviralspades-5",
+   "data": {
+    "tool_id": "spades_rnaviralspades",
+    "tool_version": "4.3.0+galaxy1",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 14.842099666595459,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:17:15.786822",
+     "update_time": "2026-09-13T04:17:25.486704"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-0",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 54.579245805740356,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:24:16.895175",
+     "update_time": "2026-09-13T04:24:55.512762"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-1",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 17.638426303863525,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:25:05.160801",
+     "update_time": "2026-09-13T04:25:13.381707"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-2",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 12.690593004226685,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:25:18.372601",
+     "update_time": "2026-09-13T04:25:26.117592"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-3",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 13.55281949043274,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:25:31.547265",
+     "update_time": "2026-09-13T04:25:39.671676"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-0",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.047394752502441,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:25:44.982302",
+     "update_time": "2026-09-13T04:25:52.824056"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-1",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.030176401138306,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:25:58.381172",
+     "update_time": "2026-09-13T04:26:05.888442"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-2",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "failure",
+    "test_index": 2,
+    "time_seconds": 13.051603555679321,
+    "execution_problem": null,
+    "output_problems": [
+     "Job in error state.. tool_id: stacks2_cstacks, exit_code: 1, stderr: cstacks parameters selected:\n  Loci matched based on sequence identity.\n  Number of mismatches allowed between stacks: 2\n  Gapped alignments: enabled\nConstructing catalog from 2 samples.\n\nInitializing new catalog...\n  Parsing stacks_inputs/PopA_01.tags.tsv\n  Parsing stacks_inputs/PopA_01.snps.tsv\n  Parsing stacks_inputs/PopA_01.alleles.tsv\n  3 loci were newly added to the catalog.\n\nProcessing sample stacks_inputs/PopA_02 [2 of 2]\n  Parsing stacks_inputs/PopA_02.tags.tsv\n  Parsing stacks_inputs/PopA_02.snps.tsv\n  Parsing stacks_inputs/PopA_02.alleles.tsv\nSearching for sequence matches...\n  3 loci in the catalog, 245 kmers in the catalog hash.\nSearching for gapped alignments...\nMerging matches into catalog...\n  3 loci were matched to a catalog locus.\n  0 loci were matched to a catalog locus using gapped alignments.\n  0 loci were newly added to the catalog.\n  0 loci matched more than one catalog locus, linking them.\n    0 linked catalog loci were merged into 0 loci.\n\nWriting catalog in directory 'stacks_outputs/'.\nFinal catalog contains 3 loci.\ncstacks is done.\ncat: can't open 'XXXX': No such file or directory\ncat: can't open 'XXXX': No such file or directory\n."
+    ],
+    "job": {
+     "create_time": "2026-09-13T04:26:11.752246",
+     "update_time": "2026-09-13T04:26:19.120675"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-0",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.067131996154785,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:26:24.143740",
+     "update_time": "2026-09-13T04:26:31.742206"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-1",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.967249631881714,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:26:37.350593",
+     "update_time": "2026-09-13T04:26:44.734198"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-2",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 13.339776039123535,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:26:50.607634",
+     "update_time": "2026-09-13T04:26:58.218167"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-0",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 45.44410181045532,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:27:03.894091",
+     "update_time": "2026-09-13T04:27:44.312133"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-1",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.454504489898682,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:27:49.334988",
+     "update_time": "2026-09-13T04:27:56.710717"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-2",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 12.004332542419434,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:28:01.487620",
+     "update_time": "2026-09-13T04:28:08.935240"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-3",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 12.156710624694824,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:28:13.728239",
+     "update_time": "2026-09-13T04:28:21.285396"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-4",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 12.100149393081665,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:28:26.015741",
+     "update_time": "2026-09-13T04:28:33.265488"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-5",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 12.19305968284607,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:28:38.240913",
+     "update_time": "2026-09-13T04:28:45.563339"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-2",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 12.009230613708496,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:28:50.364752",
+     "update_time": "2026-09-13T04:28:57.690557"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-3",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy5",
+    "status": "failure",
+    "test_index": 3,
+    "time_seconds": 12.017964363098145,
+    "execution_problem": null,
+    "output_problems": [
+     "Job in error state.. tool_id: stacks2_kmerfilter, exit_code: 1, stderr: Using a kmer size of 15\nFiltering out reads by identifying rare kmers: Off.\nFiltering out reads by identifying abundant kmers: Off.\nNormalizing read depth: Off.\nFound 1 input file(s).\nFound 0 paired input file(s).\nGenerating kmer distribution...\nGenerating kmers from file 1 of 1 [R1_0001.fastq]\n544 unique k-mers recorded.\nGenerating kmer distribution...\ncat: can't open 'XXXX': No such file or directory\ncat: can't open 'XXXX': No such file or directory\n."
+    ],
+    "job": {
+     "create_time": "2026-09-13T04:29:02.521754",
+     "update_time": "2026-09-13T04:29:09.768950"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-0",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.341848373413086,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:29:15.900391",
+     "update_time": "2026-09-13T04:29:23.304220"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-1",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.912496089935303,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:29:29.136023",
+     "update_time": "2026-09-13T04:29:36.480253"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-10",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 10,
+    "time_seconds": 14.184748411178589,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:31:05.865462",
+     "update_time": "2026-09-13T04:31:14.085310"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-2",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 16.817171096801758,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:29:42.485502",
+     "update_time": "2026-09-13T04:29:51.585809"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-3",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 13.416635036468506,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:29:58.848357",
+     "update_time": "2026-09-13T04:30:06.819160"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-4",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.131905794143677,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:30:12.287432",
+     "update_time": "2026-09-13T04:30:20.101270"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-5",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 13.05947232246399,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:30:25.732316",
+     "update_time": "2026-09-13T04:30:33.197296"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-6",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 13.284574031829834,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:30:39.072751",
+     "update_time": "2026-09-13T04:30:46.510294"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-9",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 9,
+    "time_seconds": 13.085658311843872,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:30:52.464056",
+     "update_time": "2026-09-13T04:30:59.810018"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-0",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.799296617507935,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:31:20.342068",
+     "update_time": "2026-09-13T04:31:28.586201"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-1",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.227888584136963,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:31:33.691667",
+     "update_time": "2026-09-13T04:31:41.862853"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-2",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 15.30532431602478,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:31:47.112928",
+     "update_time": "2026-09-13T04:31:56.499797"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-3",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 20.18484091758728,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:32:02.597972",
+     "update_time": "2026-09-13T04:32:15.105900"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-4",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.660491704940796,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:32:23.180472",
+     "update_time": "2026-09-13T04:32:31.584787"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-5",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 21.978599548339844,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:32:45.855677",
+     "update_time": "2026-09-13T04:32:53.704386"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-6",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 13.35320258140564,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:32:59.109506",
+     "update_time": "2026-09-13T04:33:06.946315"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-7",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 7,
+    "time_seconds": 16.24051594734192,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:33:15.537401",
+     "update_time": "2026-09-13T04:33:23.346912"
+    }
+   }
+  },
+  {
+   "id": "stacks2_refmap-0",
+   "data": {
+    "tool_id": "stacks2_refmap",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.88486385345459,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:33:29.496846",
+     "update_time": "2026-09-13T04:33:37.701985"
+    }
+   }
+  },
+  {
+   "id": "stacks2_refmap-1",
+   "data": {
+    "tool_id": "stacks2_refmap",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.595586776733398,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:33:44.062361",
+     "update_time": "2026-09-13T04:33:51.755898"
+    }
+   }
+  },
+  {
+   "id": "stacks2_shortreads-0",
+   "data": {
+    "tool_id": "stacks2_shortreads",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.216558456420898,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:33:57.644954",
+     "update_time": "2026-09-13T04:34:05.135635"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-0",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 16.890710830688477,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:34:14.565182",
+     "update_time": "2026-09-13T04:34:22.210150"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-1",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.89706039428711,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:34:28.359603",
+     "update_time": "2026-09-13T04:34:36.237512"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-2",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "failure",
+    "test_index": 2,
+    "time_seconds": 16.306751251220703,
+    "execution_problem": null,
+    "output_problems": [
+     "Job in error state.. tool_id: stacks2_sstacks, exit_code: 1, stderr: Searching for matches by sequence identity...\n  Parsing stacks_inputs/catalog.tags.tsv\n  Parsing stacks_inputs/catalog.snps.tsv\n  Parsing stacks_inputs/catalog.alleles.tsv\nPopulating kmer dictionary for exact matches...done.\nPopulating kmer dictionary for gapped alignments...done.\n\nProcessing sample 'stacks_inputs/PopA_01' [1 of 2]\n  Parsing stacks_inputs/PopA_01.tags.tsv\n  Parsing stacks_inputs/PopA_01.snps.tsv\n  Parsing stacks_inputs/PopA_01.alleles.tsv\nSearching for sequence matches...\n3 sample loci compared against the catalog containing 3 loci.\n  3 matching loci, 0 contained no verified haplotypes.\n  0 loci matched more than one catalog locus and were excluded.\n  0 loci contained SNPs unaccounted for in the catalog and were excluded.\n  4 total haplotypes examined from matching loci, 0 verified.\nSearching for gapped alignments...\nOut of 3 query loci, 0 gapped alignments attempted.\n  0 loci matched one catalog locus; 0 total haplotypes examined, 0 verified.\n  0 loci matched no catalog locus;\n    0 loci matched more than one catalog locus and were excluded.\n    0 loci contained SNPs unaccounted for in the catalog and were excluded.\n    0 loci had no verified haplotypes.\n    0 loci had inconsistent alignments to a catalog locus and were excluded.\nOutputing to file stacks_inputs/PopA_01.matches.tsv\n\nProcessing sample 'stacks_inputs/PopA_02' [2 of 2]\n  Parsing stacks_inputs/PopA_02.tags.tsv\n  Parsing stacks_inputs/PopA_02.snps.tsv\n  Parsing stacks_inputs/PopA_02.alleles.tsv\nSearching for sequence matches...\n3 sample loci compared against the catalog containing 3 loci.\n  3 matching loci, 0 contained no verified haplotypes.\n  0 loci matched more than one catalog locus and were excluded.\n  0 loci contained SNPs unaccounted for in the catalog and were excluded.\n  4 total haplotypes examined from matching loci, 0 verified.\nSearching for gapped alignments...\nOut of 3 query loci, 0 gapped alignments attempted.\n  0 loci matched one catalog locus; 0 total haplotypes examined, 0 verified.\n  0 loci matched no catalog locus;\n    0 loci matched more than one catalog locus and were excluded.\n    0 loci contained SNPs unaccounted for in the catalog and were excluded.\n    0 loci had no verified haplotypes.\n    0 loci had inconsistent alignments to a catalog locus and were excluded.\nOutputing to file stacks_inputs/PopA_02.matches.tsv\n\nsstacks is done.\ncat: can't open 'XXXX': No such file or directory\ncat: can't open 'XXXX': No such file or directory\n."
+    ],
+    "job": {
+     "create_time": "2026-09-13T04:34:45.134981",
+     "update_time": "2026-09-13T04:34:52.514275"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-0",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 19.304225206375122,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:35:03.984427",
+     "update_time": "2026-09-13T04:35:12.032576"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-1",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 20.387719869613647,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:35:25.069765",
+     "update_time": "2026-09-13T04:35:32.461676"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-2",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 21.226502656936646,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:35:46.039273",
+     "update_time": "2026-09-13T04:35:53.783533"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-3",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 19.199920415878296,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:36:05.160050",
+     "update_time": "2026-09-13T04:36:13.064687"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-4",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 31.3036150932312,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:36:36.465638",
+     "update_time": "2026-09-13T04:36:44.470085"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-0",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.416333198547363,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:36:51.001682",
+     "update_time": "2026-09-13T04:36:58.870293"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-1",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.817140817642212,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:37:04.377529",
+     "update_time": "2026-09-13T04:37:11.741444"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-2",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 12.100943326950073,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:37:16.756590",
+     "update_time": "2026-09-13T04:37:24.099065"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-4",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy5",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.41957974433899,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T04:37:29.172176",
+     "update_time": "2026-09-13T04:37:37.447263"
+    }
+   }
+  }
+ ],
+ "version": 0.1
+}

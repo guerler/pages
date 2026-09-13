@@ -1,121 +1,2058 @@
 ---
-layout: deck
-title: Tool tests, sync to async
-description: What the async validation work fixed in tools-iuc, and the proposal to move the ecosystem.
+layout: dashboard
+title: Tool tests
+description: Heatmap of tools-iuc tool-test results.
+nav_id: raster
 ---
 
-<section class="slide slide--title" id="title">
-  <h1>Tool tests:<br>sync to async</h1>
-  <p>What two months of validation fixed in tools-iuc, and what we propose next.</p>
-  <span class="slide__meta">Galaxy team meeting, 15 September 2026</span>
-  <span class="slide__num"></span>
-</section>
+<p class="gx-prose">
+  Each row is a tool; each column is one full-suite run of the tools-iuc test suite.
+  <button type="button" class="gx-more-toggle" id="gx-raster-more-toggle" aria-expanded="false">More</button>
+</p>
+<p class="gx-prose gx-more-text" id="gx-raster-more-text" hidden>
+  Longitudinal tool-test results for
+  <a href="https://github.com/galaxyproject/tools-iuc">tools-iuc</a>, collected from
+  GitHub Actions artifacts. Every column is a full run of the suite against a Galaxy
+  using the typed tool-request path. Columns are historical runs at irregular
+  intervals, not a nightly cadence, so the gap between two columns carries no meaning
+  and a tool can change state for reasons that landed anywhere in between. Run times are
+  UTC, taken from the GitHub Actions run that produced the results; "CI run" on a cell
+  opens that run.
+  Color shows result type and intensity shows the fraction of
+  tests affected. Hover a cell for the exact numbers; click it to see that
+  tool's failing tests and their tracebacks. Tools appear the first time
+  they're actually tested, so the row list grows over time rather than
+  starting from a fixed list. The bar above each run column shows how many
+  tools it affected and how much of the toolset it actually covered (click
+  it for a run-wide breakdown); the bar to the right of each tool shows how
+  often that tool has had trouble over the runs currently shown (click it,
+  or the tool's name, for that tool's history).
+</p>
 
-<section class="slide" id="start">
-  <h2>Where we started</h2>
-  <p class="lede">Validating the typed tool request path meant running the whole tools-iuc suite
-  against it. The first full run in July showed how much was already broken.</p>
-  <div class="figures">
-    <div class="figure"><div class="figure__value">2,044</div><div class="figure__label">tools</div></div>
-    <div class="figure"><div class="figure__value">6,672</div><div class="figure__label">tests</div></div>
-    <div class="figure"><div class="figure__value">287</div><div class="figure__label">not passing</div></div>
-    <div class="figure"><div class="figure__value">4.30%</div><div class="figure__label">failure rate</div></div>
+<div class="gx-legend2">
+  <span class="gx-legend2__group">
+    <span class="gx-legend2__label">Result</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#61ad90"></span>Pass</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d87e55"></span>Failure</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#630177"></span>Error</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#150276"></span>Both</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2 gx-swatch2--notrun"></span>Not run</span>
+  </span>
+  <span class="gx-legend2__group">
+    <span class="gx-legend2__label">Tests affected</span>
+    <span class="gx-legend2__item"><span class="gx-gradient-swatch"></span></span>
+  </span>
+  <span class="gx-legend2__group">
+    <span class="gx-legend2__label">Coverage</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#9aa5b1"></span>Normal</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d19e00"></span>Partial</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#b91c1c"></span>Mostly not run</span>
+  </span>
+</div>
+
+<div class="gx-raster-controls">
+  <button id="gx-raster-older" type="button">&larr; older</button>
+  <span id="gx-raster-window"></span>
+  <button id="gx-raster-newer" type="button">newer &rarr;</button>
+  <span class="gx-filter-toggle">
+    Show:
+    <span class="gx-filter-toggle__group">
+      <button type="button" id="gx-raster-filter-error" class="gx-filter-toggle__option">Errors</button>
+      <button type="button" id="gx-raster-filter-failure" class="gx-filter-toggle__option">Failures</button>
+      <button type="button" id="gx-raster-filter-both" class="gx-filter-toggle__option">Errors or Failures</button>
+      <button type="button" id="gx-raster-filter-anvil" class="gx-filter-toggle__option" title="Tools that fail on the AnVIL deployment but pass here, so the deployment is the likelier cause">AnVIL only</button>
+    </span>
+  </span>
+  <span class="gx-filter-toggle">
+    <button type="button" id="gx-raster-anvil-panel" class="gx-filter-toggle__option" title="Draw the AnVIL deployment's most recent runs as a second block, aligned to the same tool rows">Compare AnVIL</button>
+  </span>
+  <span class="gx-density-toggle">
+    Density:
+    <span class="gx-density-toggle__group">
+      <button type="button" id="gx-density-comfortable" class="gx-density-toggle__option is-active">Comfortable</button>
+      <button type="button" id="gx-density-compact" class="gx-density-toggle__option">Overview</button>
+    </span>
+  </span>
+</div>
+
+<div class="gx-raster-controls">
+  <span class="gx-raster-search-wrap">
+    <input id="gx-raster-search" type="text" placeholder="Find a tool…" class="gx-raster-search">
+    <button type="button" id="gx-raster-search-clear" class="gx-raster-search-clear" aria-label="Clear search" hidden>&times;</button>
+  </span>
+  <span class="gx-jump-label">Jump to</span>
+  <div id="gx-raster-jump" class="gx-raster-jump"></div>
+</div>
+
+<div id="gx-raster-container" class="gx-raster-container">
+  <canvas id="gx-raster-canvas" tabindex="0"></canvas>
+  <canvas id="gx-raster-overlay"></canvas>
+</div>
+<div id="gx-raster-tooltip" class="gx-raster-tooltip" hidden></div>
+<p id="gx-raster-empty" hidden>No raster data yet.</p>
+
+<div id="gx-inspector-backdrop" class="gx-inspector-backdrop" hidden></div>
+<aside id="gx-inspector" class="gx-inspector" hidden aria-label="Tool run detail">
+  <button id="gx-inspector-close" class="gx-inspector__close" type="button" aria-label="Close">&times;</button>
+  <div id="gx-inspector-header" class="gx-inspector__header"></div>
+  <div class="gx-inspector__nav">
+    <button id="gx-inspector-prev" type="button">&larr; prev run</button>
+    <button id="gx-inspector-next" type="button">next run &rarr;</button>
+    <a id="gx-inspector-report" class="gx-inspector__report-link" target="_blank" rel="noopener">CI run &#8599;</a>
   </div>
-  <p class="note">3 July 2026. Most were not framework defects. They were tests that had drifted
-  against newer tool builds, or that declared parameters the tool never received.</p>
-  <span class="slide__num"></span>
-</section>
+  <div id="gx-inspector-body" class="gx-inspector__body"></div>
+</aside>
 
-<section class="slide" id="now">
-  <h2>Where we are now: <span class="accent">2.33%</span></h2>
-  <svg viewBox="0 0 1000 380" role="img" aria-label="Share of tool tests not passing per full suite run, 4.3 percent on 3 July falling to 2.33 percent on 3 September" style="width:100%;height:auto;max-height:46vh"><line x1="58" y1="328.0" x2="980" y2="328.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="332.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">0%</text><line x1="58" y1="226.7" x2="980" y2="226.7" stroke="rgba(44,49,67,.12)"/><text x="48" y="230.7" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">2%</text><line x1="58" y1="125.3" x2="980" y2="125.3" stroke="rgba(44,49,67,.12)"/><text x="48" y="129.3" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">4%</text><line x1="58" y1="24.0" x2="980" y2="24.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="28.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">6%</text><polygon points="58,328.0 58.0,110.1 134.8,69.1 211.7,79.7 288.5,88.9 365.3,216.0 442.2,161.3 519.0,149.1 595.8,151.7 672.7,133.4 749.5,169.4 826.3,187.1 903.2,189.2 980.0,209.9 980.0,328.0" fill="rgba(69,78,108,.10)"/><polyline points="58.0,110.1 134.8,69.1 211.7,79.7 288.5,88.9 365.3,216.0 442.2,161.3 519.0,149.1 595.8,151.7 672.7,133.4 749.5,169.4 826.3,187.1 903.2,189.2 980.0,209.9" fill="none" stroke="#454e6c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="58.0" cy="110.1" r="4" fill="#454e6c"/><circle cx="134.8" cy="69.1" r="4" fill="#454e6c"/><circle cx="211.7" cy="79.7" r="4" fill="#454e6c"/><circle cx="288.5" cy="88.9" r="4" fill="#454e6c"/><circle cx="365.3" cy="216.0" r="4" fill="#454e6c"/><circle cx="442.2" cy="161.3" r="4" fill="#454e6c"/><circle cx="519.0" cy="149.1" r="4" fill="#454e6c"/><circle cx="595.8" cy="151.7" r="4" fill="#454e6c"/><circle cx="672.7" cy="133.4" r="4" fill="#454e6c"/><circle cx="749.5" cy="169.4" r="4" fill="#454e6c"/><circle cx="826.3" cy="187.1" r="4" fill="#454e6c"/><circle cx="903.2" cy="189.2" r="4" fill="#454e6c"/><circle cx="980.0" cy="209.9" r="4" fill="#454e6c"/><circle cx="58.0" cy="110.1" r="7" fill="none" stroke="#454e6c" stroke-width="2"/><text x="72.0" y="98.1" font-size="15" font-weight="700" fill="#454e6c">4.3%</text><circle cx="980.0" cy="209.9" r="7" fill="#a06e00"/><text x="980.0" y="193.9" text-anchor="end" font-size="15" font-weight="700" fill="#a06e00">2.33%</text><text x="58.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-03</text><text x="211.7" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-09</text><text x="365.3" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-27</text><text x="519.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-30</text><text x="672.7" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-06</text><text x="826.3" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-19</text><text x="980.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">09-03</text></svg>
-  <p class="note">Share of tests not passing, per full suite run. The line moves up as well as down:
-  a single run is not a measurement, because roughly twenty tests flip sides between runs for
-  reasons outside the tool. The trend across thirteen runs is what counts.</p>
-  <span class="slide__num"></span>
-</section>
+<style>
+  /* Matches deploy-stages.html's width override, kept consistent across
+     both pages rather than raised in default.html since docs/index.md
+     doesn't need the extra room. */
+  main.gx-content, .gx-header__inner {
+    max-width: 1300px;
+  }
+  .gx-legend2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0 0 1.25rem;
+    font-size: 0.85rem;
+    color: var(--galaxy-grey);
+  }
+  .gx-legend2__group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .gx-legend2__label {
+    font-weight: 600;
+    color: var(--galaxy-dark);
+    margin-right: 0.1rem;
+  }
+  .gx-legend2__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .gx-swatch2 {
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 0.15em;
+  }
+  .gx-swatch2--notrun {
+    background: #eef2f6;
+    border: 1px solid rgba(37, 83, 123, 0.25);
+  }
+  .gx-gradient-swatch {
+    display: inline-block;
+    width: 3.5em;
+    height: 0.75em;
+    border-radius: 0.15em;
+    background: linear-gradient(to right, #f3f4f6, #3a3a3a);
+    border: 1px solid rgba(37, 83, 123, 0.15);
+  }
+  .gx-raster-search-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  .gx-raster-search {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 1.6rem 0.3rem 0.6rem;
+    border: 1px solid rgba(37, 83, 123, 0.3);
+    border-radius: 0.375rem;
+    width: 12rem;
+  }
+  .gx-raster-search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.3rem;
+    transform: translateY(-50%);
+    width: 1.1rem;
+    height: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(37, 83, 123, 0.15);
+    font-size: 0.7rem;
+    line-height: 1;
+    padding: 0;
+    color: rgba(37, 83, 123, 0.7);
+    cursor: pointer;
+  }
+  .gx-raster-search-clear:hover {
+    background: rgba(37, 83, 123, 0.3);
+    color: rgba(37, 83, 123, 1);
+  }
+  .gx-jump-label {
+    font-size: 0.85rem;
+  }
+  .gx-raster-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+  }
+  .gx-raster-jump button {
+    font: inherit;
+    font-size: 0.75rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0;
+    border: 1px solid rgba(37, 83, 123, 0.2);
+    border-radius: 0.25rem;
+    background: #fff;
+    color: var(--galaxy-primary);
+    cursor: pointer;
+  }
+  .gx-raster-jump button:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+  .gx-density-toggle {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--galaxy-grey);
+  }
+  .gx-density-toggle__group {
+    display: inline-flex;
+  }
+  .gx-density-toggle__option {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(37, 83, 123, 0.25);
+    background: #fff;
+    color: var(--galaxy-grey);
+    cursor: pointer;
+  }
+  .gx-density-toggle__option:first-of-type {
+    border-radius: 0.375rem 0 0 0.375rem;
+    border-right: none;
+  }
+  .gx-density-toggle__option:last-of-type {
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+  .gx-density-toggle__option.is-active {
+    background: rgba(37, 83, 123, 0.1);
+    color: var(--galaxy-primary);
+    font-weight: 500;
+  }
+  .gx-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--galaxy-grey);
+  }
+  .gx-filter-toggle__group {
+    display: inline-flex;
+  }
+  /* Prefixed with the .gx-filter-toggle__group ancestor (not just
+     .gx-filter-toggle__option alone) so every rule here outranks
+     default.html's ".gx-raster-controls button" - these buttons sit
+     inside a .gx-raster-controls div, and a bare single-class selector
+     (specificity 0,1,0) loses to that element+class one (0,1,1). Without
+     this, the middle pill (unreached by the :first-of-type/:last-of-type
+     overrides below, which already clear that bar) falls back to the
+     generic rule's rounded corners and blue text instead of this one's. */
+  .gx-filter-toggle__group .gx-filter-toggle__option {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(37, 83, 123, 0.25);
+    border-radius: 0;
+    background: #fff;
+    color: var(--galaxy-grey);
+    cursor: pointer;
+  }
+  /* :not(:last-of-type), not just :first-of-type, so the internal seams
+     stay single-width regardless of how many pills there are (density's
+     two-button version above only needs the simpler first/last rule). */
+  .gx-filter-toggle__group .gx-filter-toggle__option:not(:last-of-type) {
+    border-right: none;
+  }
+  .gx-filter-toggle__group .gx-filter-toggle__option:first-of-type {
+    border-radius: 0.375rem 0 0 0.375rem;
+  }
+  .gx-filter-toggle__group .gx-filter-toggle__option:last-of-type {
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+  .gx-filter-toggle__group .gx-filter-toggle__option.is-active {
+    background: rgba(37, 83, 123, 0.1);
+    color: var(--galaxy-primary);
+    font-weight: 500;
+  }
+  .gx-raster-container {
+    position: relative;
+    overflow-x: hidden;
+  }
+  #gx-raster-canvas {
+    display: block;
+    cursor: pointer;
+  }
+  #gx-raster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  .gx-raster-tooltip {
+    position: fixed;
+    z-index: 1000;
+    max-width: 22rem;
+    padding: 0.5rem 0.7rem;
+    background: var(--galaxy-dark);
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+  }
 
-<section class="slide" id="reduction">
-  <h2>287 to 155, a <span class="accent">46% reduction</span></h2>
-  <div class="figures">
-    <div class="figure figure--down"><div class="figure__value">11</div><div class="figure__label">merged PRs</div></div>
-    <div class="figure figure--down"><div class="figure__value">84</div><div class="figure__label">package fixes</div></div>
-    <div class="figure figure--down"><div class="figure__value">103</div><div class="figure__label">files</div></div>
-    <div class="figure figure--down"><div class="figure__value">+345/&minus;355</div><div class="figure__label">lines</div></div>
-  </div>
-  <p class="lede">The work removes slightly more than it adds. Almost none of it widens a tolerance;
-  it deletes a stray parameter or corrects an assertion that was wrong.</p>
-  <p class="note">Net figure. New failures arriving from tool updates are counted against the fixes,
-  so the gross number repaired is larger.</p>
-  <span class="slide__num"></span>
-</section>
+  .gx-inspector-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 49, 67, 0.35);
+    z-index: 1090;
+  }
+  .gx-inspector {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(40rem, 92vw);
+    background: #fff;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
+    overflow-y: auto;
+    padding: 1.5rem;
+  }
+  .gx-inspector__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: transparent;
+    color: var(--galaxy-grey);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 0.375rem;
+  }
+  .gx-inspector__close:hover {
+    background: rgba(37, 83, 123, 0.08);
+  }
+  .gx-inspector__header {
+    padding-right: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .gx-inspector__header h3 {
+    margin: 0 0 0.35rem;
+    color: var(--galaxy-dark);
+  }
+  .gx-inspector__summary {
+    font-size: 0.9rem;
+    color: var(--galaxy-grey);
+    line-height: 1.5;
+  }
+  .gx-inspector__badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.1rem 0.5rem;
+    border-radius: 1rem;
+    margin-left: 0.4rem;
+    background: rgba(37, 83, 123, 0.1);
+    color: var(--galaxy-primary);
+  }
+  .gx-inspector__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.75rem 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(37, 83, 123, 0.1);
+  }
+  .gx-inspector__nav button {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(37, 83, 123, 0.3);
+    border-radius: 0.375rem;
+    background: #fff;
+    color: var(--galaxy-primary);
+    cursor: pointer;
+  }
+  .gx-inspector__nav button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .gx-inspector__report-link {
+    margin-left: auto;
+    font-size: 0.85rem;
+  }
+  .gx-inspector__body h4 {
+    margin: 1.25rem 0 0.5rem;
+    font-size: 0.95rem;
+    color: var(--galaxy-dark);
+  }
+  .gx-inspector__body h4:first-child {
+    margin-top: 0;
+  }
+  .gx-version-row {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(37, 83, 123, 0.06);
+  }
+  .gx-version-row__version {
+    flex: 1;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-size: 0.8rem;
+  }
+  .gx-test-item {
+    border: 1px solid rgba(37, 83, 123, 0.12);
+    border-radius: 0.375rem;
+    margin-bottom: 0.4rem;
+  }
+  .gx-test-item summary {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+  .gx-test-item summary::-webkit-details-marker { display: none; }
+  .gx-test-item summary::before {
+    content: "\25b8";
+    color: var(--galaxy-grey);
+    width: 0.9em;
+    display: inline-block;
+  }
+  .gx-test-item[open] summary::before { content: "\25be"; }
+  .gx-test-item pre {
+    margin: 0;
+    padding: 0.6rem;
+    background: #f7f8fa;
+    border-top: 1px solid rgba(37, 83, 123, 0.12);
+    font-size: 0.75rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 20rem;
+    overflow-y: auto;
+  }
+  .gx-test-item__status {
+    font-weight: 600;
+  }
+  .gx-test-item__status--fail { color: #b91c1c; }
+  .gx-test-item__status--error { color: #630177; }
+  .gx-test-item__status--pass { color: #2f6b4f; }
+  .gx-inspector__passing summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--galaxy-grey);
+  }
+  .gx-inspector__title {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .gx-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 0.35rem;
+    background: rgba(37, 83, 123, 0.1);
+    color: rgba(37, 83, 123, 0.7);
+    cursor: pointer;
+  }
+  .gx-copy-btn:hover { background: rgba(37, 83, 123, 0.2); color: rgba(37, 83, 123, 1); }
+  .gx-copy-btn.is-copied { background: rgba(47, 107, 79, 0.15); color: #2f6b4f; }
+  .gx-tool-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+  }
+  .gx-tool-link-row:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+  .gx-subgroup {
+    margin: 0.35rem 0 0.75rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid rgba(37, 83, 123, 0.15);
+  }
+  .gx-subgroup h5 {
+    margin: 0 0 0.2rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--galaxy-grey);
+  }
+  .gx-anvil-note { color: #a06e00; font-weight: 700; }
+</style>
 
-<section class="slide" id="why">
-  <h2>Why the legacy path has to go</h2>
-  <p class="lede">A test can declare a parameter, the legacy path drops it, the tool runs without it,
-  and the test still passes.</p>
-  <table class="data">
-    <tr><th>stacks2 test declares</th><th>legacy path sends</th><th>typed path sends</th></tr>
-    <tr><td><code>--rm-pcr-duplicates</code></td><td>nothing</td><td><code>--rm-pcr-duplicates</code></td></tr>
-    <tr><td><code>--bestrad</code></td><td>nothing</td><td><code>--bestrad</code></td></tr>
-    <tr><td><code>capture=true</code></td><td>default</td><td><code>capture=true</code></td></tr>
-  </table>
-  <p class="lede">That is a false green, which is worse than a red. The typed path refuses instead:
-  <code>could not build request: unhandled inputs</code>. Every framework defect we found surfaced
-  that way.</p>
-  <span class="slide__num"></span>
-</section>
+<script>
+(function () {
+  "use strict";
 
-<section class="slide" id="default">
-  <h2>Async is already the default</h2>
-  <ul class="points">
-    <li><strong>galaxyproject/galaxy#23329</strong> merged on 12 September. Tool requests are on by
-      default for the browser form in the next release.</li>
-    <li>Across the full suite, <strong>27 tests pass only under async</strong> against 12 that pass
-      only under sync. Switching is net positive before counting the false greens.</li>
-    <li>The test client did not follow. <code>DEFAULT_USE_LEGACY_API = "always"</code> in
-      galaxy-tool-util, and released planemo does not override it, so <strong>every planemo driven
-      test in CI still submits to the legacy endpoint</strong>.</li>
-  </ul>
-  <p class="note">The default switched for users and not for the tests that guard it.</p>
-  <span class="slide__num"></span>
-</section>
+  var LABEL_WIDTH = 180;
+  var LABEL_PAD_LEFT = 12;
+  var CELL_W = 14;
+  var READABLE_CELL_H = 16;
+  var READABLE_FONT_PX = 12;
+  var OVERVIEW_CELL_H = 6;
+  var CELL_H = READABLE_CELL_H; // mutated by the density toggle
+  var CELL_GAP = 1;
+  var RIGHT_MARGIN_W = CELL_W * 5;
+  var GRID_MARGIN_GAP = 9; // breathing room before the recurrence margin/History
+  var ANVIL_GAP = 26; // separator before the AnVIL deployment block
+  var ANVIL_COLS = 12; // most recent AnVIL runs to show
+  var DATE_LABEL_H = 14; // sparse "8/15"-style run labels above the bars
+  var DATE_BAR_GAP = 8; // extra header height so bars read as a small chart
+  var BAR_MAX_H = 30;
+  var BAR_GAP = 2;
+  var STRIP_H = 3;
+  var TOP_PAD_BOTTOM = 10; // gap between the coverage strip and the rows
+  var TOP_MARGIN_H = DATE_LABEL_H + DATE_BAR_GAP + BAR_MAX_H + BAR_GAP + STRIP_H + TOP_PAD_BOTTOM;
+  var MAX_DATE_LABELS = 6; // sparse - not one per column
+  var BOTTOM_PAD_H = 24; // breathing room below the last row
 
-<section class="slide" id="proposal">
-  <h2>Proposal: move the ecosystem to async</h2>
-  <ul class="points">
-    <li><strong>Land the planemo flag.</strong> <code>--use_async_submission</code> exists on a branch
-      and is eight lines. Released galaxy-tool-util already carries the capability, so nothing else
-      is needed.</li>
-    <li><strong>Switch tools-iuc CI.</strong> One line, <code>additional-planemo-options</code>,
-      once the flag is in a release.</li>
-    <li><strong>Extend to usegalaxy.eu.</strong> Their custom tool repositories are structured like
-      tools-iuc, so the same scripts run against them unchanged. That team supports the move.</li>
-    <li><strong>Then flip the default</strong> in galaxy-tool-util, so async is what a test exercises
-      unless someone opts out.</li>
-  </ul>
-  <span class="slide__num"></span>
-</section>
+  var COLORS = {
+    pass: "#61ad90",
+    not_run: "#eef2f6",
+    fail: [216, 126, 85],   // #d87e55
+    error: [99, 1, 119],    // #630177
+    mixed: [21, 2, 118]     // #150276
+  };
+  var STRIPE_COLOR = "rgba(37, 83, 123, 0.06)";
+  var COVERAGE_COLORS = { normal: "#9aa5b1", partial: "#d19e00", sparse: "#b91c1c" };
 
-<section class="slide" id="strategy">
-  <h2>How we work the backlog</h2>
-  <ul class="points">
-    <li><strong>Measure recurrence, not counts.</strong> A failure seen once is noise. Across four
-      runs, 13 tests failed at least once and only 5 recurred.</li>
-    <li><strong>Separate test debt from tool rot.</strong> Of 139 failures in the current baseline,
-      roughly 70 are external services, 25 are drifted assertions, and a dozen are tools that no
-      longer work at all. Only the middle group is ours to fix.</li>
-    <li><strong>Refactor, do not widen.</strong> Assert what the output contains. A tolerance hides
-      the next regression, and in one case hid a fixture generated from a different invocation.</li>
-    <li><strong>Verify every fix against a run</strong> before claiming it.</li>
-  </ul>
-  <span class="slide__num"></span>
-</section>
+  function rgbStr(rgb) { return "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")"; }
 
-<section class="slide slide--title" id="live">
-  <h2 style="font-size:clamp(1.6rem,3.4vw,2.6rem)">See it live</h2>
-  <p><a href="https://guerler.github.io/galaxy-tests/raster.html">guerler.github.io/galaxy-tests/raster.html</a></p>
-  <p style="opacity:.72">Every tool, every run, one cell each. Click a cell for the failure and the
-  CI run that produced it.</p>
-  <span class="slide__num"></span>
-</section>
+  function shade(rgb, factor) {
+    // Blend rgb toward white; factor 1 = full color, 0 = white.
+    var r = Math.round(255 + (rgb[0] - 255) * factor);
+    var g = Math.round(255 + (rgb[1] - 255) * factor);
+    var b = Math.round(255 + (rgb[2] - 255) * factor);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  function intensityFactor(affected) {
+    if (affected <= 1 / 3) return 0.35;
+    if (affected <= 2 / 3) return 0.65;
+    return 1.0;
+  }
+
+  function cellColor(cell) {
+    if (!cell) return COLORS.not_run;
+    if (cell.status === "pass") return COLORS.pass;
+    var base = COLORS[cell.status === "fail" ? "fail" : cell.status === "error" ? "error" : "mixed"];
+    return shade(base, intensityFactor(cell.affected));
+  }
+
+  function shortName(toolId) {
+    var parts = toolId.split("/");
+    return parts[parts.length - 1];
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "unknown time";
+    return iso.replace("T", " ");
+  }
+
+  var MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // "Aug 15, 19:11" - for compact UI text (window label, axis labels);
+  // full precision stays available via fmtDate() in tooltips/title attrs.
+  function fmtShort(iso, withTime) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(iso || "");
+    if (!m) return "unknown";
+    var mon = MONTH_NAMES[parseInt(m[2], 10) - 1];
+    var date = mon + " " + parseInt(m[3], 10);
+    return withTime === false ? date : date + ", " + m[4] + ":" + m[5];
+  }
+
+  // "8/15" - for the narrow top-margin axis labels specifically; full
+  // timestamp stays available on hover (v2_raster_ui.md round 2 sec 1).
+  function fmtAxisDate(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+    if (!m) return "?";
+    return parseInt(m[2], 10) + "/" + parseInt(m[3], 10);
+  }
+
+  function cellTooltip(toolId, runId, cell, manifestByRun) {
+    var name = shortName(toolId);
+    var run = manifestByRun[runId];
+    var when = run ? fmtDate(run.timestamp) : runId;
+    if (!cell) {
+      return name + "\n" + when + "\nNot run this cycle.";
+    }
+    if (cell.status === "pass") {
+      return (
+        name + "\n" + when + "\n" +
+        "All " + cell.tests_attempted + " tests passed across " +
+        cell.versions_total + " version" + (cell.versions_total === 1 ? "" : "s") + "."
+      );
+    }
+    var affectedCount = cell.tests_failed + cell.tests_errored;
+    var parts = [];
+    if (cell.tests_failed) parts.push(cell.tests_failed + " failure" + (cell.tests_failed === 1 ? "" : "s"));
+    if (cell.tests_errored) parts.push(cell.tests_errored + " error" + (cell.tests_errored === 1 ? "" : "s"));
+    return (
+      name + "\n" + when + "\n" +
+      affectedCount + " of " + cell.tests_attempted + " tests affected: " + parts.join(", ") +
+      " across " + cell.versions_affected + " of " + cell.versions_total + " versions."
+    );
+  }
+
+  function classifyCell(cell) {
+    if (!cell) return "not_run";
+    if (cell.status === "pass") return "pass";
+    if (cell.status === "fail") return "fail";
+    if (cell.status === "error") return "error";
+    return "mixed";
+  }
+
+  // Row-filter predicate for the Errors/Failures/Errors or Failures pill -
+  // based on the single latest run overall (not whatever window happens to
+  // be paged into view, and not "ever, across any visible run"), so a
+  // tool's category reflects its current status rather than accumulating
+  // every kind of trouble it's ever had. Errors and Failures are each an
+  // exact match (a "mixed" cell - both a failure and an error in the same
+  // run - is neither) so the three pills actually partition the unhealthy
+  // tools instead of overlapping; "Errors or Failures" is the union of
+  // all three problem classifications, mixed included.
+  // tool -> { verdict, anvil, iuc } for the tools the AnVIL dashboard also runs
+  var anvilOverlay = {};
+  // { runs: [...], cells: { shortName: { runId: {status, affected} } } } for the same tools,
+  // drawn as a second block aligned to the same rows. Empty until the fetch resolves.
+  var anvilPanel = { runs: [], cells: {} };
+  var showAnvil = false;
+
+  function anvilRuns() { return anvilPanel.runs.slice(-ANVIL_COLS); }
+  function anvilBlockWidth() {
+    return showAnvil && anvilPanel.runs.length ? ANVIL_GAP + anvilRuns().length * CELL_W : 0;
+  }
+
+  function toolMatchesFilter(toolId, filter, matrix) {
+    if (filter === "all") return true;
+    if (filter === "anvil") {
+      var cross = anvilOverlay[shortName(toolId)];
+      return !!cross && cross.verdict === "deployment";
+    }
+    var latestRun = matrix.runs[matrix.runs.length - 1];
+    var cls = classifyCell((matrix.cells[toolId] || {})[latestRun]);
+    if (filter === "error") return cls === "error";
+    if (filter === "failure") return cls === "fail";
+    return cls === "error" || cls === "fail" || cls === "mixed"; // "either"
+  }
+
+  // Per-run counts across ALL tools, not just the currently filtered rows
+  // (the "Errors & failures only" toggle only affects which rows draw() and
+  // hitTest() see - v2_raster.md's top run-impact bar and every history/
+  // run-wide inspector view still reason about the whole toolset). Tool-
+  // weighted, not test-weighted: one heavily-tested tool shouldn't outweigh
+  // a small infrastructure incident touching many tools a little.
+  function computeTopStats(runId, tools, matrix) {
+    var counts = { pass: 0, fail: 0, error: 0, mixed: 0, not_run: 0 };
+    tools.forEach(function (toolId) {
+      var cell = (matrix.cells[toolId] || {})[runId];
+      counts[classifyCell(cell)] += 1;
+    });
+    counts.affected = counts.fail + counts.error + counts.mixed;
+    return counts;
+  }
+
+  function coverageBucket(attempted, maxAttemptedEver) {
+    if (!maxAttemptedEver) return "normal";
+    var ratio = attempted / maxAttemptedEver;
+    if (ratio >= 0.8) return "normal";
+    if (ratio >= 0.3) return "partial";
+    return "sparse";
+  }
+
+  // Per-tool counts + streaks across the currently visible run window only
+  // (per v2_raster.md: "over the visible time window"), used for the
+  // right tool-recurrence bar. Not-run runs are skipped when computing
+  // streaks - they're neither healthy nor unhealthy occurrences.
+  function computeRightStats(toolId, visibleRuns, matrix) {
+    var counts = { pass: 0, fail: 0, error: 0, mixed: 0, not_run: 0 };
+    var affectedFractions = [];
+    var attemptedInOrder = [];
+    visibleRuns.forEach(function (runId, idx) {
+      var cell = (matrix.cells[toolId] || {})[runId];
+      var cls = classifyCell(cell);
+      counts[cls] += 1;
+      if (cls !== "not_run") {
+        attemptedInOrder.push({ runId: runId, idx: idx, unhealthy: cls !== "pass", affected: cell.affected });
+        if (cls !== "pass") affectedFractions.push(cell.affected);
+      }
+    });
+
+    var currentStreak = 0;
+    for (var i = attemptedInOrder.length - 1; i >= 0; i--) {
+      if (attemptedInOrder[i].unhealthy) currentStreak += 1;
+      else break;
+    }
+    var longestStreak = 0, running = 0;
+    attemptedInOrder.forEach(function (a) {
+      running = a.unhealthy ? running + 1 : 0;
+      longestStreak = Math.max(longestStreak, running);
+    });
+    var firstUnhealthy = attemptedInOrder.filter(function (a) { return a.unhealthy; })[0];
+    var lastUnhealthy = attemptedInOrder.filter(function (a) { return a.unhealthy; }).slice(-1)[0];
+    var sortedAffected = affectedFractions.slice().sort(function (a, b) { return a - b; });
+    var median = sortedAffected.length
+      ? sortedAffected[Math.floor((sortedAffected.length - 1) / 2)]
+      : null;
+    var max = sortedAffected.length ? sortedAffected[sortedAffected.length - 1] : null;
+
+    return {
+      counts: counts,
+      attempted: attemptedInOrder.length,
+      unhealthy: attemptedInOrder.filter(function (a) { return a.unhealthy; }).length,
+      currentStreak: currentStreak,
+      longestStreak: longestStreak,
+      medianAffected: median,
+      maxAffected: max,
+      firstUnhealthyRunId: firstUnhealthy ? firstUnhealthy.runId : null,
+      lastUnhealthyRunId: lastUnhealthy ? lastUnhealthy.runId : null
+    };
+  }
+
+  function pct(fraction) {
+    return fraction === null ? "n/a" : Math.round(fraction * 100) + "%";
+  }
+
+  // Shared by the run tooltip and the run inspector drawer - plain text,
+  // no HTML escaping needed since every value here is a number.
+  function testCountsLine(run) {
+    var passed = run.tests_passed || 0;
+    var failed = run.tests_failed || 0;
+    var errored = run.tests_errored || 0;
+    var skipped = run.tests_skipped || 0;
+    var total = passed + failed + errored + skipped;
+    function pctOf(n) { return total ? Math.round((n / total) * 100) : 0; }
+    return "Tests run: " + total +
+      ", passed (" + passed + " · " + pctOf(passed) + "%)" +
+      ", failed (" + failed + " · " + pctOf(failed) + "%)" +
+      ", errored (" + errored + " · " + pctOf(errored) + "%)" +
+      ", skipped (" + skipped + " · " + pctOf(skipped) + "%)";
+  }
+
+  function topBarTooltip(runId, stats, manifestByRun, coverage) {
+    var run = manifestByRun[runId] || {};
+    var lines = [
+      fmtDate(run.timestamp),
+      "Tools tested: " + (run.tools_attempted || 0),
+      testCountsLine(run),
+      "Summary: " + stats.affected + " of " + (stats.affected + stats.pass) + " attempted tools affected " +
+        "(" + stats.fail + " failure-only, " + stats.error + " error-only, " + stats.mixed + " mixed)",
+      "Coverage: " + coverage,
+      run.duration_seconds ? "Duration: " + Math.round(run.duration_seconds / 60) + " min" : null,
+      "Click to open the full report."
+    ];
+    return lines.filter(Boolean).join("\n");
+  }
+
+  function rightBarTooltip(toolId, stats) {
+    var name = shortName(toolId);
+    var lines = [
+      name,
+      "Unhealthy attempted runs: " + stats.unhealthy + "/" + stats.attempted,
+      "Current unhealthy streak: " + stats.currentStreak,
+      "Longest streak in this window: " + stats.longestStreak,
+      "Runs - failures only: " + stats.counts.fail + ", errors only: " + stats.counts.error +
+        ", mixed: " + stats.counts.mixed,
+      "Median affected: " + pct(stats.medianAffected) + ", max affected: " + pct(stats.maxAffected)
+    ];
+    return lines.join("\n");
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // Cheap history classification from matrix.json alone (no detail.json
+  // needed): was this tool already broken in its last attempted run before
+  // this one? "Intermittent" (has it flip-flopped repeatedly) is tabled
+  // for a later iteration along with signature work (v2_raster_plan.md).
+  function naturalTokens(s) {
+    return (s || "").match(/\d+|\D+/g) || [];
+  }
+
+  function compareNatural(a, b) {
+    var ta = naturalTokens(a), tb = naturalTokens(b);
+    var len = Math.max(ta.length, tb.length);
+    for (var i = 0; i < len; i++) {
+      var pa = ta[i], pb = tb[i];
+      if (pa === undefined) return -1;
+      if (pb === undefined) return 1;
+      if (/^\d+$/.test(pa) && /^\d+$/.test(pb)) {
+        var diff = parseInt(pa, 10) - parseInt(pb, 10);
+        if (diff) return diff;
+      } else if (pa !== pb) {
+        return pa < pb ? -1 : 1;
+      }
+    }
+    return 0;
+  }
+
+  // Walks back to the nearest earlier run where toolId was actually
+  // attempted (skipping runs where it wasn't touched at all), regardless
+  // of the currently visible window - used for both the new-vs-continuing
+  // classification and the run-wide "recovered" list.
+  function previousAttemptedCell(toolId, runId, matrix) {
+    var runs = matrix.runs;
+    var idx = runs.indexOf(runId);
+    var cellsForTool = matrix.cells[toolId] || {};
+    for (var i = idx - 1; i >= 0; i--) {
+      var cell = cellsForTool[runs[i]];
+      if (cell) return cell;
+    }
+    return null;
+  }
+
+  function toolHistoryStatus(toolId, runId, matrix) {
+    var cellsForTool = matrix.cells[toolId] || {};
+    var currentCell = cellsForTool[runId];
+    if (!currentCell || currentCell.status === "pass") return null;
+    var prevCell = previousAttemptedCell(toolId, runId, matrix);
+    if (!prevCell) return "new";
+    return prevCell.status === "pass" ? "new" : "continuing";
+  }
+
+  function wireMoreToggle(toggleId, textId) {
+    var toggle = document.getElementById(toggleId);
+    var text = document.getElementById(textId);
+    toggle.addEventListener("click", function () {
+      var opening = text.hidden;
+      text.hidden = !opening;
+      toggle.classList.toggle("is-open", opening);
+      toggle.setAttribute("aria-expanded", String(opening));
+    });
+  }
+  wireMoreToggle("gx-raster-more-toggle", "gx-raster-more-text");
+
+  function init(manifest, matrix) {
+    var container = document.getElementById("gx-raster-container");
+    var canvas = document.getElementById("gx-raster-canvas");
+    var ctx = canvas.getContext("2d");
+    var overlay = document.getElementById("gx-raster-overlay");
+    var overlayCtx = overlay.getContext("2d");
+    var tooltip = document.getElementById("gx-raster-tooltip");
+    var olderBtn = document.getElementById("gx-raster-older");
+    var newerBtn = document.getElementById("gx-raster-newer");
+    var windowLabel = document.getElementById("gx-raster-window");
+    var backdrop = document.getElementById("gx-inspector-backdrop");
+    var inspector = document.getElementById("gx-inspector");
+    var inspectorClose = document.getElementById("gx-inspector-close");
+    var inspectorHeader = document.getElementById("gx-inspector-header");
+    var inspectorBody = document.getElementById("gx-inspector-body");
+    var inspectorPrev = document.getElementById("gx-inspector-prev");
+    var inspectorNext = document.getElementById("gx-inspector-next");
+    var inspectorReport = document.getElementById("gx-inspector-report");
+    var searchInput = document.getElementById("gx-raster-search");
+    var searchClear = document.getElementById("gx-raster-search-clear");
+    var jumpIndex = document.getElementById("gx-raster-jump");
+    var densityComfortableBtn = document.getElementById("gx-density-comfortable");
+    var densityCompactBtn = document.getElementById("gx-density-compact");
+    var filterErrorBtn = document.getElementById("gx-raster-filter-error");
+    var filterFailureBtn = document.getElementById("gx-raster-filter-failure");
+    var filterBothBtn = document.getElementById("gx-raster-filter-both");
+    var filterAnvilBtn = document.getElementById("gx-raster-filter-anvil");
+
+    var tools = matrix.tools;
+    var runs = matrix.runs;
+    var manifestByRun = {};
+    manifest.forEach(function (r) { manifestByRun[r.run_id] = r; });
+
+    if (!tools.length || !runs.length) {
+      document.getElementById("gx-raster-empty").hidden = false;
+      container.hidden = true;
+      return;
+    }
+
+    var windowStart = Math.max(0, runs.length - 1);
+    var nCols = 1;
+    // {mode: "cell"|"run"|"tool", toolId, runId} of whichever inspector
+    // view is open - drives the highlight ring and hash routing.
+    var inspectorState = null;
+    var density = "readable"; // "readable" | "overview" - toggled by the density buttons
+    var toolFilter = "all"; // "all" | "error" | "failure" | "both" | "anvil" - toggled by the Errors/Failures/Errors or Failures pill
+    var searchQuery = ""; // lowercased free text - rows whose shortName doesn't contain it are hidden, combines with toolFilter
+    var visibleTools = tools; // recomputed at the top of every draw() - the filtered row set
+    var searchHighlightRow = null;
+    var searchHighlightTimer = null;
+    var detailCache = {}; // runId -> parsed runs/<runId>/detail.json
+    var hoveredRow = null; // tool index under the cursor/keyboard focus/selection - drives the crosshair overlay
+    var hoveredCol = null; // visible-run index under the cursor/keyboard focus/selection
+    var focusSource = null; // "mouse" | "keyboard" | null - who last set hoveredRow/hoveredCol
+    var lastHeaderCtx = null; // per-draw() snapshot reused by repaintHeader() for cheap hover-driven repaints
+
+    var maxAttemptedEver = manifest.reduce(function (m, r) {
+      return Math.max(m, r.tools_attempted || 0);
+    }, 0);
+
+    function computeCols() {
+      var available = container.clientWidth - LABEL_WIDTH - RIGHT_MARGIN_W;
+      return Math.max(1, Math.min(runs.length, Math.floor(available / CELL_W)));
+    }
+
+    function clampWindow() {
+      windowStart = Math.max(0, Math.min(windowStart, runs.length - nCols));
+    }
+
+    function currentRunIds() {
+      return runs.slice(windowStart, windowStart + nCols);
+    }
+
+    function sizeCanvas(c, cctx, widthCss, heightCss, dpr) {
+      c.style.width = widthCss + "px";
+      c.style.height = heightCss + "px";
+      c.width = Math.round(widthCss * dpr);
+      c.height = Math.round(heightCss * dpr);
+      cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw() {
+      nCols = computeCols();
+      clampWindow();
+      var visibleRuns = currentRunIds();
+      visibleTools = tools
+        .filter(function (toolId) { return toolFilter === "all" || toolMatchesFilter(toolId, toolFilter, matrix); })
+        .filter(function (toolId) { return !searchQuery || shortName(toolId).toLowerCase().indexOf(searchQuery) >= 0; });
+      rebuildJumpIndex();
+
+      var dpr = window.devicePixelRatio || 1;
+      var widthCss = LABEL_WIDTH + nCols * CELL_W + RIGHT_MARGIN_W + anvilBlockWidth();
+      var heightCss = TOP_MARGIN_H + visibleTools.length * CELL_H + BOTTOM_PAD_H;
+      sizeCanvas(canvas, ctx, widthCss, heightCss, dpr);
+      sizeCanvas(overlay, overlayCtx, widthCss, heightCss, dpr);
+
+      ctx.clearRect(0, 0, widthCss, heightCss);
+      ctx.font = (density === "readable" ? READABLE_FONT_PX : 9) + "px 'Atkinson Hyperlegible', sans-serif";
+      ctx.textBaseline = "middle";
+
+      var gridRight = LABEL_WIDTH + nCols * CELL_W;
+
+      // Top-margin stats: one stacked tool-count bar + coverage strip per
+      // visible run column, scaled linearly against the tallest bar in the
+      // visible window - percentile/sqrt scaling is tabled
+      // (v2_raster_plan.md sec 7). Tool-weighted (v2_raster.md). The actual
+      // drawing happens in repaintHeader() below, which also gets reused
+      // for cheap hover-driven repaints (refreshCrosshair).
+      var topStatsByRun = {};
+      var maxAffected = 0;
+      visibleRuns.forEach(function (runId) {
+        var stats = computeTopStats(runId, tools, matrix);
+        topStatsByRun[runId] = stats;
+        maxAffected = Math.max(maxAffected, stats.affected);
+      });
+
+      // Sparse: only as many date labels as comfortably fit, always
+      // including the first and last visible run.
+      var maxLabelsByWidth = Math.max(1, Math.floor((nCols * CELL_W) / 40));
+      var labelCount = Math.max(1, Math.min(MAX_DATE_LABELS, maxLabelsByWidth));
+      var labelStep = Math.max(1, Math.ceil(visibleRuns.length / labelCount));
+
+      lastHeaderCtx = {
+        widthCss: widthCss,
+        gridRight: gridRight,
+        visibleRuns: visibleRuns,
+        topStatsByRun: topStatsByRun,
+        maxAffected: maxAffected,
+        labelStep: labelStep
+      };
+
+      visibleTools.forEach(function (toolId, row) {
+        var y = TOP_MARGIN_H + row * CELL_H;
+
+        if (row % 2 === 1) {
+          ctx.fillStyle = STRIPE_COLOR;
+          ctx.fillRect(0, y, LABEL_WIDTH, CELL_H);
+        }
+
+        if (density !== "overview") {
+          ctx.fillStyle = "#2c3143";
+          var label = shortName(toolId);
+          // Cheap ellipsis: trim until it fits rather than measuring per char.
+          var maxWidth = LABEL_WIDTH - LABEL_PAD_LEFT - 8;
+          while (ctx.measureText(label).width > maxWidth && label.length > 1) {
+            label = label.slice(0, -1);
+          }
+          if (label !== shortName(toolId)) label += "…";
+          ctx.fillText(label, LABEL_PAD_LEFT, y + CELL_H / 2);
+        } else if (firstRowLetters[row]) {
+          // Alphabet landmark for the otherwise-blank label column in
+          // overview mode - the exact name still appears on hover/keyboard
+          // focus via the floating label (v2_raster_ui.md round 3 sec 1).
+          ctx.fillStyle = "#58585a";
+          ctx.fillText(firstRowLetters[row], LABEL_PAD_LEFT, y + CELL_H / 2);
+        }
+
+        var cellsForTool = matrix.cells[toolId] || {};
+        visibleRuns.forEach(function (runId, col) {
+          var cell = cellsForTool[runId];
+          ctx.fillStyle = cellColor(cell);
+          ctx.fillRect(
+            LABEL_WIDTH + col * CELL_W,
+            y,
+            CELL_W - CELL_GAP,
+            CELL_H - CELL_GAP
+          );
+        });
+
+        // AnVIL deployment block: the same tool row, as that deployment saw it.
+        // Only the tools it also runs get cells; the rest stay blank, which is
+        // itself the useful signal about coverage overlap.
+        if (showAnvil && anvilPanel.runs.length) {
+          var anvilX = LABEL_WIDTH + nCols * CELL_W + RIGHT_MARGIN_W + ANVIL_GAP;
+          var anvilCells = anvilPanel.cells[shortName(toolId)];
+          anvilRuns().forEach(function (runId, col) {
+            ctx.fillStyle = anvilCells ? cellColor(anvilCells[runId]) : "#f7f9fb";
+            ctx.fillRect(anvilX + col * CELL_W, y, CELL_W - CELL_GAP, CELL_H - CELL_GAP);
+          });
+        }
+
+        // Right margin: fixed-width 100% stacked recurrence bar over the
+        // visible window, problem categories first (v2_raster.md).
+        var rightStats = computeRightStats(toolId, visibleRuns, matrix);
+        var barX = gridRight + GRID_MARGIN_GAP;
+        var barW = RIGHT_MARGIN_W - GRID_MARGIN_GAP - 3;
+        var total = visibleRuns.length;
+        var cursor = barX;
+        ["fail", "error", "mixed", "pass", "not_run"].forEach(function (cls) {
+          var segW = total ? Math.round((rightStats.counts[cls] / total) * barW) : 0;
+          if (!segW) return;
+          ctx.fillStyle = cls === "pass" ? COLORS.pass : cls === "not_run" ? COLORS.not_run : rgbStr(COLORS[cls]);
+          ctx.fillRect(cursor, y, segW, CELL_H - CELL_GAP);
+          cursor += segW;
+        });
+      });
+
+      // Divider between the grid and the recurrence margin - without it,
+      // an adjacent same-colored segment reads as an extra run column.
+      ctx.strokeStyle = "rgba(37, 83, 123, 0.3)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(gridRight + 0.5, TOP_MARGIN_H);
+      ctx.lineTo(gridRight + 0.5, TOP_MARGIN_H + visibleTools.length * CELL_H);
+      ctx.stroke();
+
+      repaintHeader();
+
+      // Highlight whatever opened the inspector, so closing it returns
+      // focus to a visibly obvious spot (v2_raster_plan.md sec 5). Outline
+      // only, fill left untouched, per v2_raster_ui.md sec 7.
+      if (inspectorState) {
+        ctx.strokeStyle = "#2c3143";
+        ctx.lineWidth = 2;
+        if (inspectorState.mode === "cell") {
+          var selRow = visibleTools.indexOf(inspectorState.toolId);
+          var selCol = visibleRuns.indexOf(inspectorState.runId);
+          if (selRow >= 0 && selCol >= 0) {
+            ctx.strokeRect(
+              LABEL_WIDTH + selCol * CELL_W + 1,
+              TOP_MARGIN_H + selRow * CELL_H + 1,
+              CELL_W - CELL_GAP - 1,
+              CELL_H - CELL_GAP - 1
+            );
+          }
+        } else if (inspectorState.mode === "run") {
+          var runCol = visibleRuns.indexOf(inspectorState.runId);
+          if (runCol >= 0) {
+            var barsTopOutline = DATE_LABEL_H + DATE_BAR_GAP;
+            ctx.strokeRect(LABEL_WIDTH + runCol * CELL_W + 1, barsTopOutline + 1, CELL_W - CELL_GAP - 1, BAR_MAX_H + BAR_GAP + STRIP_H - 1);
+          }
+        } else if (inspectorState.mode === "tool") {
+          var toolRow = visibleTools.indexOf(inspectorState.toolId);
+          if (toolRow >= 0) {
+            ctx.strokeRect(
+              gridRight + 1,
+              TOP_MARGIN_H + toolRow * CELL_H + 1,
+              RIGHT_MARGIN_W - 2,
+              CELL_H - CELL_GAP - 1
+            );
+          }
+        }
+      }
+
+      // Transient highlight for search/jump-index results (v2_raster_plan.md
+      // sec 4/7 "Handling 700 rows" - navigation aid, cleared after a beat).
+      if (searchHighlightRow !== null) {
+        ctx.strokeStyle = "#d19e00";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(1, TOP_MARGIN_H + searchHighlightRow * CELL_H + 1, LABEL_WIDTH - 2, CELL_H - 2);
+      }
+
+      var firstRun = manifestByRun[visibleRuns[0]];
+      var lastRun = manifestByRun[visibleRuns[visibleRuns.length - 1]];
+      windowLabel.textContent =
+        "Runs " + (windowStart + 1) + "–" + (windowStart + nCols) + " of " + runs.length +
+        (firstRun && lastRun ? " · " + fmtShort(firstRun.timestamp) + " → " + fmtShort(lastRun.timestamp) : "");
+      windowLabel.title = firstRun && lastRun ? fmtDate(firstRun.timestamp) + " → " + fmtDate(lastRun.timestamp) : "";
+      olderBtn.disabled = windowStart <= 0;
+      newerBtn.disabled = windowStart + nCols >= runs.length;
+
+      drawOverlay(widthCss, gridRight);
+    }
+
+    // The header is a fixed, non-floating strip at the top of the canvas -
+    // no longer stuck to the viewport while scrolling (dropped: it fought
+    // with row rendering once there were enough tools for a real scroll).
+    // Reuses the stats/labelStep snapshot draw() leaves in lastHeaderCtx so
+    // hover-driven repaints (refreshCrosshair) don't redo that work.
+    function repaintHeader() {
+      if (!lastHeaderCtx) return;
+      var c = lastHeaderCtx;
+      var offsetY = 0;
+      var barsTop = offsetY + DATE_LABEL_H + DATE_BAR_GAP;
+      var stripTop = barsTop + BAR_MAX_H + BAR_GAP;
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, offsetY, c.widthCss, TOP_MARGIN_H);
+
+      if (showAnvil && anvilPanel.runs.length) {
+        var headX = LABEL_WIDTH + c.visibleRuns.length * CELL_W + RIGHT_MARGIN_W + ANVIL_GAP;
+        ctx.save();
+        ctx.font = "9px 'Atkinson Hyperlegible', sans-serif";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "#58585a";
+        ctx.fillText("AnVIL deployment", headX, offsetY);
+        ctx.restore();
+      }
+
+      c.visibleRuns.forEach(function (runId, col) {
+        var x = LABEL_WIDTH + col * CELL_W;
+        var stats = c.topStatsByRun[runId];
+        var run = manifestByRun[runId] || {};
+        var isLastCol = col === c.visibleRuns.length - 1;
+        if (col % c.labelStep === 0 || isLastCol) {
+          ctx.save();
+          ctx.font = "9px 'Atkinson Hyperlegible', sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          ctx.fillStyle = "#58585a";
+          ctx.fillText(fmtAxisDate(run.timestamp), x + (CELL_W - CELL_GAP) / 2, offsetY);
+          ctx.restore();
+        }
+
+        var barH = c.maxAffected ? Math.round((stats.affected / c.maxAffected) * BAR_MAX_H) : 0;
+        var segY = barsTop + BAR_MAX_H - barH;
+        ["fail", "error", "mixed"].forEach(function (cls) {
+          var segH = c.maxAffected ? Math.round((stats[cls] / c.maxAffected) * BAR_MAX_H) : 0;
+          if (!segH) return;
+          ctx.fillStyle = rgbStr(COLORS[cls]);
+          ctx.fillRect(x, segY, CELL_W - CELL_GAP, segH);
+          segY += segH;
+        });
+
+        var coverage = coverageBucket(run.tools_attempted || 0, maxAttemptedEver);
+        ctx.fillStyle = COVERAGE_COLORS[coverage];
+        ctx.fillRect(x, stripTop, CELL_W - CELL_GAP, STRIP_H);
+      });
+
+      // "History" label once, above the recurrence margin - it reads as
+      // one more run column otherwise (v2_raster_ui.md sec 5).
+      ctx.save();
+      ctx.font = "9px 'Atkinson Hyperlegible', sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "#58585a";
+      ctx.fillText("History", c.gridRight + RIGHT_MARGIN_W / 2, offsetY);
+      ctx.restore();
+
+      // Baseline the bars themselves sit on, grid width only - makes them
+      // read as a small bar chart rather than floating blocks
+      // (v2_raster_ui.md round 2 sec 1).
+      ctx.strokeStyle = "rgba(37, 83, 123, 0.25)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(LABEL_WIDTH, barsTop + BAR_MAX_H + 0.5);
+      ctx.lineTo(c.gridRight, barsTop + BAR_MAX_H + 0.5);
+      ctx.stroke();
+
+      // Second divider separating the whole summary area from the rows -
+      // full width, more spacing now via TOP_PAD_BOTTOM so the summary
+      // doesn't read as fused to the data (v2_raster_ui.md round 2 sec 6).
+      ctx.strokeStyle = "rgba(37, 83, 123, 0.2)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, offsetY + TOP_MARGIN_H - 0.5);
+      ctx.lineTo(c.widthCss, offsetY + TOP_MARGIN_H - 0.5);
+      ctx.stroke();
+
+      // Divider through the header's own height, mirroring the rows'
+      // grid/History divider, so the boundary stays visually continuous
+      // while stuck to the top (v2_raster_ui.md round 3 sec 2).
+      ctx.strokeStyle = "rgba(37, 83, 123, 0.3)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(c.gridRight + 0.5, offsetY);
+      ctx.lineTo(c.gridRight + 0.5, offsetY + TOP_MARGIN_H);
+      ctx.stroke();
+
+      // Emphasized run date for the hovered/focused/selected column, next
+      // to the header rather than only in the mouse tooltip - needs to be
+      // here (not the overlay) so it re-anchors on scroll too
+      // (v2_raster_ui.md round 3 sec 3).
+      if (hoveredCol !== null && c.visibleRuns[hoveredCol]) {
+        var hRun = manifestByRun[c.visibleRuns[hoveredCol]] || {};
+        var hLabel = fmtShort(hRun.timestamp);
+        var hx = LABEL_WIDTH + hoveredCol * CELL_W + (CELL_W - CELL_GAP) / 2;
+        ctx.font = "10px 'Atkinson Hyperlegible', sans-serif";
+        var hw = ctx.measureText(hLabel).width;
+        ctx.fillStyle = "#2c3143";
+        ctx.fillRect(hx - hw / 2 - 4, offsetY, hw + 8, DATE_LABEL_H);
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        ctx.fillText(hLabel, hx, offsetY + 1);
+      }
+    }
+
+    // Cheap, mouse/keyboard-driven crosshair on a separate canvas layered
+    // on top - redrawn on every mousemove/keydown without re-running the
+    // expensive stats pass above (v2_raster_ui.md sec 7).
+    function drawOverlay(widthCss, gridRight) {
+      var fullH = TOP_MARGIN_H + visibleTools.length * CELL_H + BOTTOM_PAD_H;
+      overlayCtx.clearRect(0, 0, widthCss, fullH);
+      if (hoveredCol !== null) {
+        overlayCtx.fillStyle = "rgba(37, 83, 123, 0.07)";
+        overlayCtx.fillRect(LABEL_WIDTH + hoveredCol * CELL_W, 0, CELL_W - CELL_GAP, fullH);
+      }
+      if (hoveredRow !== null) {
+        overlayCtx.fillStyle = "rgba(37, 83, 123, 0.07)";
+        overlayCtx.fillRect(0, TOP_MARGIN_H + hoveredRow * CELL_H, widthCss, CELL_H);
+      }
+      // Both set simultaneously only happens for an exact grid-cell hover
+      // (see mousemove) - outline it without touching its fill
+      // (v2_raster_ui.md round 2 sec 5).
+      if (hoveredRow !== null && hoveredCol !== null) {
+        overlayCtx.strokeStyle = "#2c3143";
+        overlayCtx.lineWidth = 1;
+        overlayCtx.strokeRect(
+          LABEL_WIDTH + hoveredCol * CELL_W + 0.5,
+          TOP_MARGIN_H + hoveredRow * CELL_H + 0.5,
+          CELL_W - CELL_GAP - 1,
+          CELL_H - CELL_GAP - 1
+        );
+      }
+
+      // Floating tool-name label: always on in overview mode (rows carry
+      // no visible name there), and in comfortable mode too when the
+      // static label is actually ellipsis-truncated and the trigger is
+      // keyboard focus rather than mouse hover - mouse hover already
+      // exposes the full name via the DOM tooltip
+      // (v2_raster_ui.md round 3 sec 1 & 4).
+      if (hoveredRow !== null) {
+        var flabel = shortName(visibleTools[hoveredRow]);
+        var truncatedInReadable = false;
+        if (density !== "overview") {
+          overlayCtx.font = READABLE_FONT_PX + "px 'Atkinson Hyperlegible', sans-serif";
+          truncatedInReadable = overlayCtx.measureText(flabel).width > (LABEL_WIDTH - LABEL_PAD_LEFT - 8);
+        }
+        if (density === "overview" || (focusSource === "keyboard" && truncatedInReadable)) {
+          overlayCtx.font = "11px 'Atkinson Hyperlegible', sans-serif";
+          overlayCtx.textAlign = "left";
+          overlayCtx.textBaseline = "middle";
+          var ftextW = overlayCtx.measureText(flabel).width;
+          var fboxH = 18;
+          var fboxW = Math.min(widthCss - LABEL_PAD_LEFT - 4, ftextW + 12);
+          var rowCenterY = TOP_MARGIN_H + hoveredRow * CELL_H + CELL_H / 2;
+          var fboxY = Math.max(0, Math.min(rowCenterY - fboxH / 2, fullH - fboxH));
+          overlayCtx.fillStyle = "#2c3143";
+          overlayCtx.fillRect(LABEL_PAD_LEFT - 6, fboxY, fboxW, fboxH);
+          overlayCtx.fillStyle = "#fff";
+          overlayCtx.fillText(flabel, LABEL_PAD_LEFT, fboxY + fboxH / 2);
+        }
+      }
+    }
+
+    // Shared by mouse/keyboard/selection handlers - repaints both the
+    // header (for the hovered-column date) and the crosshair overlay
+    // without re-running the expensive draw() stats pass.
+    function refreshCrosshair() {
+      repaintHeader();
+      drawOverlay(canvas.clientWidth, LABEL_WIDTH + nCols * CELL_W);
+    }
+
+    function hitTest(clientX, clientY) {
+      var rect = canvas.getBoundingClientRect();
+      var x = clientX - rect.left;
+      var y = clientY - rect.top;
+      var visibleRuns = currentRunIds();
+      var gridRight = LABEL_WIDTH + nCols * CELL_W;
+
+      if (y < TOP_MARGIN_H) {
+        if (x < LABEL_WIDTH || x >= gridRight) return null;
+        var col = Math.floor((x - LABEL_WIDTH) / CELL_W);
+        if (col < 0 || col >= visibleRuns.length) return null;
+        return { type: "run", runId: visibleRuns[col] };
+      }
+
+      var row = Math.floor((y - TOP_MARGIN_H) / CELL_H);
+      if (row < 0 || row >= visibleTools.length) return null;
+
+      if (x >= gridRight) {
+        var anvilStart = gridRight + RIGHT_MARGIN_W + ANVIL_GAP;
+        if (showAnvil && anvilPanel.runs.length && x >= anvilStart) {
+          var anvilCol = Math.floor((x - anvilStart) / CELL_W);
+          var runs = anvilRuns();
+          if (anvilCol < 0 || anvilCol >= runs.length) return null;
+          return { type: "anvil", toolId: visibleTools[row], runId: runs[anvilCol] };
+        }
+        if (x >= gridRight + RIGHT_MARGIN_W) return null;
+        return { type: "tool", toolId: visibleTools[row] };
+      }
+
+      if (x < LABEL_WIDTH) return { type: "tool", toolId: visibleTools[row] };
+      var gridCol = Math.floor((x - LABEL_WIDTH) / CELL_W);
+      if (gridCol < 0 || gridCol >= visibleRuns.length) return null;
+      return { type: "cell", toolId: visibleTools[row], runId: visibleRuns[gridCol] };
+    }
+
+    canvas.addEventListener("mousemove", function (evt) {
+      var hit = hitTest(evt.clientX, evt.clientY);
+      if (!hit) {
+        tooltip.hidden = true;
+        if (focusSource === "mouse") {
+          hoveredRow = null;
+          hoveredCol = null;
+          focusSource = null;
+          refreshCrosshair();
+        }
+        return;
+      }
+      var visibleRuns = currentRunIds();
+      var newRow = hit.type === "cell" || hit.type === "tool" || hit.type === "anvil"
+        ? visibleTools.indexOf(hit.toolId) : null;
+      var newCol = hit.type === "cell" || hit.type === "run" ? visibleRuns.indexOf(hit.runId) : null;
+      if (newRow !== hoveredRow || newCol !== hoveredCol || focusSource !== "mouse") {
+        hoveredRow = newRow;
+        hoveredCol = newCol;
+        focusSource = "mouse";
+        refreshCrosshair();
+      }
+      if (hit.type === "cell") {
+        var cell = (matrix.cells[hit.toolId] || {})[hit.runId];
+        tooltip.textContent = cellTooltip(hit.toolId, hit.runId, cell, manifestByRun);
+      } else if (hit.type === "run") {
+        var stats = computeTopStats(hit.runId, tools, matrix);
+        var run = manifestByRun[hit.runId] || {};
+        var coverage = coverageBucket(run.tools_attempted || 0, maxAttemptedEver);
+        tooltip.textContent = topBarTooltip(hit.runId, stats, manifestByRun, coverage);
+      } else {
+        tooltip.textContent = rightBarTooltip(hit.toolId, computeRightStats(hit.toolId, currentRunIds(), matrix));
+      }
+      tooltip.style.whiteSpace = "pre-line";
+      tooltip.hidden = false;
+      var left = evt.clientX + 14;
+      var top = evt.clientY + 14;
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
+    });
+    canvas.addEventListener("mouseleave", function () {
+      tooltip.hidden = true;
+      if (focusSource === "mouse") {
+        hoveredRow = null;
+        hoveredCol = null;
+        focusSource = null;
+        refreshCrosshair();
+      }
+    });
+    canvas.addEventListener("click", function (evt) {
+      var hit = hitTest(evt.clientX, evt.clientY);
+      if (!hit) return;
+      if (hit.type === "cell") openCellInspector(hit.toolId, hit.runId);
+      else if (hit.type === "run") openRunInspector(hit.runId);
+      else if (hit.type === "anvil") openAnvilInspector(hit.toolId, hit.runId);
+      else openToolInspector(hit.toolId);
+    });
+    canvas.addEventListener("blur", function () {
+      if (focusSource === "keyboard") {
+        hoveredRow = null;
+        hoveredCol = null;
+        focusSource = null;
+        refreshCrosshair();
+      }
+    });
+    // Arrow-key navigation moves the same hoveredRow/hoveredCol crosshair
+    // state mouse hover drives, so orientation (row/column bands, cell
+    // outline, floating name label, header date) works identically for
+    // keyboard focus (v2_raster_ui.md round 3 secs 1, 3, 4).
+    canvas.addEventListener("keydown", function (evt) {
+      var key = evt.key;
+      var visibleRuns = currentRunIds();
+      var isArrow = key === "ArrowUp" || key === "ArrowDown" || key === "ArrowLeft" || key === "ArrowRight";
+      if (isArrow) {
+        evt.preventDefault();
+        if (hoveredRow === null) hoveredRow = 0;
+        if (hoveredCol === null) hoveredCol = 0;
+        if (key === "ArrowUp") hoveredRow = Math.max(0, hoveredRow - 1);
+        else if (key === "ArrowDown") hoveredRow = Math.min(visibleTools.length - 1, hoveredRow + 1);
+        else if (key === "ArrowLeft") hoveredCol = Math.max(0, hoveredCol - 1);
+        else hoveredCol = Math.min(visibleRuns.length - 1, hoveredCol + 1);
+        focusSource = "keyboard";
+        tooltip.hidden = true; // no cursor position to anchor a DOM tooltip to - the floating label covers this
+        refreshCrosshair();
+        // The page scrolls now, not this container, so bring the focused
+        // row into view with window.scrollBy against its current
+        // viewport-relative position rather than container.scrollTop
+        // (v2_raster_ui.md).
+        var rowTop = TOP_MARGIN_H + hoveredRow * CELL_H;
+        var rect = container.getBoundingClientRect();
+        var rowViewportTop = rect.top + rowTop;
+        var rowViewportBottom = rowViewportTop + CELL_H;
+        if (rowViewportTop < 0) {
+          window.scrollBy(0, rowViewportTop);
+        } else if (rowViewportBottom > window.innerHeight) {
+          window.scrollBy(0, rowViewportBottom - window.innerHeight);
+        }
+      } else if ((key === "Enter" || key === " ") && focusSource === "keyboard" && hoveredRow !== null) {
+        evt.preventDefault();
+        if (hoveredCol !== null && visibleRuns[hoveredCol]) {
+          openCellInspector(visibleTools[hoveredRow], visibleRuns[hoveredCol]);
+        } else {
+          openToolInspector(visibleTools[hoveredRow]);
+        }
+      }
+    });
+
+    function fetchDetail(runId) {
+      if (detailCache[runId]) return Promise.resolve(detailCache[runId]);
+      return fetch("data/runs/" + encodeURIComponent(runId) + "/detail.json")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          detailCache[runId] = data;
+          return data;
+        });
+    }
+
+    // Shared by all three views: prev/next always step through matrix.runs
+    // (the full history, not just the visible window); tool-history has no
+    // single run to page through, so its nav is hidden instead.
+    function updateNav(state) {
+      var run = state.runId ? manifestByRun[state.runId] || {} : null;
+      if (state.mode === "tool") {
+        inspectorPrev.hidden = true;
+        inspectorNext.hidden = true;
+        inspectorReport.style.visibility = "hidden";
+        return;
+      }
+      var idx = matrix.runs.indexOf(state.runId);
+      inspectorPrev.hidden = false;
+      inspectorNext.hidden = false;
+      inspectorPrev.disabled = idx <= 0;
+      inspectorNext.disabled = idx < 0 || idx >= matrix.runs.length - 1;
+      inspectorReport.href = (run && run.results_html_url) || "#";
+      inspectorReport.style.visibility = run && run.results_html_url ? "visible" : "hidden";
+    }
+
+    function inspectorSummaryLine(toolId, runId) {
+      var cell = (matrix.cells[toolId] || {})[runId];
+      if (!cell) return "Not run in this cycle.";
+      if (cell.status === "pass") {
+        return "All " + cell.tests_attempted + " tests passed across " + cell.versions_total +
+          " version" + (cell.versions_total === 1 ? "" : "s") + ".";
+      }
+      var affectedCount = cell.tests_failed + cell.tests_errored;
+      var parts = [];
+      if (cell.tests_failed) parts.push(cell.tests_failed + " failure" + (cell.tests_failed === 1 ? "" : "s"));
+      if (cell.tests_errored) parts.push(cell.tests_errored + " error" + (cell.tests_errored === 1 ? "" : "s"));
+      var history = toolHistoryStatus(toolId, runId, matrix);
+      return (
+        affectedCount + " of " + cell.tests_attempted + " tests affected: " + parts.join(", ") +
+        " across " + cell.versions_affected + " of " + cell.versions_total + " versions." +
+        (history ? " (" + history + " problem)" : "")
+      );
+    }
+
+    function toolNameHeaderHtml(toolId) {
+      return (
+        escapeHtml(shortName(toolId)) +
+        '<button type="button" class="gx-copy-btn" data-copy-text="' + escapeHtml(toolId) +
+        '" aria-label="Copy tool ID" title="Copy tool ID">' +
+        '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">' +
+        '<rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/>' +
+        '<rect x="2" y="2" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/>' +
+        "</svg>" +
+        "</button>"
+      );
+    }
+
+    function renderCellHeader(toolId, runId) {
+      var run = manifestByRun[runId] || {};
+      inspectorHeader.innerHTML =
+        '<h3 class="gx-inspector__title">' + toolNameHeaderHtml(toolId) + "</h3>" +
+        "<div class=\"gx-inspector__summary\">" +
+        escapeHtml(fmtDate(run.timestamp)) +
+        "<br>" + escapeHtml(inspectorSummaryLine(toolId, runId)) +
+        anvilCrossCheckHtml(toolId) +
+        "</div>";
+      updateNav({ mode: "cell", runId: runId });
+    }
+
+    // The AnVIL deployment runs a subset of these tools. Saying how a tool fared there
+    // separates one that is broken everywhere from one that only fails on a deployment,
+    // which is the question this raster cannot answer on its own.
+    function anvilCrossCheckHtml(toolId) {
+      var cross = anvilOverlay[shortName(toolId)];
+      if (!cross) return "";
+      var parts = String(cross.anvil).split("/");
+      var here = String(cross.iuc).split("/")[0] === "0" ? "passes here" : "also fails here";
+      return "<br><span class=\"gx-anvil-note\">AnVIL deployment: failing " +
+        escapeHtml(parts[0]) + " of " + escapeHtml(parts[1]) + " recent runs, " +
+        escapeHtml(here) + "</span>";
+    }
+
+    function versionRowHtml(version, tests) {
+      var passed = tests.filter(function (t) { return t.status === "success"; }).length;
+      var failed = tests.filter(function (t) { return t.status === "failure"; }).length;
+      var errored = tests.filter(function (t) { return t.status === "error"; }).length;
+      var attempted = passed + failed + errored;
+      var affectedPct = attempted ? Math.round(((failed + errored) / attempted) * 100) : 0;
+      return (
+        '<div class="gx-version-row">' +
+        '<span class="gx-version-row__version">' + escapeHtml(version || "(unversioned)") + "</span>" +
+        "<span>" + attempted + " attempted</span>" +
+        "<span>" + passed + " passed</span>" +
+        "<span>" + failed + " failed</span>" +
+        "<span>" + errored + " errored</span>" +
+        "<span>" + affectedPct + "% affected</span>" +
+        "</div>"
+      );
+    }
+
+    function testItemHtml(toolId, version, test) {
+      var statusClass = test.status === "error" ? "gx-test-item__status--error" :
+        test.status === "success" ? "gx-test-item__status--pass" : "gx-test-item__status--fail";
+      var duration = typeof test.time_seconds === "number" ? Math.round(test.time_seconds) + "s" : "unknown duration";
+      var raw = test.status === "success"
+        ? "Passed."
+        : (test.execution_problem || (test.output_problems || []).join("\n") || "(no detail recorded)");
+      return (
+        '<details class="gx-test-item">' +
+        "<summary>" +
+        '<span class="gx-test-item__status ' + statusClass + '">' + escapeHtml(test.status) + "</span>" +
+        "<span>" + escapeHtml(version || "(unversioned)") + " &middot; test " + (test.test_index + 1) + "</span>" +
+        "<span>" + escapeHtml(duration) + "</span>" +
+        "</summary>" +
+        "<pre>" + escapeHtml(raw) + "</pre>" +
+        "</details>"
+      );
+    }
+
+    function renderCellBody(toolId, runId) {
+      inspectorBody.innerHTML = "<p>Loading test detail…</p>";
+      fetchDetail(runId).then(function (detail) {
+        var versions = (detail && detail[toolId]) || {};
+        var versionNames = Object.keys(versions);
+        if (!versionNames.length) {
+          inspectorBody.innerHTML = "<p>No test detail recorded for this tool in this run.</p>";
+          return;
+        }
+        versionNames.sort(compareNatural).reverse();
+
+        var versionRows = versionNames.map(function (v) { return versionRowHtml(v, versions[v]); }).join("");
+
+        var affectedItems = [];
+        var passingItems = [];
+        versionNames.forEach(function (v) {
+          versions[v].forEach(function (t) {
+            if (t.status === "failure" || t.status === "error") {
+              affectedItems.push(testItemHtml(toolId, v, t));
+            } else if (t.status === "success") {
+              passingItems.push(testItemHtml(toolId, v, t));
+            }
+          });
+        });
+
+        inspectorBody.innerHTML =
+          "<h4>Versions</h4>" + versionRows +
+          "<h4>Affected tests" + (affectedItems.length ? " (" + affectedItems.length + ")" : "") + "</h4>" +
+          (affectedItems.length ? affectedItems.join("") : "<p>None in this run.</p>") +
+          (passingItems.length
+            ? '<details class="gx-inspector__passing"><summary>' + passingItems.length +
+              " passing test" + (passingItems.length === 1 ? "" : "s") + "</summary>" +
+              passingItems.join("") + "</details>"
+            : "");
+      }).catch(function (err) {
+        inspectorBody.innerHTML = "<p>Failed to load test detail: " + escapeHtml(String(err)) + "</p>";
+      });
+    }
+
+    function toolLinkRowHtml(toolId, runId, label) {
+      return (
+        '<div class="gx-tool-link-row" data-open-tool="' + escapeHtml(toolId) +
+        '" data-open-run="' + escapeHtml(runId) + '">' +
+        "<span>" + escapeHtml(shortName(toolId)) + "</span>" +
+        '<span class="gx-inspector__badge">' + escapeHtml(label) + "</span>" +
+        "</div>"
+      );
+    }
+
+    function cellBadgeLabel(cell) {
+      var cls = classifyCell(cell);
+      var text = cls === "fail" ? "failures only" : cls === "error" ? "errors only" :
+        cls === "mixed" ? "both" : cls === "pass" ? "pass" : "not run";
+      return cell ? text + " · " + Math.round(cell.affected * 100) + "%" : text;
+    }
+
+    // Run-wide view: everything computable from matrix.json/manifest.json
+    // alone, no detail.json fetch needed.
+    function renderRunHeader(runId) {
+      var run = manifestByRun[runId] || {};
+      var stats = computeTopStats(runId, tools, matrix);
+      var coverage = coverageBucket(run.tools_attempted || 0, maxAttemptedEver);
+      inspectorHeader.innerHTML =
+        "<h3>" + escapeHtml(fmtDate(run.timestamp)) + "</h3>" +
+        '<div class="gx-inspector__summary">' +
+        "Tools tested: " + (run.tools_attempted || 0) + "<br>" +
+        testCountsLine(run) + "<br>" +
+        "Summary: " + stats.affected + " of " + (stats.affected + stats.pass) + " attempted tools affected (" +
+        stats.fail + " failure-only, " + stats.error + " error-only, " + stats.mixed + " mixed)<br>" +
+        "Coverage: " + escapeHtml(coverage) +
+        "</div>";
+      updateNav({ mode: "run", runId: runId });
+    }
+
+    function renderRunBody(runId) {
+      var newProblems = [], continuingProblems = [], recovered = [];
+      tools.forEach(function (toolId) {
+        var cell = (matrix.cells[toolId] || {})[runId];
+        if (cell && cell.status !== "pass") {
+          var hist = toolHistoryStatus(toolId, runId, matrix);
+          (hist === "new" ? newProblems : continuingProblems).push(toolId);
+        } else if (cell && cell.status === "pass") {
+          var prevCell = previousAttemptedCell(toolId, runId, matrix);
+          if (prevCell && prevCell.status !== "pass") recovered.push(toolId);
+        }
+      });
+      newProblems.sort();
+      continuingProblems.sort();
+      recovered.sort();
+
+      var SUBGROUP_LABELS = { fail: "Failures only", error: "Errors only", mixed: "Both" };
+
+      // Secondary grouping by failure type within each section, so
+      // e.g. "which of these are error-only" doesn't require scanning the
+      // whole list. classifyFn decides which cell each tool is grouped by -
+      // for new/continuing that's the current run's cell; for recovered
+      // (always "pass" now) it's what they recovered from instead.
+      function section(title, list, classifyFn) {
+        if (!list.length) return "<h4>" + escapeHtml(title) + " (0)</h4><p>None.</p>";
+        var buckets = { fail: [], error: [], mixed: [] };
+        list.forEach(function (t) {
+          var cls = classifyFn(t);
+          if (buckets[cls]) buckets[cls].push(t);
+        });
+        var subgroups = ["fail", "error", "mixed"].map(function (cls) {
+          if (!buckets[cls].length) return "";
+          return (
+            '<div class="gx-subgroup"><h5>' + escapeHtml(SUBGROUP_LABELS[cls]) + " (" + buckets[cls].length + ")</h5>" +
+            buckets[cls].map(function (t) {
+              var cell = (matrix.cells[t] || {})[runId];
+              return toolLinkRowHtml(t, runId, cellBadgeLabel(cell));
+            }).join("") +
+            "</div>"
+          );
+        }).join("");
+        return "<h4>" + escapeHtml(title) + " (" + list.length + ")</h4>" + subgroups;
+      }
+
+      inspectorBody.innerHTML =
+        section("New problems", newProblems, function (t) {
+          return classifyCell((matrix.cells[t] || {})[runId]);
+        }) +
+        section("Continuing problems", continuingProblems, function (t) {
+          return classifyCell((matrix.cells[t] || {})[runId]);
+        }) +
+        section("Recovered since previous run", recovered, function (t) {
+          return classifyCell(previousAttemptedCell(t, runId, matrix));
+        });
+    }
+
+    // Tool-history view: recurrence stats over the currently visible
+    // window (same scope as the right-margin bar itself), plus a per-run
+    // timeline for drill-down - no cross-run version/signature rollup yet
+    // (v2_raster_plan.md sec 1 tables that with the rest of the signature
+    // work).
+    function renderToolHeader(toolId) {
+      var stats = computeRightStats(toolId, currentRunIds(), matrix);
+      inspectorHeader.innerHTML =
+        '<h3 class="gx-inspector__title">' + toolNameHeaderHtml(toolId) + "</h3>" +
+        '<div class="gx-inspector__summary">' +
+        "Unhealthy in " + stats.unhealthy + " of " + stats.attempted + " attempted runs shown<br>" +
+        "Current streak: " + stats.currentStreak + " · longest in this window: " + stats.longestStreak + "<br>" +
+        "Median affected: " + pct(stats.medianAffected) + " · max affected: " + pct(stats.maxAffected) +
+        "</div>";
+      updateNav({ mode: "tool", toolId: toolId });
+    }
+
+    function renderToolBody(toolId) {
+      var rows = currentRunIds().slice().reverse().map(function (runId) {
+        var cell = (matrix.cells[toolId] || {})[runId];
+        var run = manifestByRun[runId] || {};
+        return (
+          '<div class="gx-tool-link-row" data-open-tool="' + escapeHtml(toolId) +
+          '" data-open-run="' + escapeHtml(runId) + '">' +
+          "<span>" + escapeHtml(fmtDate(run.timestamp)) + "</span>" +
+          '<span class="gx-inspector__badge">' + escapeHtml(cellBadgeLabel(cell)) + "</span>" +
+          "</div>"
+        );
+      }).join("");
+      inspectorBody.innerHTML = "<h4>History over the runs currently shown</h4>" + rows;
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) { /* best effort */ }
+      document.body.removeChild(ta);
+    }
+
+    function copyToClipboard(text, btn) {
+      var flash = function () {
+        btn.classList.add("is-copied");
+        btn.setAttribute("title", "Copied!");
+        setTimeout(function () {
+          btn.classList.remove("is-copied");
+          btn.setAttribute("title", "Copy tool ID");
+        }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash).catch(function () {
+          fallbackCopy(text);
+          flash();
+        });
+      } else {
+        fallbackCopy(text);
+        flash();
+      }
+    }
+
+    inspectorHeader.addEventListener("click", function (evt) {
+      var target = evt.target;
+      while (target && target !== inspectorHeader && !target.classList.contains("gx-copy-btn")) {
+        target = target.parentElement;
+      }
+      if (!target || target === inspectorHeader) return;
+      var text = target.getAttribute("data-copy-text");
+      if (text) copyToClipboard(text, target);
+    });
+
+    inspectorBody.addEventListener("click", function (evt) {
+      var target = evt.target;
+      while (target && target !== inspectorBody && !target.getAttribute("data-open-tool")) {
+        target = target.parentElement;
+      }
+      if (!target || target === inspectorBody) return;
+      openCellInspector(target.getAttribute("data-open-tool"), target.getAttribute("data-open-run"));
+    });
+
+    function showInspector() {
+      backdrop.hidden = false;
+      inspector.hidden = false;
+      draw();
+    }
+
+    function updateHash() {
+      var s = inspectorState;
+      if (!s) return;
+      if (s.mode === "cell") location.hash = "tool=" + encodeURIComponent(s.toolId) + "&run=" + encodeURIComponent(s.runId);
+      else if (s.mode === "run") location.hash = "run=" + encodeURIComponent(s.runId);
+      else location.hash = "tool=" + encodeURIComponent(s.toolId);
+    }
+
+    // Selection reuses the same hoveredRow/hoveredCol the mouse/keyboard
+    // crosshair draws from, so a selected cell keeps its full row/column
+    // band + name + header date even once the inspector's backdrop blocks
+    // further hover/keydown events (v2_raster_ui.md round 3 sec 3).
+    function openCellInspector(toolId, runId) {
+      inspectorState = { mode: "cell", toolId: toolId, runId: runId };
+      var visibleRuns = currentRunIds();
+      var rowIdx = visibleTools.indexOf(toolId);
+      var colIdx = visibleRuns.indexOf(runId);
+      hoveredRow = rowIdx >= 0 ? rowIdx : null;
+      hoveredCol = colIdx >= 0 ? colIdx : null;
+      updateHash();
+      renderCellHeader(toolId, runId);
+      renderCellBody(toolId, runId);
+      showInspector();
+    }
+
+    function openRunInspector(runId) {
+      inspectorState = { mode: "run", runId: runId };
+      var colIdx = currentRunIds().indexOf(runId);
+      hoveredRow = null;
+      hoveredCol = colIdx >= 0 ? colIdx : null;
+      updateHash();
+      renderRunHeader(runId);
+      renderRunBody(runId);
+      showInspector();
+    }
+
+    // The AnVIL block is another dashboard's data, so its panel reports what that run
+    // saw and links out rather than pretending to own the detail.
+    function openAnvilInspector(toolId, runId) {
+      inspectorState = { mode: "tool", toolId: toolId };
+      var rowIdx = visibleTools.indexOf(toolId);
+      hoveredRow = rowIdx >= 0 ? rowIdx : null;
+      hoveredCol = null;
+      var cell = (anvilPanel.cells[shortName(toolId)] || {})[runId];
+      var cross = anvilOverlay[shortName(toolId)];
+      inspectorHeader.innerHTML =
+        '<h3 class="gx-inspector__title">' + escapeHtml(shortName(toolId)) + "</h3>" +
+        '<div class="gx-inspector__summary">' +
+        escapeHtml(runId) +
+        '<br><span class="gx-anvil-note">AnVIL deployment</span>' +
+        "</div>";
+      var status = cell && cell.status ? cell.status : "not run";
+      var lines =
+        "<p>On the AnVIL deployment this tool was <strong>" + escapeHtml(status) +
+        "</strong> in run " + escapeHtml(runId) + ".</p>";
+      if (cross) {
+        lines += "<p>Across the runs compared: failing " + escapeHtml(cross.anvil) +
+          " there, " + escapeHtml(cross.iuc) + " here.</p>";
+        if (cross.verdict === "deployment") {
+          lines += "<p>It passes in this suite, so the deployment is the likelier cause " +
+            "than the tool.</p>";
+        }
+      }
+      lines += '<p><a href="https://anvilproject.github.io/galaxy-tests/raster.html" ' +
+        'target="_blank" rel="noopener">Open the AnVIL dashboard</a></p>';
+      inspectorBody.innerHTML = lines;
+      updateNav({ mode: "tool" });
+      showInspector();
+      draw();
+    }
+
+    function openToolInspector(toolId) {
+      inspectorState = { mode: "tool", toolId: toolId };
+      var rowIdx = visibleTools.indexOf(toolId);
+      hoveredRow = rowIdx >= 0 ? rowIdx : null;
+      hoveredCol = null;
+      updateHash();
+      renderToolHeader(toolId);
+      renderToolBody(toolId);
+      showInspector();
+    }
+
+    function closeInspector() {
+      if (inspector.hidden) return;
+      inspectorState = null;
+      hoveredRow = null;
+      hoveredCol = null;
+      inspector.hidden = true;
+      backdrop.hidden = true;
+      if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+      canvas.focus();
+      draw();
+    }
+
+    inspectorClose.addEventListener("click", closeInspector);
+    backdrop.addEventListener("click", closeInspector);
+    document.addEventListener("keydown", function (evt) {
+      if (evt.key === "Escape") closeInspector();
+    });
+    inspectorPrev.addEventListener("click", function () {
+      if (!inspectorState) return;
+      var idx = matrix.runs.indexOf(inspectorState.runId);
+      if (idx <= 0) return;
+      if (inspectorState.mode === "cell") openCellInspector(inspectorState.toolId, matrix.runs[idx - 1]);
+      else if (inspectorState.mode === "run") openRunInspector(matrix.runs[idx - 1]);
+    });
+    inspectorNext.addEventListener("click", function () {
+      if (!inspectorState) return;
+      var idx = matrix.runs.indexOf(inspectorState.runId);
+      if (idx < 0 || idx >= matrix.runs.length - 1) return;
+      if (inspectorState.mode === "cell") openCellInspector(inspectorState.toolId, matrix.runs[idx + 1]);
+      else if (inspectorState.mode === "run") openRunInspector(matrix.runs[idx + 1]);
+    });
+
+    function openFromHash() {
+      var hash = location.hash.replace(/^#/, "");
+      var params = {};
+      hash.split("&").forEach(function (kv) {
+        var eq = kv.indexOf("=");
+        if (eq < 0) return;
+        params[kv.slice(0, eq)] = decodeURIComponent(kv.slice(eq + 1));
+      });
+      if (params.tool && params.run) {
+        if (tools.indexOf(params.tool) >= 0 && runs.indexOf(params.run) >= 0) openCellInspector(params.tool, params.run);
+      } else if (params.run) {
+        if (runs.indexOf(params.run) >= 0) openRunInspector(params.run);
+      } else if (params.tool) {
+        if (tools.indexOf(params.tool) >= 0) openToolInspector(params.tool);
+      }
+    }
+
+    window.addEventListener("resize", draw);
+    olderBtn.addEventListener("click", function () {
+      windowStart -= 1;
+      draw();
+    });
+    newerBtn.addEventListener("click", function () {
+      windowStart += 1;
+      draw();
+    });
+
+    // Scrolls to the row and leaves a persistent outline briefly - the
+    // amber label-column stroke plus the same full row-band the crosshair
+    // uses, rather than just repositioning the viewport
+    // (v2_raster_ui.md round 3 sec 3).
+    function scrollToRow(idx) {
+      // The page scrolls now, not this container: convert the row's
+      // canvas-local position to a page-absolute one via the container's
+      // current viewport offset, then center it in the window instead of
+      // container.clientHeight (v2_raster_ui.md).
+      var containerPageTop = window.scrollY + container.getBoundingClientRect().top;
+      var rowPageY = containerPageTop + TOP_MARGIN_H + idx * CELL_H;
+      var target = rowPageY - window.innerHeight / 2;
+      window.scrollTo(0, Math.max(0, target));
+      searchHighlightRow = idx;
+      hoveredRow = idx;
+      draw();
+      clearTimeout(searchHighlightTimer);
+      searchHighlightTimer = setTimeout(function () {
+        searchHighlightRow = null;
+        if (hoveredRow === idx) hoveredRow = null;
+        draw();
+      }, 1500);
+    }
+
+    searchInput.addEventListener("input", function () {
+      searchQuery = searchInput.value.trim().toLowerCase();
+      searchClear.hidden = !searchInput.value;
+      draw();
+    });
+
+    searchInput.addEventListener("keydown", function (evt) {
+      if (evt.key === "Enter" && visibleTools.length) scrollToRow(0);
+    });
+
+    searchClear.addEventListener("click", function () {
+      searchInput.value = "";
+      searchQuery = "";
+      searchClear.hidden = true;
+      searchInput.focus();
+      draw();
+    });
+
+    // One button per first letter actually present among the (already
+    // alphabetical) visible tool names - jumps to that letter's first row.
+    // firstRowLetters is the reverse lookup (row -> letter), used to mark
+    // section landmarks in the otherwise-blank overview-mode label column
+    // (v2_raster_ui.md round 3 sec 1). Rebuilt on every draw(), not just
+    // once at startup, since the "Errors & failures only" filter changes
+    // which tools occupy which row.
+    var firstRowForLetter = {};
+    var firstRowLetters = {};
+    function rebuildJumpIndex() {
+      firstRowForLetter = {};
+      firstRowLetters = {};
+      visibleTools.forEach(function (toolId, idx) {
+        var letter = shortName(toolId).charAt(0).toUpperCase();
+        if (!(letter in firstRowForLetter)) {
+          firstRowForLetter[letter] = idx;
+          firstRowLetters[idx] = letter;
+        }
+      });
+      jumpIndex.innerHTML = Object.keys(firstRowForLetter).sort().map(function (letter) {
+        return '<button type="button" data-letter="' + escapeHtml(letter) + '">' + escapeHtml(letter) + "</button>";
+      }).join("");
+    }
+    jumpIndex.addEventListener("click", function (evt) {
+      var letter = evt.target.getAttribute && evt.target.getAttribute("data-letter");
+      if (letter && letter in firstRowForLetter) scrollToRow(firstRowForLetter[letter]);
+    });
+
+    function setDensity(next) {
+      if (next === density) return;
+      density = next;
+      CELL_H = density === "readable" ? READABLE_CELL_H : OVERVIEW_CELL_H;
+      densityComfortableBtn.classList.toggle("is-active", density === "readable");
+      densityCompactBtn.classList.toggle("is-active", density === "overview");
+      draw();
+    }
+    densityComfortableBtn.addEventListener("click", function () { setDensity("readable"); });
+    densityCompactBtn.addEventListener("click", function () { setDensity("overview"); });
+
+    // Clicking the active pill again clears back to "all" - clicking a
+    // different one switches directly, same toggle-vs-switch behavior as
+    // the legend isolate on deploy-stages.html.
+    function setToolFilter(next) {
+      toolFilter = toolFilter === next ? "all" : next;
+      filterErrorBtn.classList.toggle("is-active", toolFilter === "error");
+      filterFailureBtn.classList.toggle("is-active", toolFilter === "failure");
+      filterBothBtn.classList.toggle("is-active", toolFilter === "both");
+      filterAnvilBtn.classList.toggle("is-active", toolFilter === "anvil");
+      draw();
+    }
+    filterErrorBtn.addEventListener("click", function () { setToolFilter("error"); });
+    filterFailureBtn.addEventListener("click", function () { setToolFilter("failure"); });
+    filterBothBtn.addEventListener("click", function () { setToolFilter("both"); });
+    filterAnvilBtn.addEventListener("click", function () { setToolFilter("anvil"); });
+    var anvilPanelBtn = document.getElementById("gx-raster-anvil-panel");
+    anvilPanelBtn.addEventListener("click", function () {
+      showAnvil = !showAnvil;
+      anvilPanelBtn.classList.toggle("is-active", showAnvil);
+      draw();
+    });
+
+    draw();
+    openFromHash();
+  }
+
+  Promise.all([
+    fetch("data/manifest.json").then(function (r) { return r.json(); }),
+    fetch("data/matrix.json").then(function (r) { return r.json(); }),
+    // Cross-check against the AnVIL deployment's dashboard. Generated by
+    // anvil_compare_dashboards.py, so the page needs no cross-origin request.
+    fetch("data/anvil-overlay.json")
+      .then(function (r) { return r.ok ? r.json() : { tools: {} }; })
+      .catch(function () { return { tools: {} }; }),
+    fetch("data/anvil-panel.json")
+      .then(function (r) { return r.ok ? r.json() : { runs: [], cells: {} }; })
+      .catch(function () { return { runs: [], cells: {} }; })
+  ]).then(function (results) {
+    anvilOverlay = (results[2] && results[2].tools) || {};
+    anvilPanel = results[3] || { runs: [], cells: {} };
+    init(results[0], results[1]);
+  }).catch(function (err) {
+    document.getElementById("gx-raster-empty").hidden = false;
+    document.getElementById("gx-raster-empty").textContent = "Failed to load raster data: " + err;
+    document.getElementById("gx-raster-container").hidden = true;
+  });
+})();
+</script>

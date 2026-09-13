@@ -1,0 +1,351 @@
+{
+ "runs_considered": 5,
+ "counts": {
+  "tool": 0,
+  "deployment": 68,
+  "iuc-test": 0,
+  "clean": 43
+ },
+ "tools": {
+  "EMBOSS: seqmatchall83": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "Extract genomic DNA 1": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "ampvis2_load": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "anndata_inspect": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "anndata_manipulate": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "bcftools_norm": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "bcftools_plugin_fill_an_ac": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "bcftools_plugin_fixploidy": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bcftools_plugin_setgt": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bcftools_query": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bcftools_view": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bedtools_bamtobed": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bedtools_bedtoigv": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "bedtools_complementbed": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bedtools_intersectbed": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bedtools_shufflebed": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bedtools_windowbed": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bowtie2": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "circos_tableviewer": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "cutadapt": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "dada2_dada": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "dada2_learnErrors": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "datamash_ops": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "fasterq_dump": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/4"
+  },
+  "freebayes": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "ggplot2_heatmap2": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "graphlan_annotate": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "hifiasm": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "1/5"
+  },
+  "hisat2": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "hyphy_fel": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "krakentools_kreport2krona": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "lastz_d_wrapper": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "lastz_wrapper_2": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "limma_voom": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "lofreq_filter": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "macs2_bdgdiff": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "melt": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "metabat2": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "picard_CollectBaseDistributionByCycle": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "picard_MergeBamAlignment": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "picard_ReorderSam": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "porechop": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "pretext_map": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "purge_dups": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "pygenomeTracks": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "raceid_filtnormconf": {
+   "verdict": "deployment",
+   "anvil": "3/4",
+   "iuc": "0/5"
+  },
+  "raceid_inspectclusters": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "repeatmasker_wrapper": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "rna_starsolo": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "rseqc_clipping_profile": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "rseqc_junction_annotation": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "rseqc_read_distribution": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "samtools_coverage": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "samtools_fixmate": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "samtools_merge": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "samtools_reheader": {
+   "verdict": "deployment",
+   "anvil": "3/4",
+   "iuc": "0/5"
+  },
+  "samtools_slice_bam": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "samtools_sort": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "scanpy_inspect": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "scanpy_normalize": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "sceasy_convert": {
+   "verdict": "deployment",
+   "anvil": "4/4",
+   "iuc": "0/5"
+  },
+  "seqtk_comp": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "snpEff_build_gb": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "spades": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/4"
+  },
+  "teloscope": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "tooldistillator": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "trimmomatic": {
+   "verdict": "deployment",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "umi_tools_count": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  }
+ }
+}

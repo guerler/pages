@@ -1,0 +1,837 @@
+{
+ "tests": [
+  {
+   "id": "stacks2_clonefilter-0",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 99.30390071868896,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:56:51.491165",
+     "update_time": "2026-09-13T05:58:14.776405"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-1",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.522024869918823,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:58:19.983580",
+     "update_time": "2026-09-13T05:58:27.409296"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-2",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 16.0093514919281,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:58:36.193930",
+     "update_time": "2026-09-13T05:58:43.587865"
+    }
+   }
+  },
+  {
+   "id": "stacks2_clonefilter-3",
+   "data": {
+    "tool_id": "stacks2_clonefilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 12.214585065841675,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:58:48.347314",
+     "update_time": "2026-09-13T05:58:55.784244"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-0",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.187066555023193,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:59:01.805904",
+     "update_time": "2026-09-13T05:59:10.005262"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-1",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.82178020477295,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:59:15.223619",
+     "update_time": "2026-09-13T05:59:22.955741"
+    }
+   }
+  },
+  {
+   "id": "stacks2_cstacks-2",
+   "data": {
+    "tool_id": "stacks2_cstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 13.040438890457153,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:59:29.066345",
+     "update_time": "2026-09-13T05:59:36.227703"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-0",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 14.028989553451538,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:59:41.463872",
+     "update_time": "2026-09-13T05:59:49.697741"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-1",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 14.290130853652954,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T05:59:55.673583",
+     "update_time": "2026-09-13T06:00:04.062550"
+    }
+   }
+  },
+  {
+   "id": "stacks2_denovomap-2",
+   "data": {
+    "tool_id": "stacks2_denovomap",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 14.089424133300781,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:00:09.950857",
+     "update_time": "2026-09-13T06:00:18.263104"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-0",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 30.959161520004272,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:00:24.232296",
+     "update_time": "2026-09-13T06:00:49.722192"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-1",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.956192016601562,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:00:55.628837",
+     "update_time": "2026-09-13T06:01:02.820677"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-2",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 12.202526807785034,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:01:07.775474",
+     "update_time": "2026-09-13T06:01:15.090635"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-3",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 11.889552593231201,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:01:19.989105",
+     "update_time": "2026-09-13T06:01:27.209081"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-4",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 12.157000303268433,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:01:32.271295",
+     "update_time": "2026-09-13T06:01:39.461829"
+    }
+   }
+  },
+  {
+   "id": "stacks2_gstacks-5",
+   "data": {
+    "tool_id": "stacks2_gstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 12.218997716903687,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:01:44.494482",
+     "update_time": "2026-09-13T06:01:51.703797"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-0",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 12.17957615852356,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:01:56.624389",
+     "update_time": "2026-09-13T06:02:03.857714"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-1",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 12.42691946029663,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:02:08.858026",
+     "update_time": "2026-09-13T06:02:16.290749"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-2",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 11.52064299583435,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:02:21.000934",
+     "update_time": "2026-09-13T06:02:28.201218"
+    }
+   }
+  },
+  {
+   "id": "stacks2_kmerfilter-3",
+   "data": {
+    "tool_id": "stacks2_kmerfilter",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 12.315567255020142,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:02:33.184159",
+     "update_time": "2026-09-13T06:02:40.577292"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-0",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.146087884902954,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:02:46.563251",
+     "update_time": "2026-09-13T06:02:53.823472"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-1",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.167157649993896,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:02:59.826036",
+     "update_time": "2026-09-13T06:03:07.192216"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-10",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 10,
+    "time_seconds": 12.902353763580322,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:04:35.336315",
+     "update_time": "2026-09-13T06:04:42.783826"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-2",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 16.00229239463806,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:03:13.219430",
+     "update_time": "2026-09-13T06:03:21.708848"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-3",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 13.15236496925354,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:03:28.453864",
+     "update_time": "2026-09-13T06:03:36.529505"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-4",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.345482587814331,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:03:41.864623",
+     "update_time": "2026-09-13T06:03:49.864300"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-5",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 13.087371826171875,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:03:55.269094",
+     "update_time": "2026-09-13T06:04:03.179709"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-6",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 13.240081310272217,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:04:08.615641",
+     "update_time": "2026-09-13T06:04:16.343676"
+    }
+   }
+  },
+  {
+   "id": "stacks2_populations-9",
+   "data": {
+    "tool_id": "stacks2_populations",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 9,
+    "time_seconds": 13.158318996429443,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:04:21.953009",
+     "update_time": "2026-09-13T06:04:29.616526"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-0",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.01575779914856,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:04:48.823596",
+     "update_time": "2026-09-13T06:04:56.251122"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-1",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 14.782208681106567,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:05:03.203524",
+     "update_time": "2026-09-13T06:05:11.254647"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-2",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 15.352580070495605,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:05:16.592563",
+     "update_time": "2026-09-13T06:05:25.789151"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-3",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 19.798826456069946,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:05:31.984433",
+     "update_time": "2026-09-13T06:05:44.306338"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-4",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 17.04306125640869,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:05:56.647242",
+     "update_time": "2026-09-13T06:06:03.948925"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-5",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 5,
+    "time_seconds": 21.424021005630493,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:06:17.236810",
+     "update_time": "2026-09-13T06:06:25.321611"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-6",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 6,
+    "time_seconds": 13.035184383392334,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:06:30.504058",
+     "update_time": "2026-09-13T06:06:38.423662"
+    }
+   }
+  },
+  {
+   "id": "stacks2_procrad-7",
+   "data": {
+    "tool_id": "stacks2_procrad",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 7,
+    "time_seconds": 13.265668630599976,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:06:44.364338",
+     "update_time": "2026-09-13T06:06:51.804836"
+    }
+   }
+  },
+  {
+   "id": "stacks2_refmap-0",
+   "data": {
+    "tool_id": "stacks2_refmap",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 12.633540391921997,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:06:56.712644",
+     "update_time": "2026-09-13T06:07:04.136820"
+    }
+   }
+  },
+  {
+   "id": "stacks2_refmap-1",
+   "data": {
+    "tool_id": "stacks2_refmap",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 14.136862993240356,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:07:10.082641",
+     "update_time": "2026-09-13T06:07:18.406023"
+    }
+   }
+  },
+  {
+   "id": "stacks2_shortreads-0",
+   "data": {
+    "tool_id": "stacks2_shortreads",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.63644790649414,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:07:24.619319",
+     "update_time": "2026-09-13T06:07:32.523120"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-0",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 15.940950870513916,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:07:41.521369",
+     "update_time": "2026-09-13T06:07:48.552710"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-1",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.391283988952637,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:07:54.284975",
+     "update_time": "2026-09-13T06:08:01.959102"
+    }
+   }
+  },
+  {
+   "id": "stacks2_sstacks-2",
+   "data": {
+    "tool_id": "stacks2_sstacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 17.1179256439209,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:08:11.162062",
+     "update_time": "2026-09-13T06:08:19.089263"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-0",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 18.187676429748535,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:08:30.039160",
+     "update_time": "2026-09-13T06:08:37.343610"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-1",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 21.200453996658325,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:08:50.989455",
+     "update_time": "2026-09-13T06:08:58.792953"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-2",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 21.35319757461548,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:09:12.080164",
+     "update_time": "2026-09-13T06:09:20.067999"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-3",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 3,
+    "time_seconds": 20.405945539474487,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:09:33.271101",
+     "update_time": "2026-09-13T06:09:40.725507"
+    }
+   }
+  },
+  {
+   "id": "stacks2_tsv2bam-4",
+   "data": {
+    "tool_id": "stacks2_tsv2bam",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 29.211010932922363,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:10:02.323574",
+     "update_time": "2026-09-13T06:10:09.824973"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-0",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 0,
+    "time_seconds": 13.080681800842285,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:10:15.907792",
+     "update_time": "2026-09-13T06:10:23.234415"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-1",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 1,
+    "time_seconds": 13.084216594696045,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:10:28.248767",
+     "update_time": "2026-09-13T06:10:36.197001"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-2",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 2,
+    "time_seconds": 13.119423389434814,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:10:41.654302",
+     "update_time": "2026-09-13T06:10:49.438217"
+    }
+   }
+  },
+  {
+   "id": "stacks2_ustacks-4",
+   "data": {
+    "tool_id": "stacks2_ustacks",
+    "tool_version": "2.55+galaxy6",
+    "status": "success",
+    "test_index": 4,
+    "time_seconds": 13.11754846572876,
+    "execution_problem": null,
+    "output_problems": null,
+    "job": {
+     "create_time": "2026-09-13T06:10:55.075473",
+     "update_time": "2026-09-13T06:11:02.696912"
+    }
+   }
+  }
+ ],
+ "version": 0.1
+}
