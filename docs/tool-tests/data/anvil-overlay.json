@@ -1,25 +1,35 @@
 {
  "runs_considered": 5,
  "counts": {
-  "tool": 0,
-  "deployment": 68,
+  "tool": 3,
+  "deployment": 80,
   "iuc-test": 0,
-  "clean": 43
+  "clean": 28
  },
  "tools": {
+  "EMBOSS: maskfeat50": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
   "EMBOSS: seqmatchall83": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "Extract genomic DNA 1": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "ampvis2_load": {
    "verdict": "deployment",
    "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "anndata_export": {
+   "verdict": "deployment",
+   "anvil": "3/5",
    "iuc": "0/5"
   },
   "anndata_inspect": {
@@ -32,6 +42,16 @@
    "anvil": "5/5",
    "iuc": "0/5"
   },
+  "bandage_info": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "bcftools_concat": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
   "bcftools_norm": {
    "verdict": "deployment",
    "anvil": "5/5",
@@ -39,7 +59,7 @@
   },
   "bcftools_plugin_fill_an_ac": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "bcftools_plugin_fixploidy": {
@@ -54,7 +74,7 @@
   },
   "bcftools_query": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "bcftools_view": {
@@ -64,7 +84,7 @@
   },
   "bedtools_bamtobed": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "bedtools_bedtoigv": {
@@ -79,7 +99,7 @@
   },
   "bedtools_intersectbed": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "bedtools_shufflebed": {
@@ -92,6 +112,11 @@
    "anvil": "4/5",
    "iuc": "0/5"
   },
+  "biom_convert": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
   "bowtie2": {
    "verdict": "deployment",
    "anvil": "5/5",
@@ -99,12 +124,17 @@
   },
   "circos_tableviewer": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "cutadapt": {
    "verdict": "deployment",
    "anvil": "3/5",
+   "iuc": "0/5"
+  },
+  "dada2_assignTaxonomyAddspecies": {
+   "verdict": "deployment",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "dada2_dada": {
@@ -124,7 +154,7 @@
   },
   "fasterq_dump": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/4"
   },
   "freebayes": {
@@ -134,7 +164,7 @@
   },
   "ggplot2_heatmap2": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "graphlan_annotate": {
@@ -152,9 +182,19 @@
    "anvil": "5/5",
    "iuc": "0/5"
   },
+  "hyphy_cln": {
+   "verdict": "deployment",
+   "anvil": "3/5",
+   "iuc": "0/5"
+  },
   "hyphy_fel": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "ivar_consensus": {
+   "verdict": "deployment",
+   "anvil": "3/5",
    "iuc": "0/5"
   },
   "krakentools_kreport2krona": {
@@ -164,7 +204,7 @@
   },
   "lastz_d_wrapper": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "lastz_wrapper_2": {
@@ -179,12 +219,12 @@
   },
   "lofreq_filter": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "macs2_bdgdiff": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "melt": {
@@ -194,12 +234,17 @@
   },
   "metabat2": {
    "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "name2taxid": {
+   "verdict": "deployment",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "picard_CollectBaseDistributionByCycle": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "picard_MergeBamAlignment": {
@@ -212,6 +257,11 @@
    "anvil": "3/5",
    "iuc": "0/5"
   },
+  "picard_SamToFastq": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
   "porechop": {
    "verdict": "deployment",
    "anvil": "5/5",
@@ -219,7 +269,7 @@
   },
   "pretext_map": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "purge_dups": {
@@ -243,18 +293,28 @@
    "iuc": "0/5"
   },
   "repeatmasker_wrapper": {
+   "verdict": "tool",
+   "anvil": "5/5",
+   "iuc": "5/5"
+  },
+  "repeatmodeler": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "rna_starsolo": {
-   "verdict": "deployment",
+   "verdict": "tool",
    "anvil": "5/5",
+   "iuc": "3/5"
+  },
+  "rseqc_RPKM_saturation": {
+   "verdict": "deployment",
+   "anvil": "3/5",
    "iuc": "0/5"
   },
   "rseqc_clipping_profile": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "rseqc_junction_annotation": {
@@ -269,12 +329,12 @@
   },
   "samtools_coverage": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "samtools_fixmate": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "4/5",
    "iuc": "0/5"
   },
   "samtools_merge": {
@@ -304,7 +364,7 @@
   },
   "scanpy_normalize": {
    "verdict": "deployment",
-   "anvil": "3/5",
+   "anvil": "5/5",
    "iuc": "0/5"
   },
   "sceasy_convert": {
@@ -317,15 +377,25 @@
    "anvil": "3/5",
    "iuc": "0/5"
   },
+  "seqtk_sample": {
+   "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
   "snpEff_build_gb": {
    "verdict": "deployment",
    "anvil": "4/5",
    "iuc": "0/5"
   },
-  "spades": {
+  "snpEff_databases": {
    "verdict": "deployment",
+   "anvil": "4/5",
+   "iuc": "0/5"
+  },
+  "spades": {
+   "verdict": "tool",
    "anvil": "5/5",
-   "iuc": "0/4"
+   "iuc": "4/4"
   },
   "teloscope": {
    "verdict": "deployment",
@@ -344,7 +414,12 @@
   },
   "umi_tools_count": {
    "verdict": "deployment",
-   "anvil": "4/5",
+   "anvil": "5/5",
+   "iuc": "0/5"
+  },
+  "volcanoplot": {
+   "verdict": "deployment",
+   "anvil": "3/5",
    "iuc": "0/5"
   }
  }

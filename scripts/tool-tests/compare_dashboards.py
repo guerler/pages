@@ -22,7 +22,7 @@ ANVIL_BASE = "https://anvilproject.github.io/galaxy-tests/raster-data"
 LOCAL_MATRIX = "docs/tool-tests/data/matrix.json"
 LOCAL_MANIFEST = "docs/tool-tests/data/manifest.json"
 SENTINEL = "__SORTLIST__"
-BAD = {"failure", "error", "mixed"}
+BAD = {"fail", "error", "mixed"}
 # a run covering only the failing-package subset is not comparable to a full sweep
 FULL_RUN_TOOLS = 1000
 
