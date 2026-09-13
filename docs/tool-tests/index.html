@@ -1,0 +1,120 @@
+---
+layout: deck
+title: Tool tests, sync to async
+description: What the async validation work fixed in tools-iuc, and the proposal to move the ecosystem.
+---
+
+<section class="slide slide--title">
+  <h1>Tool tests:<br>sync to async</h1>
+  <p>What two months of validation fixed in tools-iuc, and what we propose next.</p>
+  <span class="slide__num">Galaxy team meeting, 15 September 2026</span>
+</section>
+
+<section class="slide">
+  <h2>Where we started</h2>
+  <p class="lede">Validating the typed tool request path meant running the whole tools-iuc suite
+  against it. The first full run in July showed how much was already broken.</p>
+  <div class="figures">
+    <div class="figure"><div class="figure__value">2,044</div><div class="figure__label">tools</div></div>
+    <div class="figure"><div class="figure__value">6,672</div><div class="figure__label">tests</div></div>
+    <div class="figure"><div class="figure__value">287</div><div class="figure__label">not passing</div></div>
+    <div class="figure"><div class="figure__value">4.30%</div><div class="figure__label">failure rate</div></div>
+  </div>
+  <p class="note">3 July 2026. Most were not framework defects. They were tests that had drifted
+  against newer tool builds, or that declared parameters the tool never received.</p>
+  <span class="slide__num">2</span>
+</section>
+
+<section class="slide">
+  <h2>Where we are now: <span class="accent">2.33%</span></h2>
+  <svg viewBox="0 0 1000 380" role="img" aria-label="Share of tool tests not passing per full suite run, 4.3 percent on 3 July falling to 2.33 percent on 3 September" style="width:100%;height:auto;max-height:46vh"><line x1="58" y1="328.0" x2="980" y2="328.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="332.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">0%</text><line x1="58" y1="226.7" x2="980" y2="226.7" stroke="rgba(44,49,67,.12)"/><text x="48" y="230.7" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">2%</text><line x1="58" y1="125.3" x2="980" y2="125.3" stroke="rgba(44,49,67,.12)"/><text x="48" y="129.3" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">4%</text><line x1="58" y1="24.0" x2="980" y2="24.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="28.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">6%</text><polygon points="58,328.0 58.0,110.1 134.8,69.1 211.7,79.7 288.5,88.9 365.3,216.0 442.2,161.3 519.0,149.1 595.8,151.7 672.7,133.4 749.5,169.4 826.3,187.1 903.2,189.2 980.0,209.9 980.0,328.0" fill="rgba(69,78,108,.10)"/><polyline points="58.0,110.1 134.8,69.1 211.7,79.7 288.5,88.9 365.3,216.0 442.2,161.3 519.0,149.1 595.8,151.7 672.7,133.4 749.5,169.4 826.3,187.1 903.2,189.2 980.0,209.9" fill="none" stroke="#454e6c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="58.0" cy="110.1" r="4" fill="#454e6c"/><circle cx="134.8" cy="69.1" r="4" fill="#454e6c"/><circle cx="211.7" cy="79.7" r="4" fill="#454e6c"/><circle cx="288.5" cy="88.9" r="4" fill="#454e6c"/><circle cx="365.3" cy="216.0" r="4" fill="#454e6c"/><circle cx="442.2" cy="161.3" r="4" fill="#454e6c"/><circle cx="519.0" cy="149.1" r="4" fill="#454e6c"/><circle cx="595.8" cy="151.7" r="4" fill="#454e6c"/><circle cx="672.7" cy="133.4" r="4" fill="#454e6c"/><circle cx="749.5" cy="169.4" r="4" fill="#454e6c"/><circle cx="826.3" cy="187.1" r="4" fill="#454e6c"/><circle cx="903.2" cy="189.2" r="4" fill="#454e6c"/><circle cx="980.0" cy="209.9" r="4" fill="#454e6c"/><circle cx="58.0" cy="110.1" r="7" fill="none" stroke="#454e6c" stroke-width="2"/><text x="72.0" y="98.1" font-size="15" font-weight="700" fill="#454e6c">4.3%</text><circle cx="980.0" cy="209.9" r="7" fill="#a06e00"/><text x="980.0" y="193.9" text-anchor="end" font-size="15" font-weight="700" fill="#a06e00">2.33%</text><text x="58.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-03</text><text x="211.7" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-09</text><text x="365.3" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-27</text><text x="519.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-30</text><text x="672.7" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-06</text><text x="826.3" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-19</text><text x="980.0" y="350" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">09-03</text></svg>
+  <p class="note">Share of tests not passing, per full suite run. The line moves up as well as down:
+  a single run is not a measurement, because roughly twenty tests flip sides between runs for
+  reasons outside the tool. The trend across thirteen runs is what counts.</p>
+  <span class="slide__num">3</span>
+</section>
+
+<section class="slide">
+  <h2>287 to 155, a <span class="accent">46% reduction</span></h2>
+  <div class="figures">
+    <div class="figure figure--down"><div class="figure__value">11</div><div class="figure__label">merged PRs</div></div>
+    <div class="figure figure--down"><div class="figure__value">84</div><div class="figure__label">package fixes</div></div>
+    <div class="figure figure--down"><div class="figure__value">103</div><div class="figure__label">files</div></div>
+    <div class="figure figure--down"><div class="figure__value">+345/&minus;355</div><div class="figure__label">lines</div></div>
+  </div>
+  <p class="lede">The work removes slightly more than it adds. Almost none of it widens a tolerance;
+  it deletes a stray parameter or corrects an assertion that was wrong.</p>
+  <p class="note">Net figure. New failures arriving from tool updates are counted against the fixes,
+  so the gross number repaired is larger.</p>
+  <span class="slide__num">4</span>
+</section>
+
+<section class="slide">
+  <h2>Why the legacy path has to go</h2>
+  <p class="lede">A test can declare a parameter, the legacy path drops it, the tool runs without it,
+  and the test still passes.</p>
+  <table class="data">
+    <tr><th>stacks2 test declares</th><th>legacy path sends</th><th>typed path sends</th></tr>
+    <tr><td><code>--rm-pcr-duplicates</code></td><td>nothing</td><td><code>--rm-pcr-duplicates</code></td></tr>
+    <tr><td><code>--bestrad</code></td><td>nothing</td><td><code>--bestrad</code></td></tr>
+    <tr><td><code>capture=true</code></td><td>default</td><td><code>capture=true</code></td></tr>
+  </table>
+  <p class="lede">That is a false green, which is worse than a red. The typed path refuses instead:
+  <code>could not build request: unhandled inputs</code>. Every framework defect we found surfaced
+  that way.</p>
+  <span class="slide__num">5</span>
+</section>
+
+<section class="slide">
+  <h2>Async is already the default</h2>
+  <ul class="points">
+    <li><strong>galaxyproject/galaxy#23329</strong> merged on 12 September. Tool requests are on by
+      default for the browser form in the next release.</li>
+    <li>Across the full suite, <strong>27 tests pass only under async</strong> against 12 that pass
+      only under sync. Switching is net positive before counting the false greens.</li>
+    <li>The test client did not follow. <code>DEFAULT_USE_LEGACY_API = "always"</code> in
+      galaxy-tool-util, and released planemo does not override it, so <strong>every planemo driven
+      test in CI still submits to the legacy endpoint</strong>.</li>
+  </ul>
+  <p class="note">The default switched for users and not for the tests that guard it.</p>
+  <span class="slide__num">6</span>
+</section>
+
+<section class="slide">
+  <h2>Proposal: move the ecosystem to async</h2>
+  <ul class="points">
+    <li><strong>Land the planemo flag.</strong> <code>--use_async_submission</code> exists on a branch
+      and is eight lines. Released galaxy-tool-util already carries the capability, so nothing else
+      is needed.</li>
+    <li><strong>Switch tools-iuc CI.</strong> One line, <code>additional-planemo-options</code>,
+      once the flag is in a release.</li>
+    <li><strong>Extend to usegalaxy.eu.</strong> Their custom tool repositories are structured like
+      tools-iuc, so the same scripts run against them unchanged. That team supports the move.</li>
+    <li><strong>Then flip the default</strong> in galaxy-tool-util, so async is what a test exercises
+      unless someone opts out.</li>
+  </ul>
+  <span class="slide__num">7</span>
+</section>
+
+<section class="slide">
+  <h2>How we work the backlog</h2>
+  <ul class="points">
+    <li><strong>Measure recurrence, not counts.</strong> A failure seen once is noise. Across four
+      runs, 13 tests failed at least once and only 5 recurred.</li>
+    <li><strong>Separate test debt from tool rot.</strong> Of 139 failures in the current baseline,
+      roughly 70 are external services, 25 are drifted assertions, and a dozen are tools that no
+      longer work at all. Only the middle group is ours to fix.</li>
+    <li><strong>Refactor, do not widen.</strong> Assert what the output contains. A tolerance hides
+      the next regression, and in one case hid a fixture generated from a different invocation.</li>
+    <li><strong>Verify every fix against a run</strong> before claiming it.</li>
+  </ul>
+  <span class="slide__num">8</span>
+</section>
+
+<section class="slide slide--title">
+  <h2 style="font-size:clamp(1.6rem,3.4vw,2.6rem)">See it live</h2>
+  <p><a href="https://guerler.github.io/galaxy-tests/raster.html">guerler.github.io/galaxy-tests/raster.html</a></p>
+  <p style="opacity:.72">Every tool, every run, one cell each. Click a cell for the failure and the
+  CI run that produced it.</p>
+  <span class="slide__num">9</span>
+</section>

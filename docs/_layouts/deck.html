@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/tokens.css' | relative_url }}">
+<style>
+  /* One slide per screen, and one slide per page when printed. Arrow keys and
+     click scroll between them; Cmd-P gives a PDF with no further tooling. */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  body {
+    margin: 0;
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    color: var(--color-galaxy-dark, #2c3143);
+    background: var(--color-light-bg, #f4f6fa);
+  }
+  .slide {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    padding: 6vh 8vw 9vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.1rem;
+    position: relative;
+    border-bottom: 1px solid rgba(44, 49, 67, .08);
+  }
+  .slide--title {
+    background: linear-gradient(135deg, var(--color-galaxy-dark, #2c3143), var(--color-galaxy-primary, #454e6c));
+    color: #fff;
+  }
+  .slide--title h1 { font-size: clamp(2.2rem, 5.5vw, 4rem); margin: 0; line-height: 1.05; }
+  .slide--title p { font-size: clamp(1rem, 1.8vw, 1.4rem); opacity: .82; margin: 0; max-width: 46ch; }
+  .slide h2 {
+    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+    margin: 0 0 .2em;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  .slide h2 .accent { color: var(--color-galaxy-gold-dark, #a06e00); }
+  .lede { font-size: clamp(1rem, 1.7vw, 1.3rem); max-width: 60ch; margin: 0; line-height: 1.5; }
+  .note { font-size: .95rem; color: rgba(44, 49, 67, .62); max-width: 70ch; line-height: 1.5; }
+  ul.points { margin: .2rem 0 0; padding-left: 1.1rem; max-width: 62ch; line-height: 1.65; font-size: clamp(.95rem, 1.5vw, 1.15rem); }
+  ul.points li { margin-bottom: .45rem; }
+  ul.points strong { color: var(--color-galaxy-dark, #2c3143); }
+  .figures { display: flex; flex-wrap: wrap; gap: clamp(1rem, 4vw, 3.5rem); margin: .4rem 0; }
+  .figure__value { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .figure__label { font-size: .9rem; color: rgba(44, 49, 67, .62); margin-top: .35rem; }
+  .figure--down .figure__value { color: var(--color-galaxy-gold-dark, #a06e00); }
+  table.data { border-collapse: collapse; font-size: .95rem; font-variant-numeric: tabular-nums; }
+  table.data th, table.data td { text-align: left; padding: .35rem .9rem .35rem 0; border-bottom: 1px solid rgba(44, 49, 67, .12); }
+  table.data th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(44, 49, 67, .6); font-weight: 700; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
+         background: rgba(44, 49, 67, .07); padding: .1em .35em; border-radius: 3px; }
+  .slide__num { position: absolute; right: 8vw; bottom: 4vh; font-size: .8rem; color: rgba(44, 49, 67, .38); }
+  .slide--title .slide__num { color: rgba(255, 255, 255, .5); }
+  a { color: var(--color-galaxy-primary, #454e6c); }
+  .slide--title a { color: var(--color-galaxy-gold, #e8b900); }
+
+  /* Print: one slide per landscape page, chrome removed, live embeds swapped
+     for their static fallback. */
+  @media print {
+    html { scroll-snap-type: none; }
+    @page { size: 297mm 167mm; margin: 0; }
+    body { background: #fff; }
+    .slide {
+      min-height: auto; height: 167mm; break-after: page; border-bottom: 0;
+      padding: 14mm 18mm;
+    }
+    .slide:last-child { break-after: auto; }
+    .print-hide { display: none !important; }
+    .print-only { display: revert !important; }
+  }
+  .print-only { display: none; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+{{ content }}
+<script>
+  // Arrow keys and space move a slide at a time; the browser handles the rest.
+  const slides = [...document.querySelectorAll(".slide")];
+  addEventListener("keydown", (event) => {
+    const forward = ["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key);
+    const back = ["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key);
+    if (!forward && !back) return;
+    event.preventDefault();
+    const top = window.scrollY + 1;
+    const index = slides.findIndex((s) => s.offsetTop >= top);
+    const current = index === -1 ? slides.length - 1 : Math.max(index - 1, 0);
+    const next = slides[Math.min(Math.max(current + (forward ? 1 : -1), 0), slides.length - 1)];
+    next?.scrollIntoView({ behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
