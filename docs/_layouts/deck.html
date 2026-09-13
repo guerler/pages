@@ -58,8 +58,32 @@
   table.data th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(44, 49, 67, .6); font-weight: 700; }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
          background: rgba(44, 49, 67, .07); padding: .1em .35em; border-radius: 3px; }
-  .slide__num { position: absolute; right: 8vw; bottom: 4vh; font-size: .8rem; color: rgba(44, 49, 67, .38); }
+  /* Slide numbers come from a CSS counter, so inserting a slide renumbers the deck
+     on its own. The total is written into --deck-total once, on load. */
+  body { counter-reset: slide; }
+  .slide { counter-increment: slide; }
+  .slide__num { position: absolute; right: 8vw; bottom: 4vh; font-size: .8rem;
+                color: rgba(44, 49, 67, .38); font-variant-numeric: tabular-nums; }
+  .slide__num::after { content: counter(slide) " / " var(--deck-total, ""); }
   .slide--title .slide__num { color: rgba(255, 255, 255, .5); }
+  .slide__meta { position: absolute; left: 8vw; bottom: 4vh; font-size: .8rem; color: rgba(255, 255, 255, .55); }
+
+  /* Screen-only controls: a progress bar along the top and a pager bottom left. */
+  .deck-progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+                   background: rgba(44, 49, 67, .1); z-index: 10; }
+  .deck-progress__bar { height: 100%; width: 0; background: var(--color-galaxy-gold, #e8b900);
+                        transition: width .18s ease-out; }
+  .deck-pager { position: fixed; left: 8vw; bottom: 3.4vh; z-index: 10; display: flex;
+                align-items: center; gap: .35rem; }
+  .deck-pager button {
+    font: inherit; font-size: .95rem; line-height: 1; cursor: pointer;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    border: 1px solid rgba(44, 49, 67, .22); background: rgba(255, 255, 255, .86);
+    color: var(--color-galaxy-dark, #2c3143);
+  }
+  .deck-pager button:hover:not(:disabled) { border-color: var(--color-galaxy-gold-dark, #a06e00); }
+  .deck-pager button:disabled { opacity: .32; cursor: default; }
+  .deck-pager button:focus-visible { outline: 2px solid var(--color-galaxy-gold-dark, #a06e00); outline-offset: 2px; }
   a { color: var(--color-galaxy-primary, #454e6c); }
   .slide--title a { color: var(--color-galaxy-gold, #e8b900); }
 
@@ -82,21 +106,49 @@
 </style>
 </head>
 <body>
+<div class="deck-progress print-hide" aria-hidden="true"><div class="deck-progress__bar" id="deck-bar"></div></div>
 {{ content }}
+<nav class="deck-pager print-hide" aria-label="Slide navigation">
+  <button type="button" id="deck-prev" aria-label="Previous slide">&larr;</button>
+  <button type="button" id="deck-next" aria-label="Next slide">&rarr;</button>
+</nav>
 <script>
-  // Arrow keys and space move a slide at a time; the browser handles the rest.
   const slides = [...document.querySelectorAll(".slide")];
+  const bar = document.getElementById("deck-bar");
+  const prev = document.getElementById("deck-prev");
+  const next = document.getElementById("deck-next");
+  document.documentElement.style.setProperty("--deck-total", `"${slides.length}"`);
+
+  const current = () => {
+    const top = window.scrollY + innerHeight / 2;
+    const index = slides.findIndex((s) => s.offsetTop + s.offsetHeight > top);
+    return index === -1 ? slides.length - 1 : index;
+  };
+  const go = (delta) => {
+    const target = Math.min(Math.max(current() + delta, 0), slides.length - 1);
+    slides[target].scrollIntoView({ behavior: "smooth" });
+  };
+  const sync = () => {
+    const index = current();
+    bar.style.width = `${((index + 1) / slides.length) * 100}%`;
+    prev.disabled = index === 0;
+    next.disabled = index === slides.length - 1;
+    // deep link, so a slide can be shared or reopened where it was left
+    const id = slides[index].id;
+    if (id && location.hash !== `#${id}`) history.replaceState(null, "", `#${id}`);
+  };
+
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
   addEventListener("keydown", (event) => {
     const forward = ["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key);
     const back = ["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key);
     if (!forward && !back) return;
     event.preventDefault();
-    const top = window.scrollY + 1;
-    const index = slides.findIndex((s) => s.offsetTop >= top);
-    const current = index === -1 ? slides.length - 1 : Math.max(index - 1, 0);
-    const next = slides[Math.min(Math.max(current + (forward ? 1 : -1), 0), slides.length - 1)];
-    next?.scrollIntoView({ behavior: "smooth" });
+    go(forward ? 1 : -1);
   });
+  addEventListener("scroll", sync, { passive: true });
+  sync();
 </script>
 </body>
 </html>
