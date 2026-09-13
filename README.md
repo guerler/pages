@@ -1,6 +1,7 @@
 # pages
 
 Static pages served by GitHub Pages from `docs/`, one directory per project.
+Published at <https://guerler.github.io/pages/>.
 
     docs/<project>/        the page and its generated data
     docs/slides/<deck>/    a slide deck
@@ -13,6 +14,8 @@ Adding a project means adding those three directories; nothing else has to chang
 
 ## tool-tests
 
+<https://guerler.github.io/pages/tool-tests/>
+
 Longitudinal tool test results for tools-iuc, cross-checked against the AnVIL
 deployment's dashboard.
 
@@ -23,6 +26,8 @@ deployment's dashboard.
         --panel   docs/tool-tests/data/anvil-panel.json
 
 ## slides
+
+<https://guerler.github.io/pages/slides/tool-tests/>
 
 Decks use the `deck` layout: arrow keys move, Cmd-P prints one landscape page per
 slide. Styling comes from `docs/assets/tokens.css`, vendored from
