@@ -1474,6 +1474,23 @@ nav_id: raster
       }
     });
 
+    var anvilDetailCache = {}; // AnVIL runId -> their runs/<runId>/detail.json
+
+    function fetchAnvilDetail(runId) {
+      if (anvilDetailCache[runId]) return Promise.resolve(anvilDetailCache[runId]);
+      var base = anvilPanel.detail_base;
+      if (!base) return Promise.reject(new Error("no AnVIL detail source recorded"));
+      return fetch(base + "/" + encodeURIComponent(runId) + "/detail.json")
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          anvilDetailCache[runId] = data;
+          return data;
+        });
+    }
+
     function fetchDetail(runId) {
       if (detailCache[runId]) return Promise.resolve(detailCache[runId]);
       return fetch("data/runs/" + encodeURIComponent(runId) + "/detail.json")
@@ -1579,6 +1596,24 @@ nav_id: raster
       );
     }
 
+    var STAGING_MARKERS = ["entered an unusable state", "failed to fetch url", "input staging problem"];
+    var SERVICE_MARKERS = ["connecttimeout", "max retries exceeded",
+      "temporary failure in name resolution", "503 service", "502 bad gateway"];
+
+    // Our own runs record the cause when generated; AnVIL's detail does not, so
+    // classify their text the same way rather than leaving those blank.
+    function causeOf(test) {
+      if (test.cause) return test.cause;
+      if (test.status === "success") return null;
+      var text = (String(test.execution_problem || "") + " " +
+        [].concat(test.output_problems || []).join(" ")).toLowerCase();
+      if (STAGING_MARKERS.some(function (m) { return text.indexOf(m) !== -1; })) return "staging";
+      if (text.indexOf("could not build request") !== -1 || text.indexOf("unhandled inputs") !== -1) return "request";
+      if (text.indexOf("timed out after") !== -1) return "timeout";
+      if (SERVICE_MARKERS.some(function (m) { return text.indexOf(m) !== -1; })) return "service";
+      return "tool";
+    }
+
     var CAUSE_TITLES = {
       staging: "The test's own inputs never arrived, so this says nothing about the tool",
       service: "A remote service the tool calls did not answer",
@@ -1598,7 +1633,10 @@ nav_id: raster
         '<details class="gx-test-item">' +
         "<summary>" +
         '<span class="gx-test-item__status ' + statusClass + '">' + escapeHtml(test.status) + "</span>" +
-        (test.cause ? '<span class="gx-test-item__cause" title="' + escapeHtml(CAUSE_TITLES[test.cause] || "") + '">' + escapeHtml(test.cause) + "</span>" : "") +
+        (function () {
+          var c = causeOf(test);
+          return c ? '<span class="gx-test-item__cause" title="' + escapeHtml(CAUSE_TITLES[c] || "") + '">' + escapeHtml(c) + "</span>" : "";
+        })() +
         "<span>" + escapeHtml(version || "(unversioned)") + " &middot; test " + (test.test_index + 1) + "</span>" +
         "<span>" + escapeHtml(duration) + "</span>" +
         "</summary>" +
@@ -1888,12 +1926,50 @@ nav_id: raster
             "than the tool.</p>";
         }
       }
-      lines += '<p><a href="https://anvilproject.github.io/galaxy-tests/raster.html" ' +
-        'target="_blank" rel="noopener">Open the AnVIL dashboard</a></p>';
-      inspectorBody.innerHTML = lines;
+      inspectorBody.innerHTML = lines + "<p>Loading AnVIL test detail…</p>";
       updateNav({ mode: "tool" });
       showInspector();
       draw();
+
+      var anvilId = (anvilPanel.tool_ids || {})[shortName(toolId)];
+      if (!anvilId) {
+        inspectorBody.innerHTML = lines + anvilFallbackHtml();
+        return;
+      }
+      fetchAnvilDetail(runId).then(function (detail) {
+        var versions = (detail && detail[anvilId]) || {};
+        var versionNames = Object.keys(versions).sort(compareNatural).reverse();
+        if (!versionNames.length) {
+          inspectorBody.innerHTML = lines +
+            "<p>No test detail recorded for this tool in this AnVIL run.</p>" + anvilFallbackHtml();
+          return;
+        }
+        var affected = [], passing = [];
+        versionNames.forEach(function (v) {
+          versions[v].forEach(function (t) {
+            if (t.status === "failure" || t.status === "error") affected.push(testItemHtml(anvilId, v, t));
+            else if (t.status === "success") passing.push(testItemHtml(anvilId, v, t));
+          });
+        });
+        inspectorBody.innerHTML = lines +
+          "<h4>Affected tests on AnVIL" + (affected.length ? " (" + affected.length + ")" : "") + "</h4>" +
+          (affected.length ? affected.join("") : "<p>None in this run.</p>") +
+          (passing.length
+            ? '<details class="gx-inspector__passing"><summary>' + passing.length +
+              " passing test" + (passing.length === 1 ? "" : "s") + "</summary>" +
+              passing.join("") + "</details>"
+            : "") +
+          anvilFallbackHtml();
+      }).catch(function (err) {
+        inspectorBody.innerHTML = lines +
+          "<p>Could not load AnVIL test detail (" + escapeHtml(String(err.message || err)) + ").</p>" +
+          anvilFallbackHtml();
+      });
+    }
+
+    function anvilFallbackHtml() {
+      return '<p><a href="https://anvilproject.github.io/galaxy-tests/raster.html" ' +
+        'target="_blank" rel="noopener">Open the AnVIL dashboard</a></p>';
     }
 
     function openToolInspector(toolId) {

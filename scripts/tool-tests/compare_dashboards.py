@@ -15,14 +15,22 @@ Usage: compare_dashboards.py [--runs N] [--json OUT]
 
 import argparse
 import json
+import os
 import sys
 import urllib.request
 
 ANVIL_BASE = "https://anvilproject.github.io/galaxy-tests/raster-data"
 LOCAL_MATRIX = "docs/tool-tests/data/matrix.json"
+RASTER_DATA_DIR = "docs/tool-tests/data"
 LOCAL_MANIFEST = "docs/tool-tests/data/manifest.json"
 SENTINEL = "__SORTLIST__"
 BAD = {"fail", "error", "mixed"}
+# A test whose inputs never arrived, or whose Galaxy was unreachable, says nothing
+# about the tool. Counting those as failures made AnVIL look like a deployment
+# problem when its CI was mostly failing to fetch data.
+STAGING_MARKERS = ("entered an unusable state", "failed to fetch url", "input staging problem")
+SERVICE_MARKERS = ("connecttimeout", "max retries exceeded",
+                   "temporary failure in name resolution", "503 service", "502 bad gateway")
 # a run covering only the failing-package subset is not comparable to a full sweep
 FULL_RUN_TOOLS = 1000
 
@@ -40,6 +48,33 @@ def fetch(url: str) -> dict:
 def local(path: str) -> dict:
     with open(path) as handle:
         return json.load(handle)
+
+
+def infrastructure(case: dict) -> bool:
+    """True when the test never really exercised the tool."""
+    text = " ".join(str(case.get(k) or "") for k in ("execution_problem", "output_problems")).lower()
+    return any(m in text for m in STAGING_MARKERS) or any(m in text for m in SERVICE_MARKERS)
+
+
+def genuine_rate(detail_for_run, runs: list[str]) -> dict[str, tuple[int, int]]:
+    """tool -> (runs it genuinely failed in, runs it appeared in), ignoring
+    tests that fell over before the tool ran."""
+    failed: dict[str, int] = {}
+    seen: dict[str, int] = {}
+    for run in runs:
+        detail = detail_for_run(run)
+        if detail is None:
+            continue
+        for tool_id, versions in detail.items():
+            cases = [c for v in versions.values() for c in v]
+            if not cases:
+                continue
+            key = short(tool_id)
+            seen[key] = seen.get(key, 0) + 1
+            bad = [c for c in cases if c.get("status") in ("failure", "error")]
+            if bad and not all(infrastructure(c) for c in bad):
+                failed[key] = failed.get(key, 0) + 1
+    return {t: (failed.get(t, 0), n) for t, n in seen.items()}
 
 
 def failure_rate(matrix: dict, runs: int, only: set[str] | None = None) -> dict[str, tuple[int, int]]:
@@ -81,8 +116,19 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--panel", help="write the aligned AnVIL cell block here")
     args = parser.parse_args(argv)
 
-    anvil = failure_rate(fetch(f"{ANVIL_BASE}/matrix.json"), args.runs)
-    iuc = failure_rate(local(LOCAL_MATRIX), args.runs, only=full_runs(LOCAL_MANIFEST))
+    anvil_matrix = fetch(f"{ANVIL_BASE}/matrix.json")
+    anvil_runs = anvil_matrix["runs"][-args.runs:]
+    anvil = genuine_rate(
+        lambda r: fetch(f"{ANVIL_BASE}/runs/{r}/detail.json"), anvil_runs)
+
+    local_matrix = local(LOCAL_MATRIX)
+    usable = [r for r in local_matrix["runs"] if r in full_runs(LOCAL_MANIFEST)]
+
+    def local_detail(run):
+        path = f"{RASTER_DATA_DIR}/runs/{run}/detail.json"
+        return local(path) if os.path.exists(path) else None
+
+    iuc = genuine_rate(local_detail, usable[-args.runs:])
     shared = sorted(set(anvil) & set(iuc))
 
     rows, counts = [], {"tool": 0, "deployment": 0, "iuc-test": 0, "clean": 0}
@@ -119,14 +165,16 @@ def main(argv: list[str]) -> int:
         # AnVIL block without pulling their full matrix over the wire.
         raw = fetch(f"{ANVIL_BASE}/matrix.json")
         keep = set(shared)
-        cells = {}
+        cells, raw_ids = {}, {}
         for tool, by_run in raw["cells"].items():
             if tool == SENTINEL or short(tool) not in keep:
                 continue
             cells[short(tool)] = {run: {"status": c.get("status"), "affected": c.get("affected", 1)}
                                   for run, c in by_run.items()}
+            raw_ids[short(tool)] = tool
         with open(args.panel, "w") as handle:
-            json.dump({"runs": raw["runs"], "cells": cells}, handle, separators=(",", ":"))
+            json.dump({"runs": raw["runs"], "cells": cells, "tool_ids": raw_ids,
+                       "detail_base": f"{ANVIL_BASE}/runs"}, handle, separators=(",", ":"))
         print(f"wrote {args.panel} ({len(cells)} tools x {len(raw['runs'])} runs)")
 
     if args.overlay:
