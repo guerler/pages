@@ -52,11 +52,8 @@ nav_id: raster
       <button type="button" id="gx-raster-filter-error" class="gx-filter-toggle__option" title="Tools whose latest tested run errored">Errors</button>
       <button type="button" id="gx-raster-filter-failure" class="gx-filter-toggle__option" title="Tools whose latest tested run had a failing test">Failures</button>
       <button type="button" id="gx-raster-filter-staging" class="gx-filter-toggle__option" title="Tools whose failing tests all lost their inputs">Missing</button>
-      <button type="button" id="gx-raster-filter-anvil" class="gx-filter-toggle__option" title="Tools that fail on AnVIL but pass here; open one to see whether it is their environment or their test data">AnVIL only</button>
+      <button type="button" id="gx-raster-filter-anvil" class="gx-filter-toggle__option" title="Tools that fail on AnVIL but pass here; open one to see whether it is their environment or their test data">AnVIL</button>
     </span>
-  </span>
-  <span class="gx-filter-toggle">
-    <button type="button" id="gx-raster-anvil-panel" class="gx-filter-toggle__option" title="Draw the AnVIL deployment's most recent runs as a second block, aligned to the same tool rows">Compare AnVIL</button>
   </span>
   <span class="gx-density-toggle">
     Density:
@@ -655,11 +652,10 @@ nav_id: raster
   // { runs: [...], cells: { shortName: { runId: {status, affected} } } } for the same tools,
   // drawn as a second block aligned to the same rows. Empty until the fetch resolves.
   var anvilPanel = { runs: [], cells: {} };
-  var showAnvil = window.innerWidth >= 700;
 
   function anvilRuns() { return anvilPanel.runs.slice(-ANVIL_COLS); }
   function anvilBlockWidth() {
-    return showAnvil && anvilPanel.runs.length ? ANVIL_GAP + anvilRuns().length * CELL_W : 0;
+    return anvilPanel.runs.length ? ANVIL_GAP + anvilRuns().length * CELL_W : 0;
   }
 
   // Targeted reruns cover only a handful of tools, so the newest run says nothing
@@ -1074,7 +1070,7 @@ nav_id: raster
         // AnVIL deployment block: the same tool row, as that deployment saw it.
         // Only the tools it also runs get cells; the rest stay blank, which is
         // itself the useful signal about coverage overlap.
-        if (showAnvil && anvilPanel.runs.length) {
+        if (anvilPanel.runs.length) {
           var anvilCells = anvilPanel.cells[shortName(toolId)];
           anvilRuns().forEach(function (runId, col) {
             ctx.fillStyle = anvilCells ? cellColor(anvilCells[runId]) : "#f7f9fb";
@@ -1179,7 +1175,7 @@ nav_id: raster
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, offsetY, c.widthCss, TOP_MARGIN_H);
 
-      if (showAnvil && anvilPanel.runs.length) {
+      if (anvilPanel.runs.length) {
         var headX = LABEL_WIDTH + c.visibleRuns.length * CELL_W + RIGHT_MARGIN_W + ANVIL_GAP;
         ctx.save();
         ctx.font = "9px 'Atkinson Hyperlegible', sans-serif";
@@ -1360,7 +1356,7 @@ nav_id: raster
 
       if (x >= gridRight) {
         var anvilStart = anvilStartX();
-        if (showAnvil && anvilPanel.runs.length && x >= anvilStart) {
+        if (anvilPanel.runs.length && x >= anvilStart) {
           var anvilCol = Math.floor((x - anvilStart) / CELL_W);
           var shown = anvilRuns();
           if (anvilCol < 0 || anvilCol >= shown.length) return null;
@@ -2152,14 +2148,6 @@ nav_id: raster
       syncFilterButtons();
       draw();
     });
-    var anvilPanelBtn = document.getElementById("gx-raster-anvil-panel");
-    anvilPanelBtn.classList.toggle("is-active", showAnvil);
-    anvilPanelBtn.addEventListener("click", function () {
-      showAnvil = !showAnvil;
-      anvilPanelBtn.classList.toggle("is-active", showAnvil);
-      draw();
-    });
-
     draw();
     openFromHash();
   }
