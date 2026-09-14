@@ -264,5 +264,19 @@
     "tests_staging": 89,
     "tools_staging_only": 22,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34772809772"
+  },
+  {
+    "run_id": "iuc-async-260914-050903",
+    "timestamp": "2026-09-14T05:09:03",
+    "duration_seconds": 15571.75631,
+    "tools_attempted": 1993,
+    "tests_total": 6697,
+    "tests_passed": 6541,
+    "tests_failed": 145,
+    "tests_errored": 11,
+    "tests_skipped": 0,
+    "tests_staging": 9,
+    "tools_staging_only": 6,
+    "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34808560168"
   }
 ]

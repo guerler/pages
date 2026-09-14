@@ -295,7 +295,7 @@
   "repeatmasker_wrapper": {
    "verdict": "tool",
    "anvil": "5/5",
-   "iuc": "4/5"
+   "iuc": "3/5"
   },
   "repeatmodeler": {
    "verdict": "anvil-only",
@@ -305,7 +305,7 @@
   "rna_starsolo": {
    "verdict": "anvil-only",
    "anvil": "5/5",
-   "iuc": "2/5"
+   "iuc": "1/5"
   },
   "rseqc_RPKM_saturation": {
    "verdict": "anvil-only",
@@ -395,7 +395,7 @@
   "spades": {
    "verdict": "tool",
    "anvil": "5/5",
-   "iuc": "4/5"
+   "iuc": "3/5"
   },
   "teloscope": {
    "verdict": "anvil-only",
