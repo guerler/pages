@@ -36,17 +36,42 @@ description: What the async validation work fixed in tools-iuc, what we built to
 
 <section class="slide" id="next-steps">
   <h2>Plan: move the ecosystem to async</h2>
-  <table class="data steps">
-    <tr><th>Step</th><th></th><th>Where it stands</th></tr>
-    <tr><td class="step__n">1</td><td><strong>Async by default.</strong> The typed path is what
-      Galaxy uses to run a tool.</td><td class="step__state step__state--done">merged for 26.1</td></tr>
-    <tr><td class="step__n">2</td><td><strong>tools-iuc to green.</strong> Batched PRs of related
-      packages, tracked run over run on the dashboard.</td><td class="step__state">115 failures left</td></tr>
-    <tr><td class="step__n">3</td><td><strong>usegalaxy.eu custom repositories.</strong> Same scripts,
-      same dashboard; their repositories are structured like tools-iuc.</td><td class="step__state">next</td></tr>
-    <tr><td class="step__n">4</td><td><strong>Retire the legacy path.</strong> Once nothing depends
-      on it.</td><td class="step__state">after 2 and 3</td></tr>
-  </table>
+  <ol class="steps">
+    <li class="step">
+      <span class="step__n">1</span>
+      <span><strong>Async by default.</strong> The typed path is what Galaxy uses to run a tool.</span>
+      <span class="step__state step__state--done">merged for 26.1</span>
+    </li>
+    <li class="step">
+      <span class="step__n">2</span>
+      <span><strong>Planemo submits typed.</strong> A flag so tool tests reach
+        <code>/api/jobs</code> without pinning a personal branch.</span>
+      <span class="step__state">branch ready</span>
+    </li>
+    <li class="step">
+      <span class="step__n">3</span>
+      <span><strong>tools-iuc to green.</strong> Batched PRs of related packages, tracked run over
+        run on the dashboard.</span>
+      <span class="step__state">115 failures left</span>
+    </li>
+    <li class="step">
+      <span class="step__n">4</span>
+      <span><strong>tools-iuc CI runs typed.</strong> The suite's own CI switches its default, so
+        new tools are written against it.</span>
+      <span class="step__state">needs 2 and 3</span>
+    </li>
+    <li class="step">
+      <span class="step__n">5</span>
+      <span><strong>usegalaxy.eu repositories.</strong> Same scripts, same dashboard; their
+        repositories are structured like tools-iuc.</span>
+      <span class="step__state">next</span>
+    </li>
+    <li class="step">
+      <span class="step__n">6</span>
+      <span><strong>Retire the legacy path.</strong> Once nothing depends on it.</span>
+      <span class="step__state">after 4 and 5</span>
+    </li>
+  </ol>
   <p class="note"><a href="https://guerler.github.io/pages/tool-tests/">guerler.github.io/pages/tool-tests</a></p>
   <span class="slide__num"></span>
 </section>
