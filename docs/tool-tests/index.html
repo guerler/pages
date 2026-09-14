@@ -6,27 +6,19 @@ nav_id: raster
 ---
 
 <p class="gx-prose">
-  Each row is a tool; each column is one full-suite run of the tools-iuc test suite.
+  Each row is a tool and each column is one full
+  <a href="https://github.com/galaxyproject/tools-iuc">tools-iuc</a> test-suite run using the
+  typed tool-request path.
   <button type="button" class="gx-more-toggle" id="gx-raster-more-toggle" aria-expanded="false">More</button>
 </p>
 <p class="gx-prose gx-more-text" id="gx-raster-more-text" hidden>
-  Longitudinal tool-test results for
-  <a href="https://github.com/galaxyproject/tools-iuc">tools-iuc</a>, collected from
-  GitHub Actions artifacts. Every column is a full run of the suite against a Galaxy
-  using the typed tool-request path. Columns are historical runs at irregular
-  intervals, not a nightly cadence, so the gap between two columns carries no meaning
-  and a tool can change state for reasons that landed anywhere in between. Run times are
-  UTC, taken from the GitHub Actions run that produced the results; "CI run" on a cell
-  opens that run.
-  Color shows result type and intensity shows the fraction of
-  tests affected. Hover a cell for the exact numbers; click it to see that
-  tool's failing tests and their tracebacks. Tools appear the first time
-  they're actually tested, so the row list grows over time rather than
-  starting from a fixed list. The bar above each run column shows how many
-  tools it affected and how much of the toolset it actually covered (click
-  it for a run-wide breakdown); the bar to the right of each tool shows how
-  often that tool has had trouble over the runs currently shown (click it,
-  or the tool's name, for that tool's history).
+  Columns are historical GitHub Actions runs at irregular intervals, so the gaps between
+  them have no meaning. Run times are UTC. Color shows the result type and intensity shows
+  the fraction of tests affected. Hover over a cell for exact numbers and click it for
+  failing tests, tracebacks, and the CI run. Tools appear when they are first tested, so
+  the row list grows over time. The bar above each column shows run coverage and affected
+  tools, while the bar beside each row shows how often that tool had failures across the
+  runs shown. Click either for details.
 </p>
 
 <div class="gx-legend2">
