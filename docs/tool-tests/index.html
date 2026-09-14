@@ -27,7 +27,6 @@ nav_id: raster
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#61ad90"></span>Pass</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d87e55"></span>Failure</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#630177"></span>Error</span>
-    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#150276"></span>Both</span>
     <span class="gx-legend2__item" title="Failed because the test's own inputs never arrived"><span class="gx-swatch2" style="background:#e0a800"></span>Missing</span>
     <span class="gx-legend2__item"><span class="gx-swatch2 gx-swatch2--notrun"></span>Not run</span>
   </span>
@@ -557,7 +556,6 @@ nav_id: raster
     not_run: "#eef2f6",
     fail: [216, 126, 85],   // #d87e55
     error: [99, 1, 119],    // #630177
-    mixed: [21, 2, 118],    // #150276
     missing: [224, 168, 0]  // #e0a800 - failed because its inputs never arrived
   };
   var STRIPE_COLOR = "rgba(37, 83, 123, 0.06)";
@@ -584,7 +582,7 @@ nav_id: raster
     if (cell.status === "pass") return COLORS.pass;
     // Still a failure, but one the tool never got a chance to cause.
     if (cell.staging_only) return shade(COLORS.missing, intensityFactor(cell.affected));
-    var base = COLORS[cell.status === "fail" ? "fail" : cell.status === "error" ? "error" : "mixed"];
+    var base = COLORS[classifyCell(cell) === "fail" ? "fail" : "error"];
     return shade(base, intensityFactor(cell.affected));
   }
 
@@ -643,23 +641,15 @@ nav_id: raster
     );
   }
 
+  // A run is an Error if anything errored, otherwise a Failure if anything
+  // failed. AnVIL still publishes a "mixed" status, which lands on Error here.
   function classifyCell(cell) {
     if (!cell) return "not_run";
     if (cell.status === "pass") return "pass";
     if (cell.status === "fail") return "fail";
-    if (cell.status === "error") return "error";
-    return "mixed";
+    return "error";
   }
 
-  // Row-filter predicate for the Errors/Failures/Errors or Failures pill -
-  // based on each tool's latest known cell (not whatever window happens to
-  // be paged into view, and not "ever, across any visible run"), so a
-  // tool's category reflects its current status rather than accumulating
-  // every kind of trouble it's ever had. Errors and Failures are each an
-  // exact match (a "mixed" cell - both a failure and an error in the same
-  // run - is neither) so the three pills actually partition the unhealthy
-  // tools instead of overlapping; "Errors or Failures" is the union of
-  // all three problem classifications, mixed included.
   // tool -> { verdict, anvil, iuc } for the tools the AnVIL dashboard also runs
   var anvilOverlay = {};
   // { runs: [...], cells: { shortName: { runId: {status, affected} } } } for the same tools,
@@ -683,15 +673,16 @@ nav_id: raster
     return null;
   }
 
-  // What a tool's latest tested run makes it, as the result pills name it. A
-  // "mixed" run held both a failure and an error, so it answers to either pill.
+  // Which pills a tool answers to, from its latest tested run. A run holding
+  // both a failure and an error answers to both, even though it paints as one.
   function resultCategories(toolId, matrix) {
     var cell = latestCell(toolId, matrix);
     if (!cell || cell.status === "pass") return [];
     if (cell.staging_only) return ["missing"];
-    if (cell.status === "fail") return ["failure"];
-    if (cell.status === "error") return ["error"];
-    return ["failure", "error"];
+    var out = [];
+    if (cell.tests_failed) out.push("failure");
+    if (cell.tests_errored) out.push("error");
+    return out.length ? out : [cell.status === "fail" ? "failure" : "error"];
   }
 
   function failsOnAnvilOnly(toolId) {
@@ -715,12 +706,12 @@ nav_id: raster
   // weighted, not test-weighted: one heavily-tested tool shouldn't outweigh
   // a small infrastructure incident touching many tools a little.
   function computeTopStats(runId, tools, matrix) {
-    var counts = { pass: 0, fail: 0, error: 0, mixed: 0, not_run: 0 };
+    var counts = { pass: 0, fail: 0, error: 0, not_run: 0 };
     tools.forEach(function (toolId) {
       var cell = (matrix.cells[toolId] || {})[runId];
       counts[classifyCell(cell)] += 1;
     });
-    counts.affected = counts.fail + counts.error + counts.mixed;
+    counts.affected = counts.fail + counts.error;
     return counts;
   }
 
@@ -737,7 +728,7 @@ nav_id: raster
   // right tool-recurrence bar. Not-run runs are skipped when computing
   // streaks - they're neither healthy nor unhealthy occurrences.
   function computeRightStats(toolId, visibleRuns, matrix) {
-    var counts = { pass: 0, fail: 0, error: 0, mixed: 0, not_run: 0 };
+    var counts = { pass: 0, fail: 0, error: 0, not_run: 0 };
     var affectedFractions = [];
     var attemptedInOrder = [];
     visibleRuns.forEach(function (runId, idx) {
@@ -808,7 +799,7 @@ nav_id: raster
       "Tools tested: " + (run.tools_attempted || 0),
       testCountsLine(run),
       "Summary: " + stats.affected + " of " + (stats.affected + stats.pass) + " attempted tools affected " +
-        "(" + stats.fail + " failure-only, " + stats.error + " error-only, " + stats.mixed + " mixed)",
+        "(" + stats.fail + " failing, " + stats.error + " erroring)",
       "Coverage: " + coverage,
       run.duration_seconds ? "Duration: " + Math.round(run.duration_seconds / 60) + " min" : null,
       "Click to open the full report."
@@ -823,8 +814,7 @@ nav_id: raster
       "Unhealthy attempted runs: " + stats.unhealthy + "/" + stats.attempted,
       "Current unhealthy streak: " + stats.currentStreak,
       "Longest streak in this window: " + stats.longestStreak,
-      "Runs - failures only: " + stats.counts.fail + ", errors only: " + stats.counts.error +
-        ", mixed: " + stats.counts.mixed,
+      "Runs - failing: " + stats.counts.fail + ", erroring: " + stats.counts.error,
       "Median affected: " + pct(stats.medianAffected) + ", max affected: " + pct(stats.maxAffected)
     ];
     return lines.join("\n");
@@ -1099,7 +1089,7 @@ nav_id: raster
         var barW = RIGHT_MARGIN_W - GRID_MARGIN_GAP - 3;
         var total = visibleRuns.length;
         var cursor = barX;
-        ["fail", "error", "mixed", "pass", "not_run"].forEach(function (cls) {
+        ["fail", "error", "pass", "not_run"].forEach(function (cls) {
           var segW = total ? Math.round((rightStats.counts[cls] / total) * barW) : 0;
           if (!segW) return;
           ctx.fillStyle = cls === "pass" ? COLORS.pass : cls === "not_run" ? COLORS.not_run : rgbStr(COLORS[cls]);
@@ -1217,7 +1207,7 @@ nav_id: raster
 
         var barH = c.maxAffected ? Math.round((stats.affected / c.maxAffected) * BAR_MAX_H) : 0;
         var segY = barsTop + BAR_MAX_H - barH;
-        ["fail", "error", "mixed"].forEach(function (cls) {
+        ["fail", "error"].forEach(function (cls) {
           var segH = c.maxAffected ? Math.round((stats[cls] / c.maxAffected) * BAR_MAX_H) : 0;
           if (!segH) return;
           ctx.fillStyle = rgbStr(COLORS[cls]);
@@ -1715,7 +1705,7 @@ nav_id: raster
     function cellBadgeLabel(cell) {
       var cls = classifyCell(cell);
       var text = cls === "fail" ? "failures only" : cls === "error" ? "errors only" :
-        cls === "mixed" ? "both" : cls === "pass" ? "pass" : "not run";
+        cls === "pass" ? "pass" : "not run";
       return cell ? text + " · " + Math.round(cell.affected * 100) + "%" : text;
     }
 
@@ -1731,7 +1721,7 @@ nav_id: raster
         "Tools tested: " + (run.tools_attempted || 0) + "<br>" +
         testCountsLine(run) + "<br>" +
         "Summary: " + stats.affected + " of " + (stats.affected + stats.pass) + " attempted tools affected (" +
-        stats.fail + " failure-only, " + stats.error + " error-only, " + stats.mixed + " mixed)<br>" +
+        stats.fail + " failing, " + stats.error + " erroring)<br>" +
         "Coverage: " + escapeHtml(coverage) +
         "</div>";
       updateNav({ mode: "run", runId: runId });
@@ -1753,7 +1743,7 @@ nav_id: raster
       continuingProblems.sort();
       recovered.sort();
 
-      var SUBGROUP_LABELS = { fail: "Failures only", error: "Errors only", mixed: "Both" };
+      var SUBGROUP_LABELS = { fail: "Failures", error: "Errors" };
 
       // Secondary grouping by failure type within each section, so
       // e.g. "which of these are error-only" doesn't require scanning the
@@ -1762,12 +1752,12 @@ nav_id: raster
       // (always "pass" now) it's what they recovered from instead.
       function section(title, list, classifyFn) {
         if (!list.length) return "<h4>" + escapeHtml(title) + " (0)</h4><p>None.</p>";
-        var buckets = { fail: [], error: [], mixed: [] };
+        var buckets = { fail: [], error: [] };
         list.forEach(function (t) {
           var cls = classifyFn(t);
           if (buckets[cls]) buckets[cls].push(t);
         });
-        var subgroups = ["fail", "error", "mixed"].map(function (cls) {
+        var subgroups = ["fail", "error"].map(function (cls) {
           if (!buckets[cls].length) return "";
           return (
             '<div class="gx-subgroup"><h5>' + escapeHtml(SUBGROUP_LABELS[cls]) + " (" + buckets[cls].length + ")</h5>" +

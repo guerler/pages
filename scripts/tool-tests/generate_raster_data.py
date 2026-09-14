@@ -165,9 +165,9 @@ def tool_aggregates(tests: list[dict]) -> dict[str, dict]:
             affected = c["status"] in ("failure", "error")
             versions_seen[version] = versions_seen.get(version, False) or affected
 
-        if n_error and n_fail:
-            status = "mixed"
-        elif n_error:
+        # An errored test outranks a failing one; the per-test counts below keep
+        # the detail a single status cannot carry.
+        if n_error:
             status = "error"
         elif n_fail:
             status = "fail"
