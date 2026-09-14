@@ -56,19 +56,10 @@
   table.data { border-collapse: collapse; font-size: .95rem; font-variant-numeric: tabular-nums; }
   table.data th, table.data td { text-align: left; padding: .35rem .9rem .35rem 0; border-bottom: 1px solid rgba(44, 49, 67, .12); }
   table.data th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(44, 49, 67, .6); font-weight: 700; }
-  /* A vertical flow: numbered nodes, each pointing at the one below it. */
-  ol.steps { list-style: none; margin: .3rem 0 0; padding: 0;
-             display: flex; flex-direction: column; gap: 1.4rem; }
-  .step { display: grid; grid-template-columns: 2rem 1fr auto; gap: .9rem;
-          align-items: baseline; position: relative;
-          font-size: clamp(.95rem, 1.5vw, 1.12rem); line-height: 1.5; }
-  .step:not(:last-child)::before {
-    content: "\2193"; position: absolute; left: .42rem; bottom: -1.25rem;
-    font-size: 1.05rem; line-height: 1; color: rgba(44, 49, 67, .32);
-  }
-  .step__n { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums;
-             color: var(--color-galaxy-gold-dark, #a06e00); }
-  .step__state { white-space: nowrap; color: rgba(44, 49, 67, .6); font-size: .88rem; }
+  table.steps td { vertical-align: baseline; padding-top: .5rem; padding-bottom: .5rem; }
+  .step__n { font-size: 1.5rem; font-weight: 700; color: var(--color-galaxy-gold-dark, #a06e00);
+             font-variant-numeric: tabular-nums; padding-right: 1.1rem; }
+  .step__state { white-space: nowrap; color: rgba(44, 49, 67, .62); font-size: .9rem; }
   .step__state--done { color: #2f6b4f; font-weight: 600; }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
          background: rgba(44, 49, 67, .07); padding: .1em .35em; border-radius: 3px; }
