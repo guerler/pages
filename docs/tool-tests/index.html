@@ -58,8 +58,8 @@ nav_id: raster
   <span class="gx-density-toggle">
     Density:
     <span class="gx-density-toggle__group">
-      <button type="button" id="gx-density-comfortable" class="gx-density-toggle__option is-active">Comfortable</button>
-      <button type="button" id="gx-density-compact" class="gx-density-toggle__option">Overview</button>
+      <button type="button" id="gx-density-comfortable" class="gx-density-toggle__option is-active">Default</button>
+      <button type="button" id="gx-density-compact" class="gx-density-toggle__option">High</button>
     </span>
   </span>
 </div>
@@ -1049,7 +1049,7 @@ nav_id: raster
           ctx.fillText(label, LABEL_PAD_LEFT, y + CELL_H / 2);
         } else if (firstRowLetters[row]) {
           // Alphabet landmark for the otherwise-blank label column in
-          // overview mode - the exact name still appears on hover/keyboard
+          // high density - the exact name still appears on hover/keyboard
           // focus via the floating label.
           ctx.fillStyle = "#58585a";
           ctx.fillText(firstRowLetters[row], LABEL_PAD_LEFT, y + CELL_H / 2);
@@ -1300,8 +1300,8 @@ nav_id: raster
         );
       }
 
-      // Floating tool-name label: always on in overview mode (rows carry
-      // no visible name there), and in comfortable mode too when the
+      // Floating tool-name label: always on at high density (rows carry
+      // no visible name there), and at default density too when the
       // static label is actually ellipsis-truncated and the trigger is
       // keyboard focus rather than mouse hover - mouse hover already
       // exposes the full name via the DOM tooltip.
