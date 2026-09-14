@@ -25,10 +25,10 @@ nav_id: raster
   <span class="gx-legend2__group">
     <span class="gx-legend2__label">Result</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#61ad90"></span>Pass</span>
-    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d87e55"></span>Failure</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#630177"></span>Error</span>
+    <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d87e55"></span>Failure</span>
     <span class="gx-legend2__item" title="Failed because the test's own inputs never arrived"><span class="gx-swatch2" style="background:#e0a800"></span>Missing</span>
-    <span class="gx-legend2__item"><span class="gx-swatch2 gx-swatch2--notrun"></span>Not run</span>
+    <span class="gx-legend2__item" title="The tool was not tested in this run"><span class="gx-swatch2 gx-swatch2--notrun"></span>Unavailable</span>
   </span>
   <span class="gx-legend2__group">
     <span class="gx-legend2__label">Tests affected</span>
@@ -618,7 +618,7 @@ nav_id: raster
     var run = manifestByRun[runId];
     var when = run ? fmtDate(run.timestamp) : runId;
     if (!cell) {
-      return name + "\n" + when + "\nNot run this cycle.";
+      return name + "\n" + when + "\nUnavailable: not tested in this run.";
     }
     if (cell.status === "pass") {
       return (
@@ -1527,7 +1527,7 @@ nav_id: raster
 
     function inspectorSummaryLine(toolId, runId) {
       var cell = (matrix.cells[toolId] || {})[runId];
-      if (!cell) return "Not run in this cycle.";
+      if (!cell) return "Unavailable: not tested in this run.";
       if (cell.status === "pass") {
         return "All " + cell.tests_attempted + " tests passed across " + cell.versions_total +
           " version" + (cell.versions_total === 1 ? "" : "s") + ".";
@@ -1700,8 +1700,8 @@ nav_id: raster
 
     function cellBadgeLabel(cell) {
       var cls = classifyCell(cell);
-      var text = cls === "fail" ? "failures only" : cls === "error" ? "errors only" :
-        cls === "pass" ? "pass" : "not run";
+      var text = cls === "fail" ? "failures" : cls === "error" ? "errors" :
+        cls === "pass" ? "pass" : "unavailable";
       return cell ? text + " · " + Math.round(cell.affected * 100) + "%" : text;
     }
 
@@ -1916,7 +1916,7 @@ nav_id: raster
         escapeHtml(runId) +
         '<br><span class="gx-anvil-note">AnVIL deployment</span>' +
         "</div>";
-      var status = cell && cell.status ? cell.status : "not run";
+      var status = cell && cell.status ? cell.status : "unavailable";
       var lines =
         "<p>On the AnVIL deployment this tool was <strong>" + escapeHtml(status) +
         "</strong> in run " + escapeHtml(runId) + ".</p>";
