@@ -43,6 +43,36 @@ PAGES_BASE = os.environ.get("RASTER_PAGES_BASE", "https://guerler.github.io/page
 ATTEMPTED_STATUSES = {"success", "failure", "error"}
 RUN_ID_TIMESTAMP_RE = re.compile(r"-(\d{2})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})$")
 
+# A failing test says nothing about the tool when its inputs never arrived. Suites
+# that fetch test data from a URL fail in bulk whenever that host has a bad hour, so
+# each non-passing test records why, and the raster can keep those apart from tool
+# trouble. `staging` is our test data; `service` is a remote the tool itself calls.
+STAGING_MARKERS = ("entered an unusable state", "failed to fetch url")
+SERVICE_MARKERS = (
+    "connecttimeout",
+    "max retries exceeded",
+    "temporary failure in name resolution",
+    "503 service",
+    "502 bad gateway",
+)
+REQUEST_MARKERS = ("could not build request", "unhandled inputs")
+
+
+def failure_cause(case: dict) -> str:
+    """Why one non-passing test did not pass: staging, service, request, timeout, tool."""
+    text = " ".join(
+        str(case.get(k) or "") for k in ("execution_problem", "output_problems")
+    ).lower()
+    if any(m in text for m in STAGING_MARKERS):
+        return "staging"
+    if any(m in text for m in REQUEST_MARKERS):
+        return "request"
+    if "timed out after" in text:
+        return "timeout"
+    if any(m in text for m in SERVICE_MARKERS):
+        return "service"
+    return "tool"
+
 
 def all_run_dirs() -> list[str]:
     """Run ids oldest first. Order by parsed timestamp so runs stay chronological
@@ -153,8 +183,17 @@ def tool_aggregates(tests: list[dict]) -> dict[str, dict]:
         else:
             status = "pass"
 
+        causes: dict[str, int] = {}
+        for c in cases:
+            if c["status"] in ("failure", "error"):
+                cause = failure_cause(c)
+                causes[cause] = causes.get(cause, 0) + 1
+
         aggregates[tool_id] = {
             "status": status,
+            "causes": causes,
+            # every failing test here is an input that never arrived
+            "staging_only": bool(causes) and set(causes) == {"staging"},
             "affected": round((n_fail + n_error) / attempted, 4),
             "versions_affected": sum(1 for v in versions_seen.values() if v),
             "versions_total": len(versions_seen),
@@ -178,6 +217,8 @@ def build_manifest_entry(run_id: str, tests: list[dict], aggregates: dict[str, d
         "tests_failed": sum(a["tests_failed"] for a in aggregates.values()),
         "tests_errored": sum(a["tests_errored"] for a in aggregates.values()),
         "tests_skipped": sum(a["tests_skipped"] for a in aggregates.values()),
+        "tests_staging": sum(a["causes"].get("staging", 0) for a in aggregates.values()),
+        "tools_staging_only": sum(1 for a in aggregates.values() if a["staging_only"]),
         "results_html_url": run_report_url(run_id),
     }
 
@@ -198,6 +239,7 @@ def build_detail(tests: list[dict]) -> dict:
                 "time_seconds": d.get("time_seconds"),
                 "execution_problem": d.get("execution_problem"),
                 "output_problems": d.get("output_problems"),
+                "cause": failure_cause(d) if d.get("status") in ("failure", "error") else None,
             }
         )
     return {tool_id: dict(versions) for tool_id, versions in tools.items()}

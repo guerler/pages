@@ -458,6 +458,11 @@ nav_id: raster
   .gx-test-item__status--fail { color: #b91c1c; }
   .gx-test-item__status--error { color: #630177; }
   .gx-test-item__status--pass { color: #2f6b4f; }
+  .gx-test-item__cause {
+    font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+    padding: .1em .45em; border-radius: 3px; align-self: center;
+    background: rgba(44, 49, 67, .07); color: rgba(44, 49, 67, .62);
+  }
   .gx-inspector__passing summary {
     cursor: pointer;
     font-size: 0.85rem;
@@ -1559,6 +1564,14 @@ nav_id: raster
       );
     }
 
+    var CAUSE_TITLES = {
+      staging: "The test's own inputs never arrived, so this says nothing about the tool",
+      service: "A remote service the tool calls did not answer",
+      request: "The typed request could not be built from the test's parameters",
+      timeout: "The test ran past the time limit",
+      tool: "The tool or one of its dependencies failed"
+    };
+
     function testItemHtml(toolId, version, test) {
       var statusClass = test.status === "error" ? "gx-test-item__status--error" :
         test.status === "success" ? "gx-test-item__status--pass" : "gx-test-item__status--fail";
@@ -1570,6 +1583,7 @@ nav_id: raster
         '<details class="gx-test-item">' +
         "<summary>" +
         '<span class="gx-test-item__status ' + statusClass + '">' + escapeHtml(test.status) + "</span>" +
+        (test.cause ? '<span class="gx-test-item__cause" title="' + escapeHtml(CAUSE_TITLES[test.cause] || "") + '">' + escapeHtml(test.cause) + "</span>" : "") +
         "<span>" + escapeHtml(version || "(unversioned)") + " &middot; test " + (test.test_index + 1) + "</span>" +
         "<span>" + escapeHtml(duration) + "</span>" +
         "</summary>" +

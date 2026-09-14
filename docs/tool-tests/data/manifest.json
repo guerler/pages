@@ -9,6 +9,8 @@
     "tests_failed": 269,
     "tests_errored": 18,
     "tests_skipped": 0,
+    "tests_staging": 9,
+    "tools_staging_only": 4,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/28658950060"
   },
   {
@@ -21,6 +23,8 @@
     "tests_failed": 330,
     "tests_errored": 9,
     "tests_skipped": 0,
+    "tests_staging": 4,
+    "tools_staging_only": 2,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/28927029485"
   },
   {
@@ -33,6 +37,8 @@
     "tests_failed": 308,
     "tests_errored": 7,
     "tests_skipped": 0,
+    "tests_staging": 4,
+    "tools_staging_only": 2,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/28995967604"
   },
   {
@@ -45,6 +51,8 @@
     "tests_failed": 303,
     "tests_errored": 9,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/30074484048"
   },
   {
@@ -57,6 +65,8 @@
     "tests_failed": 146,
     "tests_errored": 1,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/30288210679"
   },
   {
@@ -69,6 +79,8 @@
     "tests_failed": 171,
     "tests_errored": 51,
     "tests_skipped": 0,
+    "tests_staging": 19,
+    "tools_staging_only": 5,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/30342917720"
   },
   {
@@ -81,6 +93,8 @@
     "tests_failed": 155,
     "tests_errored": 83,
     "tests_skipped": 0,
+    "tests_staging": 4,
+    "tools_staging_only": 2,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/30512113404"
   },
   {
@@ -93,6 +107,8 @@
     "tests_failed": 156,
     "tests_errored": 80,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/30685999746"
   },
   {
@@ -105,6 +121,8 @@
     "tests_failed": 149,
     "tests_errored": 93,
     "tests_skipped": 0,
+    "tests_staging": 68,
+    "tools_staging_only": 14,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/31090071942"
   },
   {
@@ -117,6 +135,8 @@
     "tests_failed": 179,
     "tests_errored": 25,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/31259345831"
   },
   {
@@ -129,6 +149,8 @@
     "tests_failed": 162,
     "tests_errored": 19,
     "tests_skipped": 0,
+    "tests_staging": 4,
+    "tools_staging_only": 3,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/32243588662"
   },
   {
@@ -141,6 +163,8 @@
     "tests_failed": 176,
     "tests_errored": 6,
     "tests_skipped": 0,
+    "tests_staging": 4,
+    "tools_staging_only": 2,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/32967763875"
   },
   {
@@ -153,6 +177,8 @@
     "tests_failed": 153,
     "tests_errored": 2,
     "tests_skipped": 0,
+    "tests_staging": 1,
+    "tools_staging_only": 1,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/33791633481"
   },
   {
@@ -165,6 +191,8 @@
     "tests_failed": 137,
     "tests_errored": 2,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34707986689"
   },
   {
@@ -177,6 +205,8 @@
     "tests_failed": 42,
     "tests_errored": 0,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34724777920"
   },
   {
@@ -189,6 +219,8 @@
     "tests_failed": 25,
     "tests_errored": 0,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34729644852"
   },
   {
@@ -201,6 +233,8 @@
     "tests_failed": 3,
     "tests_errored": 0,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34736744738"
   },
   {
@@ -213,6 +247,22 @@
     "tests_failed": 0,
     "tests_errored": 0,
     "tests_skipped": 0,
+    "tests_staging": 0,
+    "tools_staging_only": 0,
     "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34741216568"
+  },
+  {
+    "run_id": "iuc-async-260913-175036",
+    "timestamp": "2026-09-13T17:50:36",
+    "duration_seconds": 17025.220802,
+    "tools_attempted": 1993,
+    "tests_total": 6697,
+    "tests_passed": 6471,
+    "tests_failed": 135,
+    "tests_errored": 91,
+    "tests_skipped": 0,
+    "tests_staging": 89,
+    "tools_staging_only": 22,
+    "results_html_url": "https://github.com/guerler/tools-iuc/actions/runs/34772809772"
   }
 ]
