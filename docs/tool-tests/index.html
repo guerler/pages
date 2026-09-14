@@ -611,7 +611,7 @@ nav_id: raster
   }
 
   // "8/15" - for the narrow top-margin axis labels specifically; full
-  // timestamp stays available on hover (v2_raster_ui.md round 2 sec 1).
+  // timestamp stays available on hover.
   function fmtAxisDate(iso) {
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
     if (!m) return "?";
@@ -696,7 +696,7 @@ nav_id: raster
 
   function failsOnAnvilOnly(toolId) {
     var cross = anvilOverlay[shortName(toolId)];
-    return !!cross && cross.verdict === "deployment";
+    return !!cross && cross.verdict === "anvil-only";
   }
 
   // Result pills are independent and OR together; none selected means no result
@@ -710,7 +710,7 @@ nav_id: raster
 
   // Per-run counts across ALL tools, not just the currently filtered rows
   // (the "Errors & failures only" toggle only affects which rows draw() and
-  // hitTest() see - v2_raster.md's top run-impact bar and every history/
+  // hitTest() see - top run-impact bar and every history/
   // run-wide inspector view still reason about the whole toolset). Tool-
   // weighted, not test-weighted: one heavily-tested tool shouldn't outweigh
   // a small infrastructure incident touching many tools a little.
@@ -733,7 +733,7 @@ nav_id: raster
   }
 
   // Per-tool counts + streaks across the currently visible run window only
-  // (per v2_raster.md: "over the visible time window"), used for the
+  //, used for the
   // right tool-recurrence bar. Not-run runs are skipped when computing
   // streaks - they're neither healthy nor unhealthy occurrences.
   function computeRightStats(toolId, visibleRuns, matrix) {
@@ -839,7 +839,7 @@ nav_id: raster
   // Cheap history classification from matrix.json alone (no detail.json
   // needed): was this tool already broken in its last attempted run before
   // this one? "Intermittent" (has it flip-flopped repeatedly) is tabled
-  // for a later iteration along with signature work (v2_raster_plan.md).
+  // for a later iteration along with signature work.
   function naturalTokens(s) {
     return (s || "").match(/\d+|\D+/g) || [];
   }
@@ -966,6 +966,11 @@ nav_id: raster
       ANVIL_COLS = narrow ? 4 : 12;
     }
 
+    // draw(), hitTest() and drawOverlay() all need these; deriving them twice is
+    // how a click starts landing on a different cell than the one drawn.
+    function gridRightX() { return LABEL_WIDTH + nCols * CELL_W; }
+    function anvilStartX() { return gridRightX() + RIGHT_MARGIN_W + ANVIL_GAP; }
+
     function computeCols() {
       var available = container.clientWidth - LABEL_WIDTH - RIGHT_MARGIN_W - anvilBlockWidth();
       return Math.max(1, Math.min(runs.length, Math.floor(available / CELL_W)));
@@ -1007,12 +1012,12 @@ nav_id: raster
       ctx.font = (density === "readable" ? READABLE_FONT_PX : 9) + "px 'Atkinson Hyperlegible', sans-serif";
       ctx.textBaseline = "middle";
 
-      var gridRight = LABEL_WIDTH + nCols * CELL_W;
+      var gridRight = gridRightX();
+      var anvilX = anvilStartX();
 
       // Top-margin stats: one stacked tool-count bar + coverage strip per
       // visible run column, scaled linearly against the tallest bar in the
-      // visible window - percentile/sqrt scaling is tabled
-      // (v2_raster_plan.md sec 7). Tool-weighted (v2_raster.md). The actual
+      // visible window. Tool-weighted. The actual
       // drawing happens in repaintHeader() below, which also gets reused
       // for cheap hover-driven repaints (refreshCrosshair).
       var topStatsByRun = {};
@@ -1059,7 +1064,7 @@ nav_id: raster
         } else if (firstRowLetters[row]) {
           // Alphabet landmark for the otherwise-blank label column in
           // overview mode - the exact name still appears on hover/keyboard
-          // focus via the floating label (v2_raster_ui.md round 3 sec 1).
+          // focus via the floating label.
           ctx.fillStyle = "#58585a";
           ctx.fillText(firstRowLetters[row], LABEL_PAD_LEFT, y + CELL_H / 2);
         }
@@ -1080,7 +1085,6 @@ nav_id: raster
         // Only the tools it also runs get cells; the rest stay blank, which is
         // itself the useful signal about coverage overlap.
         if (showAnvil && anvilPanel.runs.length) {
-          var anvilX = LABEL_WIDTH + nCols * CELL_W + RIGHT_MARGIN_W + ANVIL_GAP;
           var anvilCells = anvilPanel.cells[shortName(toolId)];
           anvilRuns().forEach(function (runId, col) {
             ctx.fillStyle = anvilCells ? cellColor(anvilCells[runId]) : "#f7f9fb";
@@ -1089,7 +1093,7 @@ nav_id: raster
         }
 
         // Right margin: fixed-width 100% stacked recurrence bar over the
-        // visible window, problem categories first (v2_raster.md).
+        // visible window, problem categories first.
         var rightStats = computeRightStats(toolId, visibleRuns, matrix);
         var barX = gridRight + GRID_MARGIN_GAP;
         var barW = RIGHT_MARGIN_W - GRID_MARGIN_GAP - 3;
@@ -1116,8 +1120,8 @@ nav_id: raster
       repaintHeader();
 
       // Highlight whatever opened the inspector, so closing it returns
-      // focus to a visibly obvious spot (v2_raster_plan.md sec 5). Outline
-      // only, fill left untouched, per v2_raster_ui.md sec 7.
+      // focus to a visibly obvious spot. Outline
+      // only, fill left untouched,.
       if (inspectorState) {
         ctx.strokeStyle = "#2c3143";
         ctx.lineWidth = 2;
@@ -1151,8 +1155,7 @@ nav_id: raster
         }
       }
 
-      // Transient highlight for search/jump-index results (v2_raster_plan.md
-      // sec 4/7 "Handling 700 rows" - navigation aid, cleared after a beat).
+      // Transient highlight for search/jump-index results.
       if (searchHighlightRow !== null) {
         ctx.strokeStyle = "#d19e00";
         ctx.lineWidth = 2;
@@ -1228,7 +1231,7 @@ nav_id: raster
       });
 
       // "History" label once, above the recurrence margin - it reads as
-      // one more run column otherwise (v2_raster_ui.md sec 5).
+      // one more run column otherwise.
       ctx.save();
       ctx.font = "9px 'Atkinson Hyperlegible', sans-serif";
       ctx.textAlign = "center";
@@ -1238,8 +1241,7 @@ nav_id: raster
       ctx.restore();
 
       // Baseline the bars themselves sit on, grid width only - makes them
-      // read as a small bar chart rather than floating blocks
-      // (v2_raster_ui.md round 2 sec 1).
+      // read as a small bar chart rather than floating blocks.
       ctx.strokeStyle = "rgba(37, 83, 123, 0.25)";
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -1249,7 +1251,7 @@ nav_id: raster
 
       // Second divider separating the whole summary area from the rows -
       // full width, more spacing now via TOP_PAD_BOTTOM so the summary
-      // doesn't read as fused to the data (v2_raster_ui.md round 2 sec 6).
+      // doesn't read as fused to the data.
       ctx.strokeStyle = "rgba(37, 83, 123, 0.2)";
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -1259,7 +1261,7 @@ nav_id: raster
 
       // Divider through the header's own height, mirroring the rows'
       // grid/History divider, so the boundary stays visually continuous
-      // while stuck to the top (v2_raster_ui.md round 3 sec 2).
+      // while stuck to the top.
       ctx.strokeStyle = "rgba(37, 83, 123, 0.3)";
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -1269,8 +1271,7 @@ nav_id: raster
 
       // Emphasized run date for the hovered/focused/selected column, next
       // to the header rather than only in the mouse tooltip - needs to be
-      // here (not the overlay) so it re-anchors on scroll too
-      // (v2_raster_ui.md round 3 sec 3).
+      // here (not the overlay) so it re-anchors on scroll too.
       if (hoveredCol !== null && c.visibleRuns[hoveredCol]) {
         var hRun = manifestByRun[c.visibleRuns[hoveredCol]] || {};
         var hLabel = fmtShort(hRun.timestamp);
@@ -1288,7 +1289,7 @@ nav_id: raster
 
     // Cheap, mouse/keyboard-driven crosshair on a separate canvas layered
     // on top - redrawn on every mousemove/keydown without re-running the
-    // expensive stats pass above (v2_raster_ui.md sec 7).
+    // expensive stats pass above.
     function drawOverlay(widthCss, gridRight) {
       var fullH = TOP_MARGIN_H + visibleTools.length * CELL_H + BOTTOM_PAD_H;
       overlayCtx.clearRect(0, 0, widthCss, fullH);
@@ -1301,8 +1302,7 @@ nav_id: raster
         overlayCtx.fillRect(0, TOP_MARGIN_H + hoveredRow * CELL_H, widthCss, CELL_H);
       }
       // Both set simultaneously only happens for an exact grid-cell hover
-      // (see mousemove) - outline it without touching its fill
-      // (v2_raster_ui.md round 2 sec 5).
+      // (see mousemove) - outline it without touching its fill.
       if (hoveredRow !== null && hoveredCol !== null) {
         overlayCtx.strokeStyle = "#2c3143";
         overlayCtx.lineWidth = 1;
@@ -1318,8 +1318,7 @@ nav_id: raster
       // no visible name there), and in comfortable mode too when the
       // static label is actually ellipsis-truncated and the trigger is
       // keyboard focus rather than mouse hover - mouse hover already
-      // exposes the full name via the DOM tooltip
-      // (v2_raster_ui.md round 3 sec 1 & 4).
+      // exposes the full name via the DOM tooltip.
       if (hoveredRow !== null) {
         var flabel = shortName(visibleTools[hoveredRow]);
         var truncatedInReadable = false;
@@ -1357,7 +1356,7 @@ nav_id: raster
       var x = clientX - rect.left;
       var y = clientY - rect.top;
       var visibleRuns = currentRunIds();
-      var gridRight = LABEL_WIDTH + nCols * CELL_W;
+      var gridRight = gridRightX();
 
       if (y < TOP_MARGIN_H) {
         if (x < LABEL_WIDTH || x >= gridRight) return null;
@@ -1370,12 +1369,12 @@ nav_id: raster
       if (row < 0 || row >= visibleTools.length) return null;
 
       if (x >= gridRight) {
-        var anvilStart = gridRight + RIGHT_MARGIN_W + ANVIL_GAP;
+        var anvilStart = anvilStartX();
         if (showAnvil && anvilPanel.runs.length && x >= anvilStart) {
           var anvilCol = Math.floor((x - anvilStart) / CELL_W);
-          var runs = anvilRuns();
-          if (anvilCol < 0 || anvilCol >= runs.length) return null;
-          return { type: "anvil", toolId: visibleTools[row], runId: runs[anvilCol] };
+          var shown = anvilRuns();
+          if (anvilCol < 0 || anvilCol >= shown.length) return null;
+          return { type: "anvil", toolId: visibleTools[row], runId: shown[anvilCol] };
         }
         if (x >= gridRight + RIGHT_MARGIN_W) return null;
         return { type: "tool", toolId: visibleTools[row] };
@@ -1455,7 +1454,7 @@ nav_id: raster
     // Arrow-key navigation moves the same hoveredRow/hoveredCol crosshair
     // state mouse hover drives, so orientation (row/column bands, cell
     // outline, floating name label, header date) works identically for
-    // keyboard focus (v2_raster_ui.md round 3 secs 1, 3, 4).
+    // keyboard focus.
     canvas.addEventListener("keydown", function (evt) {
       var key = evt.key;
       var visibleRuns = currentRunIds();
@@ -1473,8 +1472,7 @@ nav_id: raster
         refreshCrosshair();
         // The page scrolls now, not this container, so bring the focused
         // row into view with window.scrollBy against its current
-        // viewport-relative position rather than container.scrollTop
-        // (v2_raster_ui.md).
+        // viewport-relative position rather than container.scrollTop.
         var rowTop = TOP_MARGIN_H + hoveredRow * CELL_H;
         var rect = container.getBoundingClientRect();
         var rowViewportTop = rect.top + rowTop;
@@ -1797,9 +1795,7 @@ nav_id: raster
 
     // Tool-history view: recurrence stats over the currently visible
     // window (same scope as the right-margin bar itself), plus a per-run
-    // timeline for drill-down - no cross-run version/signature rollup yet
-    // (v2_raster_plan.md sec 1 tables that with the rest of the signature
-    // work).
+    // timeline for drill-down.
     function renderToolHeader(toolId) {
       var stats = computeRightStats(toolId, currentRunIds(), matrix);
       inspectorHeader.innerHTML =
@@ -1894,7 +1890,7 @@ nav_id: raster
     // Selection reuses the same hoveredRow/hoveredCol the mouse/keyboard
     // crosshair draws from, so a selected cell keeps its full row/column
     // band + name + header date even once the inspector's backdrop blocks
-    // further hover/keydown events (v2_raster_ui.md round 3 sec 3).
+    // further hover/keydown events.
     function openCellInspector(toolId, runId) {
       inspectorState = { mode: "cell", toolId: toolId, runId: runId };
       var visibleRuns = currentRunIds();
@@ -1941,7 +1937,7 @@ nav_id: raster
       if (cross) {
         lines += "<p>Across the runs compared: failing " + escapeHtml(cross.anvil) +
           " there, " + escapeHtml(cross.iuc) + " here.</p>";
-        if (cross.verdict === "deployment") {
+        if (cross.verdict === "anvil-only") {
           lines += "<p>It passes in this suite, so the cause is on their side. " +
             "The tests below say whether that is their environment or their test data.</p>";
         }
@@ -2064,13 +2060,12 @@ nav_id: raster
 
     // Scrolls to the row and leaves a persistent outline briefly - the
     // amber label-column stroke plus the same full row-band the crosshair
-    // uses, rather than just repositioning the viewport
-    // (v2_raster_ui.md round 3 sec 3).
+    // uses, rather than just repositioning the viewport.
     function scrollToRow(idx) {
       // The page scrolls now, not this container: convert the row's
       // canvas-local position to a page-absolute one via the container's
       // current viewport offset, then center it in the window instead of
-      // container.clientHeight (v2_raster_ui.md).
+      // container.clientHeight.
       var containerPageTop = window.scrollY + container.getBoundingClientRect().top;
       var rowPageY = containerPageTop + TOP_MARGIN_H + idx * CELL_H;
       var target = rowPageY - window.innerHeight / 2;
@@ -2108,7 +2103,7 @@ nav_id: raster
     // alphabetical) visible tool names - jumps to that letter's first row.
     // firstRowLetters is the reverse lookup (row -> letter), used to mark
     // section landmarks in the otherwise-blank overview-mode label column
-    // (v2_raster_ui.md round 3 sec 1). Rebuilt on every draw(), not just
+    //. Rebuilt on every draw(), not just
     // once at startup, since the "Errors & failures only" filter changes
     // which tools occupy which row.
     var firstRowForLetter = {};

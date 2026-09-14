@@ -1,29 +1,20 @@
 """Regenerate docs/tool-tests/data/{manifest,matrix}.json and per-run
 docs/tool-tests/data/runs/<run_id>/detail.json from every committed
-data/tool-tests/<run_id>/results.json - the data feeding the
-tool x run event raster (see v2_raster.md / v2_raster_plan.md). Also
-copies each run's results.html into docs/tool-tests/reports/<run_id>/ so the
-raster's "Full report" links point at a page GitHub Pages serves
-directly, rather than a raw results.json blob on github.com that's
-too big to render there.
+data/tool-tests/<run_id>/results.json, the data feeding the tool x run
+raster. Also copies each run's results.html into docs/tool-tests/reports/
+so the raster's CI-run links point at a page GitHub Pages serves directly,
+rather than a results.json blob too big for github.com to render.
 
-This is the sole generator as of the step-7 cutover (v2_raster_plan.md
-sec 6): anvil_generate_heatmap.py and docs/index.md's per-tool table are
-retired. It does not filter to a recent window: matrix/manifest rows -
-and now the docs/tool-tests/ copies too - are kept for the full run
-history rather than pruned to a rolling window, since the raster's
-prev/next navigation and deep links can reach any run, not just the
-currently-drawn columns. (docs/tool-tests/ growing unbounded is the same
-tradeoff already accepted for runs/*/detail.json - revisit only if repo
-size actually becomes a problem.)
+The full run history is kept rather than pruned to a rolling window: the
+raster's prev/next navigation and deep links can reach any run, not only
+the columns currently drawn.
 
-Row set (tools) grows as tools are actually attempted, not a fixed list -
-see v2_raster_plan.md sec 2/7. tools_expected/coverage-against-the-full-
-toolset is left out of manifest.json for now: computing it would mean
-checking out usegalaxy-tools/cloud/*.yml from this job too, which isn't
-wired up yet.
+The row set grows as tools are actually attempted, so there is no fixed
+tool list. Coverage against the whole toolset is left out of manifest.json
+because computing it would mean checking out usegalaxy-tools/cloud/*.yml
+here too.
 
-Usage: anvil_generate_raster_data.py
+Usage: generate_raster_data.py
 """
 
 import json
@@ -226,7 +217,7 @@ def build_manifest_entry(run_id: str, tests: list[dict], aggregates: dict[str, d
 def build_detail(tests: list[dict]) -> dict:
     """tool_id -> version -> [test entries], for the inspector's per-test
     drill-down. Keeps the raw, un-truncated problem text - signature
-    normalization is tabled for a later iteration (v2_raster_plan.md sec 1)."""
+    normalization is not done here."""
     tools: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
     for t in tests:
         d = t["data"]

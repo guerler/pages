@@ -3,8 +3,9 @@
 Two dashboards run the same suite in different places: this fork tests tools-iuc in
 GitHub Actions, the AnVIL one tests a curated set on a deployed Galaxy. A tool that
 fails in both is very likely a real tool problem. A tool that fails only on AnVIL is
-much more likely to be the deployment, and one that fails only here points at the test
-or the tool version this CI pins.
+something about their side, their environment or their test data, which the per-test
+detail distinguishes; one that fails only here points at the test or the version this
+CI pins.
 
 Both sides are judged on recurrence rather than a single run, because one bad run takes
 out large blocks of tests at once: a tool counts as failing on a side when it failed in
@@ -23,8 +24,8 @@ ANVIL_BASE = "https://anvilproject.github.io/galaxy-tests/raster-data"
 LOCAL_MATRIX = "docs/tool-tests/data/matrix.json"
 RASTER_DATA_DIR = "docs/tool-tests/data"
 LOCAL_MANIFEST = "docs/tool-tests/data/manifest.json"
-SENTINEL = "__SORTLIST__"
-BAD = {"fail", "error", "mixed"}
+# AnVIL's matrix carries a row-ordering marker among its tools; ours does not.
+ANVIL_SORT_SENTINEL = "__SORTLIST__"
 
 # a run covering only the failing-package subset is not comparable to a full sweep
 FULL_RUN_TOOLS = 1000
@@ -65,21 +66,6 @@ def failure_rate_from_detail(detail_for_run, runs: list[str]) -> dict[str, tuple
     return {t: (failed.get(t, 0), n) for t, n in seen.items()}
 
 
-def failure_rate(matrix: dict, runs: int, only: set[str] | None = None) -> dict[str, tuple[int, int]]:
-    """tool -> (runs it failed in, runs it appeared in), over the most recent `runs`."""
-    usable = [r for r in matrix["runs"] if only is None or r in only]
-    recent = usable[-runs:]
-    out = {}
-    for tool, by_run in matrix["cells"].items():
-        if tool == SENTINEL:
-            continue
-        seen = [by_run[r] for r in recent if r in by_run]
-        if not seen:
-            continue
-        out[short(tool)] = (sum(1 for c in seen if c.get("status") in BAD), len(seen))
-    return out
-
-
 def full_runs(manifest_path: str) -> set[str]:
     with open(manifest_path) as handle:
         return {r["run_id"] for r in json.load(handle)
@@ -90,7 +76,7 @@ def verdict(on_anvil: bool, on_iuc: bool) -> str:
     if on_anvil and on_iuc:
         return "tool"
     if on_anvil:
-        return "deployment"
+        return "anvil-only"
     if on_iuc:
         return "iuc-test"
     return "clean"
@@ -119,7 +105,7 @@ def main(argv: list[str]) -> int:
     iuc = failure_rate_from_detail(local_detail, usable[-args.runs:])
     shared = sorted(set(anvil) & set(iuc))
 
-    rows, counts = [], {"tool": 0, "deployment": 0, "iuc-test": 0, "clean": 0}
+    rows, counts = [], {"tool": 0, "anvil-only": 0, "iuc-test": 0, "clean": 0}
     for tool in shared:
         a_bad, a_seen = anvil[tool]
         i_bad, i_seen = iuc[tool]
@@ -131,7 +117,7 @@ def main(argv: list[str]) -> int:
     print(f"{len(anvil)} tools on AnVIL, {len(iuc)} here, {len(shared)} in both "
           f"(last {args.runs} runs each)\n")
     for kind, blurb in (("tool", "fails in both, likely a real tool problem"),
-                        ("deployment", "fails only on AnVIL, on their environment or their test data"),
+                        ("anvil-only", "fails only on AnVIL, on their environment or their test data"),
                         ("iuc-test", "fails only here, likely the test or the pinned version")):
         picked = [r for r in rows if r["verdict"] == kind]
         print(f"{kind.upper():11} {len(picked):4}  {blurb}")
@@ -155,7 +141,7 @@ def main(argv: list[str]) -> int:
         keep = set(shared)
         cells, raw_ids = {}, {}
         for tool, by_run in raw["cells"].items():
-            if tool == SENTINEL or short(tool) not in keep:
+            if tool == ANVIL_SORT_SENTINEL or short(tool) not in keep:
                 continue
             cells[short(tool)] = {run: {"status": c.get("status"), "affected": c.get("affected", 1)}
                                   for run, c in by_run.items()}

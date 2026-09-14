@@ -2,293 +2,293 @@
  "runs_considered": 5,
  "counts": {
   "tool": 2,
-  "deployment": 81,
+  "anvil-only": 81,
   "iuc-test": 0,
   "clean": 31
  },
  "tools": {
   "EMBOSS: maskfeat50": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "EMBOSS: seqmatchall83": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "Extract genomic DNA 1": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "ampvis2_load": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "anndata_export": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "anndata_inspect": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "anndata_manipulate": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "bandage_info": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bcftools_concat": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "bcftools_norm": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "bcftools_plugin_fill_an_ac": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bcftools_plugin_fixploidy": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bcftools_plugin_setgt": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bcftools_query": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "bcftools_view": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bedtools_bamtobed": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "bedtools_bedtoigv": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "bedtools_complementbed": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bedtools_intersectbed": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "bedtools_shufflebed": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bedtools_windowbed": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "biom_convert": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "bowtie2": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "circos_tableviewer": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "cutadapt": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "dada2_assignTaxonomyAddspecies": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "dada2_dada": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "dada2_learnErrors": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "datamash_ops": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "fasterq_dump": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "freebayes": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "ggplot2_heatmap2": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "graphlan_annotate": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "hifiasm": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "1/5"
   },
   "hisat2": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "hyphy_cln": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "hyphy_fel": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "ivar_consensus": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "krakentools_kreport2krona": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "lastz_d_wrapper": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "lastz_wrapper_2": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "limma_voom": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "lofreq_filter": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "macs2_bdgdiff": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "melt": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "metabat2": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "name2taxid": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "picard_CollectBaseDistributionByCycle": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "picard_MergeBamAlignment": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "picard_ReorderSam": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "picard_SamToFastq": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "porechop": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "pretext_map": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "purge_dups": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "pygenomeTracks": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "raceid_filtnormconf": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/4",
    "iuc": "0/5"
   },
   "raceid_inspectclusters": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
@@ -298,97 +298,97 @@
    "iuc": "4/5"
   },
   "repeatmodeler": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "rna_starsolo": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "2/5"
   },
   "rseqc_RPKM_saturation": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "rseqc_clipping_profile": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "rseqc_junction_annotation": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "rseqc_read_distribution": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "samtools_coverage": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "samtools_fixmate": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "samtools_merge": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "samtools_reheader": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/4",
    "iuc": "0/5"
   },
   "samtools_slice_bam": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "samtools_sort": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "scanpy_inspect": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "scanpy_normalize": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "sceasy_convert": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/4",
    "iuc": "0/5"
   },
   "seqtk_comp": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   },
   "seqtk_sample": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "snpEff_build_gb": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "snpEff_databases": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
@@ -398,27 +398,27 @@
    "iuc": "4/5"
   },
   "teloscope": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "4/5",
    "iuc": "0/5"
   },
   "tooldistillator": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "trimmomatic": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "umi_tools_count": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "5/5",
    "iuc": "0/5"
   },
   "volcanoplot": {
-   "verdict": "deployment",
+   "verdict": "anvil-only",
    "anvil": "3/5",
    "iuc": "0/5"
   }

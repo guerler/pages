@@ -1,16 +1,14 @@
 """Ingest a tools-iuc `Tool suite tests` run into data/tool-tests/.
 
-The earlier `Async submission comparison test` workflow ran the suite twice, once per
-submission path, and the raster took the async leg. `tool-suite-tests.yaml` replaces it
-and runs the async path only, so a run now carries a single `All tool test results`
-artifact. This narrows that artifact to the fields the raster reads and records the run
-metadata beside it; generate_raster_data.py builds the raster from there.
+A run carries one `All tool test results` artifact. This narrows it to the fields the
+raster reads and records the run metadata beside it; generate_raster_data.py builds the
+raster from there.
 
 The scope a run was dispatched with is recorded in run.json. A `subset` run covers only
 the packages with a known failing test, so its column is mostly empty next to a `full`
 run; that is a property of the data rather than a defect, and the raster shows it.
 
-Usage: anvil_ingest_iuc_run.py <ci_run_id> [<ci_run_id> ...]
+Usage: ingest_run.py <ci_run_id> [<ci_run_id> ...]
 """
 
 import json
