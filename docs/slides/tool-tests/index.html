@@ -7,8 +7,7 @@ description: What the async validation work fixed in tools-iuc, what we built to
 <section class="slide" id="progress">
   <h2>Tool tests: 3.84% to <span class="accent">1.72%</span> not passing</h2>
   <div class="figures">
-    <div class="figure"><div class="figure__value">1,993</div><div class="figure__label">tools, 6,697 tests</div></div>
-    <div class="figure figure--down"><div class="figure__value">256 &rarr; 115</div><div class="figure__label">not passing, 55% down</div></div>
+    <div class="figure figure--down"><div class="figure__value">256 &rarr; 115</div><div class="figure__label">failing tests, 55% down</div></div>
     <div class="figure figure--down"><div class="figure__value">11</div><div class="figure__label">tools-iuc PRs, 84 packages</div></div>
     <div class="figure figure--down"><div class="figure__value">+345/&minus;355</div><div class="figure__label">lines, 103 files</div></div>
   </div>
@@ -20,14 +19,15 @@ description: What the async validation work fixed in tools-iuc, what we built to
 <section class="slide" id="built">
   <h2>Every path to a tool now runs typed</h2>
   <div class="figures">
+    <div class="figure"><div class="figure__value">12</div><div class="figure__label">Galaxy PRs merged</div></div>
     <div class="figure"><div class="figure__value">2,171</div><div class="figure__label">tools tracked</div></div>
-    <div class="figure"><div class="figure__value">6,697</div><div class="figure__label">tool tests per run</div></div>
+    <div class="figure"><div class="figure__value">6,697</div><div class="figure__label">tests per run</div></div>
   </div>
   <table class="data">
     <tr><th>Layer</th><th>What it exercises</th></tr>
-    <tr><td>API path</td><td><code>POST /api/jobs</code>, the default for every tool execution</td></tr>
-    <tr><td>UI path</td><td>the tool form in a browser, filled and submitted by Selenium</td></tr>
-    <tr><td>Framework tests</td><td>Galaxy's own tool suite, typed instead of falling back</td></tr>
+    <tr><td>API path</td><td><code>POST /api/jobs</code>, now the default</td></tr>
+    <tr><td>UI path</td><td>the tool form, driven by Selenium</td></tr>
+    <tr><td>Framework tests</td><td>Galaxy's own suite, typed instead of fallback</td></tr>
     <tr><td>Parameter model</td><td>XML inputs to a typed request: selects, conditionals, repeats</td></tr>
   </table>
   <p class="note">The legacy path silently ignores a declared parameter and still records a pass.</p>
@@ -38,16 +38,11 @@ description: What the async validation work fixed in tools-iuc, what we built to
   <h2>Plan: move the ecosystem to async</h2>
   <table class="data steps">
     <tr><th>Step</th><th></th><th>Where it stands</th></tr>
-    <tr><td class="step__n">1</td><td><strong>Async by default.</strong> The typed path is what
-      Galaxy uses to run a tool.</td><td class="step__state step__state--done">merged for 26.1</td></tr>
-    <tr><td class="step__n">2</td><td><strong>Planemo submits typed.</strong> A flag so tool tests
-      reach <code>/api/jobs</code> without pinning a personal branch.</td><td class="step__state">branch ready</td></tr>
-    <tr><td class="step__n">3</td><td><strong>tools-iuc to green.</strong> Batched PRs of related
-      packages, tracked run over run on the dashboard.</td><td class="step__state">115 failures left</td></tr>
-    <tr><td class="step__n">4</td><td><strong>tools-iuc CI runs typed.</strong> The suite's own CI
-      switches its default, so new tools are written against it.</td><td class="step__state">needs 2 and 3</td></tr>
-    <tr><td class="step__n">5</td><td><strong>usegalaxy.eu repositories.</strong> Same scripts, same
-      dashboard; their repositories are structured like tools-iuc.</td><td class="step__state">next</td></tr>
+    <tr><td class="step__n">1</td><td><strong>Async by default.</strong> Galaxy runs tools through the typed path.</td><td class="step__state step__state--done">merged for 26.1</td></tr>
+    <tr><td class="step__n">2</td><td><strong>Planemo submits typed.</strong> Tool tests reach <code>/api/jobs</code> without a pinned branch.</td><td class="step__state">branch ready</td></tr>
+    <tr><td class="step__n">3</td><td><strong>tools-iuc to green.</strong> Batched PRs, tracked run over run.</td><td class="step__state">115 failures left</td></tr>
+    <tr><td class="step__n">4</td><td><strong>tools-iuc CI runs typed.</strong> New tools are written against it.</td><td class="step__state">needs 2 and 3</td></tr>
+    <tr><td class="step__n">5</td><td><strong>usegalaxy.eu repositories.</strong> Same scripts, same dashboard.</td><td class="step__state">next</td></tr>
     <tr><td class="step__n">6</td><td><strong>Retire the legacy path.</strong> Once nothing depends
       on it.</td><td class="step__state">after 4 and 5</td></tr>
   </table>
