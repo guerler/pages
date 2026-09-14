@@ -58,7 +58,7 @@ nav_id: raster
     </span>
   </span>
   <span class="gx-filter-toggle">
-    <button type="button" id="gx-raster-anvil-panel" class="gx-filter-toggle__option is-active" title="Draw the AnVIL deployment's most recent runs as a second block, aligned to the same tool rows">Compare AnVIL</button>
+    <button type="button" id="gx-raster-anvil-panel" class="gx-filter-toggle__option" title="Draw the AnVIL deployment's most recent runs as a second block, aligned to the same tool rows">Compare AnVIL</button>
   </span>
   <span class="gx-density-toggle">
     Density:
@@ -452,6 +452,21 @@ nav_id: raster
   .gx-test-item__status--fail { color: #b91c1c; }
   .gx-test-item__status--error { color: #630177; }
   .gx-test-item__status--pass { color: #2f6b4f; }
+  @media (max-width: 44rem) {
+    .gx-legend2 { gap: 0.6rem 0.9rem; font-size: 0.78rem; margin-bottom: 0.9rem; }
+    /* inline-flex shrink-wraps, so these never wrap until they are told to
+       fill the row and allowed to break. */
+    .gx-filter-toggle { margin-left: 0; flex: 1 1 100%; flex-wrap: wrap; }
+    .gx-filter-toggle__group { display: flex; flex-wrap: wrap; max-width: 100%; }
+    .gx-legend2__group { flex-wrap: wrap; }
+    #gx-raster-window { flex: 1 1 100%; order: 1; }
+    .gx-raster-controls { gap: 0.5rem; font-size: 0.82rem; }
+    .gx-raster-controls button { padding: 0.4rem 0.6rem; }
+    .gx-raster-search-wrap { width: 100%; }
+    .gx-raster-search { width: 100%; box-sizing: border-box; }
+    .gx-inspector { width: 100vw; padding: 1rem; }
+    .gx-prose { font-size: 0.92rem; }
+  }
   .gx-test-item__cause {
     font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
     padding: .1em .45em; border-radius: 3px; align-self: center;
@@ -515,7 +530,8 @@ nav_id: raster
 (function () {
   "use strict";
 
-  var LABEL_WIDTH = 180;
+  var LABEL_WIDTH = 180;       // recomputed per draw by syncMetrics()
+  var NARROW_WIDTH = 700;      // below this the grid has to give up chrome
   var LABEL_PAD_LEFT = 12;
   var CELL_W = 14;
   var READABLE_CELL_H = 16;
@@ -526,7 +542,7 @@ nav_id: raster
   var RIGHT_MARGIN_W = CELL_W * 5;
   var GRID_MARGIN_GAP = 9; // breathing room before the recurrence margin/History
   var ANVIL_GAP = 26; // separator before the AnVIL deployment block
-  var ANVIL_COLS = 12; // most recent AnVIL runs to show
+  var ANVIL_COLS = 12; // most recent AnVIL runs to show; fewer when narrow
   var DATE_LABEL_H = 14; // sparse "8/15"-style run labels above the bars
   var DATE_BAR_GAP = 8; // extra header height so bars read as a small chart
   var BAR_MAX_H = 30;
@@ -650,7 +666,7 @@ nav_id: raster
   // { runs: [...], cells: { shortName: { runId: {status, affected} } } } for the same tools,
   // drawn as a second block aligned to the same rows. Empty until the fetch resolves.
   var anvilPanel = { runs: [], cells: {} };
-  var showAnvil = true;
+  var showAnvil = window.innerWidth >= 700;
 
   function anvilRuns() { return anvilPanel.runs.slice(-ANVIL_COLS); }
   function anvilBlockWidth() {
@@ -934,8 +950,16 @@ nav_id: raster
       return Math.max(m, r.tools_attempted || 0);
     }, 0);
 
+    // Fit the chrome to the viewport before anything is measured against it.
+    function syncMetrics() {
+      var narrow = container.clientWidth < NARROW_WIDTH;
+      LABEL_WIDTH = narrow ? 108 : 180;
+      RIGHT_MARGIN_W = CELL_W * (narrow ? 2 : 5);
+      ANVIL_COLS = narrow ? 4 : 12;
+    }
+
     function computeCols() {
-      var available = container.clientWidth - LABEL_WIDTH - RIGHT_MARGIN_W;
+      var available = container.clientWidth - LABEL_WIDTH - RIGHT_MARGIN_W - anvilBlockWidth();
       return Math.max(1, Math.min(runs.length, Math.floor(available / CELL_W)));
     }
 
@@ -956,6 +980,7 @@ nav_id: raster
     }
 
     function draw() {
+      syncMetrics();
       nCols = computeCols();
       clampWindow();
       var visibleRuns = currentRunIds();
@@ -2128,6 +2153,7 @@ nav_id: raster
     filterStagingBtn.addEventListener("click", function () { setToolFilter("staging"); });
     filterAnvilBtn.addEventListener("click", function () { setToolFilter("anvil"); });
     var anvilPanelBtn = document.getElementById("gx-raster-anvil-panel");
+    anvilPanelBtn.classList.toggle("is-active", showAnvil);
     anvilPanelBtn.addEventListener("click", function () {
       showAnvil = !showAnvil;
       anvilPanelBtn.classList.toggle("is-active", showAnvil);
