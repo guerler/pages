@@ -36,6 +36,7 @@ nav_id: raster
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#d87e55"></span>Failure</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#630177"></span>Error</span>
     <span class="gx-legend2__item"><span class="gx-swatch2" style="background:#150276"></span>Both</span>
+    <span class="gx-legend2__item" title="The tests' own inputs never arrived, so the tool went untested"><span class="gx-swatch2" style="background:#8fa0b8"></span>Inputs missing</span>
     <span class="gx-legend2__item"><span class="gx-swatch2 gx-swatch2--notrun"></span>Not run</span>
   </span>
   <span class="gx-legend2__group">
@@ -60,6 +61,7 @@ nav_id: raster
       <button type="button" id="gx-raster-filter-error" class="gx-filter-toggle__option">Errors</button>
       <button type="button" id="gx-raster-filter-failure" class="gx-filter-toggle__option">Failures</button>
       <button type="button" id="gx-raster-filter-both" class="gx-filter-toggle__option">Errors or Failures</button>
+      <button type="button" id="gx-raster-filter-staging" class="gx-filter-toggle__option" title="Tools whose failing tests are all inputs that never arrived">Inputs missing</button>
       <button type="button" id="gx-raster-filter-anvil" class="gx-filter-toggle__option" title="Tools that fail on the AnVIL deployment but pass here, so the deployment is the likelier cause">AnVIL only</button>
     </span>
   </span>
@@ -548,7 +550,8 @@ nav_id: raster
     not_run: "#eef2f6",
     fail: [216, 126, 85],   // #d87e55
     error: [99, 1, 119],    // #630177
-    mixed: [21, 2, 118]     // #150276
+    mixed: [21, 2, 118],    // #150276
+    staging: "#8fa0b8"      // inputs never arrived, so the tool went untested
   };
   var STRIPE_COLOR = "rgba(37, 83, 123, 0.06)";
   var COVERAGE_COLORS = { normal: "#9aa5b1", partial: "#d19e00", sparse: "#b91c1c" };
@@ -572,6 +575,9 @@ nav_id: raster
   function cellColor(cell) {
     if (!cell) return COLORS.not_run;
     if (cell.status === "pass") return COLORS.pass;
+    // Every failing test here is an input that never arrived; colouring it as a
+    // tool failure would blame the tool for its test data.
+    if (cell.staging_only) return COLORS.staging;
     var base = COLORS[cell.status === "fail" ? "fail" : cell.status === "error" ? "error" : "mixed"];
     return shade(base, intensityFactor(cell.affected));
   }
@@ -673,11 +679,19 @@ nav_id: raster
 
   function toolMatchesFilter(toolId, filter, matrix) {
     if (filter === "all") return true;
+    if (filter === "staging") {
+      var latest = latestCell(toolId, matrix);
+      return !!(latest && latest.staging_only);
+    }
     if (filter === "anvil") {
       var cross = anvilOverlay[shortName(toolId)];
       return !!cross && cross.verdict === "deployment";
     }
-    var cls = classifyCell(latestCell(toolId, matrix));
+    var latestFail = latestCell(toolId, matrix);
+    // A tool whose only failing tests lost their inputs belongs under "Inputs
+    // missing", not under Errors or Failures.
+    if (latestFail && latestFail.staging_only) return false;
+    var cls = classifyCell(latestFail);
     if (filter === "error") return cls === "error";
     if (filter === "failure") return cls === "fail";
     return cls === "error" || cls === "fail" || cls === "mixed"; // "either"
@@ -898,6 +912,7 @@ nav_id: raster
     var filterErrorBtn = document.getElementById("gx-raster-filter-error");
     var filterFailureBtn = document.getElementById("gx-raster-filter-failure");
     var filterBothBtn = document.getElementById("gx-raster-filter-both");
+    var filterStagingBtn = document.getElementById("gx-raster-filter-staging");
     var filterAnvilBtn = document.getElementById("gx-raster-filter-anvil");
 
     var tools = matrix.tools;
@@ -917,7 +932,7 @@ nav_id: raster
     // view is open - drives the highlight ring and hash routing.
     var inspectorState = null;
     var density = "readable"; // "readable" | "overview" - toggled by the density buttons
-    var toolFilter = "all"; // "all" | "error" | "failure" | "both" | "anvil" - toggled by the Errors/Failures/Errors or Failures pill
+    var toolFilter = "all"; // "all" | "error" | "failure" | "both" | "staging" | "anvil" - toggled by the Errors/Failures/Errors or Failures pill
     var searchQuery = ""; // lowercased free text - rows whose shortName doesn't contain it are hidden, combines with toolFilter
     var visibleTools = tools; // recomputed at the top of every draw() - the filtered row set
     var searchHighlightRow = null;
@@ -2040,12 +2055,14 @@ nav_id: raster
       filterErrorBtn.classList.toggle("is-active", toolFilter === "error");
       filterFailureBtn.classList.toggle("is-active", toolFilter === "failure");
       filterBothBtn.classList.toggle("is-active", toolFilter === "both");
+      filterStagingBtn.classList.toggle("is-active", toolFilter === "staging");
       filterAnvilBtn.classList.toggle("is-active", toolFilter === "anvil");
       draw();
     }
     filterErrorBtn.addEventListener("click", function () { setToolFilter("error"); });
     filterFailureBtn.addEventListener("click", function () { setToolFilter("failure"); });
     filterBothBtn.addEventListener("click", function () { setToolFilter("both"); });
+    filterStagingBtn.addEventListener("click", function () { setToolFilter("staging"); });
     filterAnvilBtn.addEventListener("click", function () { setToolFilter("anvil"); });
     var anvilPanelBtn = document.getElementById("gx-raster-anvil-panel");
     anvilPanelBtn.addEventListener("click", function () {
