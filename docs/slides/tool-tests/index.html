@@ -13,8 +13,7 @@ description: What the async validation work fixed in tools-iuc, what we built to
     <div class="figure figure--down"><div class="figure__value">+345/&minus;355</div><div class="figure__label">lines, 103 files</div></div>
   </div>
   <svg viewBox="0 0 1000 380" role="img" aria-label="Tool failures per full suite run, 3.84 percent on 2026-07-03 falling to 1.72 percent on 2026-09-13" style="width:100%;height:auto;max-height:38vh"><line x1="58" y1="328.0" x2="850" y2="328.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="332.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">0%</text><line x1="58" y1="226.7" x2="850" y2="226.7" stroke="rgba(44,49,67,.12)"/><text x="48" y="230.7" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">2%</text><line x1="58" y1="125.3" x2="850" y2="125.3" stroke="rgba(44,49,67,.12)"/><text x="48" y="129.3" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">4%</text><line x1="58" y1="24.0" x2="850" y2="24.0" stroke="rgba(44,49,67,.12)"/><text x="48" y="28.0" text-anchor="end" font-size="13" fill="rgba(44,49,67,.55)">6%</text><polygon points="58,328.0 58.0,133.6 118.9,90.4 179.8,101.9 240.8,105.9 301.7,232.8 362.6,193.4 423.5,170.3 484.5,168.3 545.4,206.7 606.3,186.5 667.2,207.6 728.2,210.4 789.1,227.4 850.0,241.0 850.0,328.0" fill="rgba(69,78,108,.10)"/><polyline points="58.0,110.1 118.9,69.1 179.8,79.8 240.8,89.1 301.7,216.0 362.6,161.1 423.5,149.3 484.5,151.8 545.4,133.6 606.3,169.4 667.2,187.4 728.2,189.0 789.1,209.9 850.0,157.0" fill="none" stroke="rgba(44,49,67,.38)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/><polyline points="58.0,133.6 118.9,90.4 179.8,101.9 240.8,105.9 301.7,232.8 362.6,193.4 423.5,170.3 484.5,168.3 545.4,206.7 606.3,186.5 667.2,207.6 728.2,210.4 789.1,227.4 850.0,241.0" fill="none" stroke="#454e6c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="58.0" cy="133.6" r="4" fill="#454e6c"/><circle cx="118.9" cy="90.4" r="4" fill="#454e6c"/><circle cx="179.8" cy="101.9" r="4" fill="#454e6c"/><circle cx="240.8" cy="105.9" r="4" fill="#454e6c"/><circle cx="301.7" cy="232.8" r="4" fill="#454e6c"/><circle cx="362.6" cy="193.4" r="4" fill="#454e6c"/><circle cx="423.5" cy="170.3" r="4" fill="#454e6c"/><circle cx="484.5" cy="168.3" r="4" fill="#454e6c"/><circle cx="545.4" cy="206.7" r="4" fill="#454e6c"/><circle cx="606.3" cy="186.5" r="4" fill="#454e6c"/><circle cx="667.2" cy="207.6" r="4" fill="#454e6c"/><circle cx="728.2" cy="210.4" r="4" fill="#454e6c"/><circle cx="789.1" cy="227.4" r="4" fill="#454e6c"/><circle cx="850.0" cy="241.0" r="4" fill="#454e6c"/><circle cx="850.0" cy="241.0" r="7" fill="#a06e00"/><text x="864.0" y="242.0" font-size="15" font-weight="700" fill="#a06e00">1.72%</text><text x="864.0" y="260.0" font-size="13" fill="rgba(44,49,67,.55)">tool failures</text><text x="864.0" y="158.0" font-size="15" font-weight="700" fill="rgba(44,49,67,.38)">3.37%</text><text x="864.0" y="176.0" font-size="13" fill="rgba(44,49,67,.55)">including missing data</text><circle cx="58.0" cy="133.6" r="7" fill="none" stroke="#454e6c" stroke-width="2"/><text x="71.0" y="120.6" font-size="15" font-weight="700" fill="#454e6c">3.84%</text><text x="58.0" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-03</text><text x="179.8" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-09</text><text x="301.7" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-27</text><text x="423.5" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">07-30</text><text x="545.4" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-06</text><text x="667.2" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">08-19</text><text x="789.1" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">09-03</text><text x="850.0" y="362" text-anchor="middle" font-size="12" fill="rgba(44,49,67,.55)">09-13</text></svg>
-  <p class="note">One point per full suite run. A tool test also fails when its input data will not
-  download, so the dashboard labels those separately and they are excluded from the lower line.</p>
+  <p class="note">One point per full suite run.</p>
   <span class="slide__num"></span>
 </section>
 
@@ -32,8 +31,7 @@ description: What the async validation work fixed in tools-iuc, what we built to
     <tr><td>Framework tests</td><td>Galaxy's own CI, typed instead of fallback</td><td><code>#23442</code></td></tr>
     <tr><td>Parameter model</td><td>selects, value shapes, conditionals, repeats</td><td><code>#23351</code> <code>#23414</code> <code>#23431</code> <code>#23170</code></td></tr>
   </table>
-  <p class="note">The legacy path drops a parameter a test declares, runs the tool on defaults, and
-  records a pass. Nothing above can do that.</p>
+  <p class="note">The legacy path silently ignores a declared parameter and still records a pass.</p>
   <span class="slide__num"></span>
 </section>
 
@@ -51,7 +49,6 @@ description: What the async validation work fixed in tools-iuc, what we built to
     <div class="figure"><div class="figure__value">2,171</div><div class="figure__label">tools tracked</div></div>
     <div class="figure"><div class="figure__value">19</div><div class="figure__label">full runs</div></div>
   </div>
-  <p class="note"><a href="https://guerler.github.io/pages/tool-tests/">guerler.github.io/pages/tool-tests</a>.
-  Every run, every tool, every failure labelled with its cause.</p>
+  <p class="note"><a href="https://guerler.github.io/pages/tool-tests/">guerler.github.io/pages/tool-tests</a></p>
   <span class="slide__num"></span>
 </section>
