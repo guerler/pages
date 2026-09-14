@@ -23,45 +23,39 @@ description: What the async validation work fixed in tools-iuc, what we built to
 </section>
 
 <section class="slide" id="built">
-  <h2>What we built to prove the typed path</h2>
-  <p class="lede">The legacy path silently drops a parameter a test declares, runs the tool on
-  defaults, and records the result as a pass. Every layer now has to go through the typed path
-  before we can claim it works.</p>
-  <ul class="points">
-    <li><strong>Async on by default.</strong> <code>POST /api/jobs</code> is the path the tool
-      form takes. <code>#23329</code>, after <code>#23084</code> aligned it with sync execution.</li>
-    <li><strong>Selenium drives the real form.</strong> A harness that fills the actual tool
-      form in a browser and submits it, pointed at the typed path so frontend bugs are no longer
-      bypassed. <code>#23347</code>, <code>#23372</code>.</li>
-    <li><strong>Framework tool tests run typed.</strong> The framework suite exercises the
-      typed path instead of falling back, so parameter-model gaps surface in Galaxy's own CI.</li>
-    <li><strong>Parameter model corrections.</strong> Multiple selects optional by default
-      <code>#23351</code>, typed request value shapes <code>#23414</code>, conditional booleans
-      <code>#23431</code>, legacy repeat synthesis removed <code>#23170</code>.</li>
-  </ul>
-  <p class="note">Twelve Galaxy PRs merged since July across the request path, the parameter model,
-  and the three test layers.</p>
+  <h2>Four layers now run the typed path</h2>
+  <div class="figures">
+    <div class="figure"><div class="figure__value">12</div><div class="figure__label">Galaxy PRs merged</div></div>
+    <div class="figure"><div class="figure__value">6,697</div><div class="figure__label">tool tests per run</div></div>
+    <div class="figure figure--down"><div class="figure__value">2</div><div class="figure__label">request-build gaps left</div></div>
+  </div>
+  <table class="data">
+    <tr><th>Layer</th><th>What it exercises</th><th>PRs</th></tr>
+    <tr><td>Request path</td><td><code>POST /api/jobs</code> by default</td><td><code>#23329</code> <code>#23084</code></td></tr>
+    <tr><td>Tool form</td><td>Selenium fills and submits the real form</td><td><code>#23347</code> <code>#23372</code></td></tr>
+    <tr><td>Framework tests</td><td>Galaxy's own CI, typed instead of fallback</td><td><code>#23442</code></td></tr>
+    <tr><td>Parameter model</td><td>selects, value shapes, conditionals, repeats</td><td><code>#23351</code> <code>#23414</code> <code>#23431</code> <code>#23170</code></td></tr>
+  </table>
+  <p class="note">The legacy path drops a parameter a test declares, runs the tool on defaults, and
+  records a pass. Nothing above can do that.</p>
   <span class="slide__num"></span>
 </section>
 
 <section class="slide" id="next-steps">
   <h2>Next step: move the ecosystem to async</h2>
   <p class="lede">Async is the default in the upcoming release. The remaining work is the tool
-  ecosystem, and we intend to do what it takes rather than keep the legacy path alive for it.</p>
+  ecosystem.</p>
   <ul class="points">
-    <li><strong>Run every repository against the typed path.</strong> tools-iuc first, then the
-      usegalaxy.eu custom tool repositories, which are structured the same way.</li>
-    <li><strong>Fix in batches.</strong> Grouped PRs of related packages rather than one per tool;
-      at 115 remaining, per-tool PRs do not finish.</li>
-    <li><strong>Judge the failures, not the noise.</strong> Every failing test is labelled with its
-      cause, so a bad hour on a data host reads as Missing rather than as a broken tool. Cross-checked
-      against the AnVIL deployment: of 114 tools both sides run, only 2 fail on both.</li>
+    <li><strong>Run every repository against the typed path.</strong> tools-iuc, then the
+      usegalaxy.eu custom repositories.</li>
+    <li><strong>Fix in batches.</strong> At 115 remaining, per-tool PRs do not finish.</li>
   </ul>
   <div class="figures">
     <div class="figure"><div class="figure__value">115</div><div class="figure__label">real failures left</div></div>
-    <div class="figure"><div class="figure__value">19</div><div class="figure__label">runs on the dashboard</div></div>
+    <div class="figure"><div class="figure__value">2,171</div><div class="figure__label">tools tracked</div></div>
+    <div class="figure"><div class="figure__value">19</div><div class="figure__label">full runs</div></div>
   </div>
-  <p class="note"><a href="https://guerler.github.io/pages/tool-tests/">guerler.github.io/pages/tool-tests</a>. Every run,
-  every tool, cross-checked against AnVIL.</p>
+  <p class="note"><a href="https://guerler.github.io/pages/tool-tests/">guerler.github.io/pages/tool-tests</a>.
+  Every run, every tool, every failure labelled with its cause.</p>
   <span class="slide__num"></span>
 </section>
