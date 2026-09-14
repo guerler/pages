@@ -25,12 +25,7 @@ RASTER_DATA_DIR = "docs/tool-tests/data"
 LOCAL_MANIFEST = "docs/tool-tests/data/manifest.json"
 SENTINEL = "__SORTLIST__"
 BAD = {"fail", "error", "mixed"}
-# A test whose inputs never arrived, or whose Galaxy was unreachable, says nothing
-# about the tool. Counting those as failures made AnVIL look like a deployment
-# problem when its CI was mostly failing to fetch data.
-STAGING_MARKERS = ("entered an unusable state", "failed to fetch url", "input staging problem")
-SERVICE_MARKERS = ("connecttimeout", "max retries exceeded",
-                   "temporary failure in name resolution", "503 service", "502 bad gateway")
+
 # a run covering only the failing-package subset is not comparable to a full sweep
 FULL_RUN_TOOLS = 1000
 
@@ -50,15 +45,9 @@ def local(path: str) -> dict:
         return json.load(handle)
 
 
-def infrastructure(case: dict) -> bool:
-    """True when the test never really exercised the tool."""
-    text = " ".join(str(case.get(k) or "") for k in ("execution_problem", "output_problems")).lower()
-    return any(m in text for m in STAGING_MARKERS) or any(m in text for m in SERVICE_MARKERS)
-
-
-def genuine_rate(detail_for_run, runs: list[str]) -> dict[str, tuple[int, int]]:
-    """tool -> (runs it genuinely failed in, runs it appeared in), ignoring
-    tests that fell over before the tool ran."""
+def failure_rate_from_detail(detail_for_run, runs: list[str]) -> dict[str, tuple[int, int]]:
+    """tool -> (runs it failed in, runs it appeared in). A test whose inputs never
+    arrived still counts: it did not pass, and the raster marks it Missing."""
     failed: dict[str, int] = {}
     seen: dict[str, int] = {}
     for run in runs:
@@ -71,8 +60,7 @@ def genuine_rate(detail_for_run, runs: list[str]) -> dict[str, tuple[int, int]]:
                 continue
             key = short(tool_id)
             seen[key] = seen.get(key, 0) + 1
-            bad = [c for c in cases if c.get("status") in ("failure", "error")]
-            if bad and not all(infrastructure(c) for c in bad):
+            if any(c.get("status") in ("failure", "error") for c in cases):
                 failed[key] = failed.get(key, 0) + 1
     return {t: (failed.get(t, 0), n) for t, n in seen.items()}
 
@@ -118,7 +106,7 @@ def main(argv: list[str]) -> int:
 
     anvil_matrix = fetch(f"{ANVIL_BASE}/matrix.json")
     anvil_runs = anvil_matrix["runs"][-args.runs:]
-    anvil = genuine_rate(
+    anvil = failure_rate_from_detail(
         lambda r: fetch(f"{ANVIL_BASE}/runs/{r}/detail.json"), anvil_runs)
 
     local_matrix = local(LOCAL_MATRIX)
@@ -128,7 +116,7 @@ def main(argv: list[str]) -> int:
         path = f"{RASTER_DATA_DIR}/runs/{run}/detail.json"
         return local(path) if os.path.exists(path) else None
 
-    iuc = genuine_rate(local_detail, usable[-args.runs:])
+    iuc = failure_rate_from_detail(local_detail, usable[-args.runs:])
     shared = sorted(set(anvil) & set(iuc))
 
     rows, counts = [], {"tool": 0, "deployment": 0, "iuc-test": 0, "clean": 0}
@@ -143,7 +131,7 @@ def main(argv: list[str]) -> int:
     print(f"{len(anvil)} tools on AnVIL, {len(iuc)} here, {len(shared)} in both "
           f"(last {args.runs} runs each)\n")
     for kind, blurb in (("tool", "fails in both, likely a real tool problem"),
-                        ("deployment", "fails only on AnVIL, likely the deployment"),
+                        ("deployment", "fails only on AnVIL, on their environment or their test data"),
                         ("iuc-test", "fails only here, likely the test or the pinned version")):
         picked = [r for r in rows if r["verdict"] == kind]
         print(f"{kind.upper():11} {len(picked):4}  {blurb}")

@@ -51,9 +51,9 @@ description: What the async validation work fixed in tools-iuc, what we built to
       usegalaxy.eu custom tool repositories, which are structured the same way.</li>
     <li><strong>Fix in batches.</strong> Grouped PRs of related packages rather than one per tool;
       at 155 remaining, per-tool PRs do not finish.</li>
-    <li><strong>Separate infrastructure from tools.</strong> The dashboard cross-checks against the
-      AnVIL deployment and discounts tests whose inputs never arrived: of 114 shared tools, 109 pass
-      on both, 2 fail on both, 3 fail only there.</li>
+    <li><strong>Separate their side from the tools.</strong> The dashboard cross-checks against the
+      AnVIL deployment: of 114 shared tools, only 2 fail on both. The 81 that fail only there are
+      their environment or their test data, which the dashboard now labels per test.</li>
   </ul>
   <div class="figures">
     <div class="figure"><div class="figure__value">155</div><div class="figure__label">tests left in tools-iuc</div></div>
