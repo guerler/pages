@@ -18,18 +18,17 @@ description: What the async validation work fixed in tools-iuc, what we built to
 </section>
 
 <section class="slide" id="built">
-  <h2>Four layers now run the typed path</h2>
+  <h2>Every path to a tool now runs typed</h2>
   <div class="figures">
-    <div class="figure"><div class="figure__value">12</div><div class="figure__label">Galaxy PRs merged</div></div>
+    <div class="figure"><div class="figure__value">2,171</div><div class="figure__label">tools tracked</div></div>
     <div class="figure"><div class="figure__value">6,697</div><div class="figure__label">tool tests per run</div></div>
-    <div class="figure figure--down"><div class="figure__value">2</div><div class="figure__label">request-build gaps left</div></div>
   </div>
   <table class="data">
-    <tr><th>Layer</th><th>What it exercises</th><th>PRs</th></tr>
-    <tr><td>Request path</td><td><code>POST /api/jobs</code> by default</td><td><code>#23329</code> <code>#23084</code></td></tr>
-    <tr><td>Tool form</td><td>Selenium fills and submits the real form</td><td><code>#23347</code> <code>#23372</code></td></tr>
-    <tr><td>Framework tests</td><td>Galaxy's own CI, typed instead of fallback</td><td><code>#23442</code></td></tr>
-    <tr><td>Parameter model</td><td>selects, value shapes, conditionals, repeats</td><td><code>#23351</code> <code>#23414</code> <code>#23431</code> <code>#23170</code></td></tr>
+    <tr><th>Layer</th><th>What it exercises</th></tr>
+    <tr><td>API path</td><td><code>POST /api/jobs</code>, the default for every tool execution</td></tr>
+    <tr><td>UI path</td><td>the tool form in a browser, filled and submitted by Selenium</td></tr>
+    <tr><td>Framework tests</td><td>Galaxy's own tool suite, typed instead of falling back</td></tr>
+    <tr><td>Parameter model</td><td>XML inputs to a typed request: selects, conditionals, repeats</td></tr>
   </table>
   <p class="note">The legacy path silently ignores a declared parameter and still records a pass.</p>
   <span class="slide__num"></span>
