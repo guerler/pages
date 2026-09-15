@@ -23,14 +23,18 @@ description: What the async validation work fixed in tools-iuc, what we built to
     <div class="figure"><div class="figure__value">2,171</div><div class="figure__label">tools tracked</div></div>
     <div class="figure"><div class="figure__value">6,697</div><div class="figure__label">tests per run</div></div>
   </div>
-  <table class="data">
+  <div class="split">
+    <div><table class="data">
     <tr><th>Layer</th><th>What it exercises</th></tr>
     <tr><td>API path</td><td><code>POST /api/jobs</code>, now the default</td></tr>
     <tr><td>UI path</td><td>the tool form, driven by Selenium</td></tr>
     <tr><td>Framework tests</td><td>Galaxy's own suite, typed instead of fallback</td></tr>
     <tr><td>Parameter model</td><td>XML inputs to a typed request: selects, conditionals, repeats</td></tr>
-  </table>
-  <p class="note">The legacy path silently ignores a declared parameter and still records a pass.</p>
+  </table></div>
+    <div><svg viewBox="0 0 460 214" role="img" aria-label="Tests the typed path could not build a request for: none in early July, 80 on 1 August once the legacy fallback was removed, 2 today" style="width:100%;height:auto;max-height:24vh"><line x1="34" y1="172.0" x2="402" y2="172.0" stroke="rgba(44,49,67,.11)"/><text x="28" y="176.0" text-anchor="end" font-size="11" fill="rgba(44,49,67,.62)">0</text><line x1="34" y1="103.0" x2="402" y2="103.0" stroke="rgba(44,49,67,.11)"/><text x="28" y="107.0" text-anchor="end" font-size="11" fill="rgba(44,49,67,.62)">40</text><line x1="34" y1="34.0" x2="402" y2="34.0" stroke="rgba(44,49,67,.11)"/><text x="28" y="38.0" text-anchor="end" font-size="11" fill="rgba(44,49,67,.62)">80</text><polygon points="34,172.0 34.0,161.7 60.3,170.3 86.6,172.0 112.9,172.0 139.1,172.0 165.4,118.5 191.7,35.7 218.0,34.0 244.3,132.3 270.6,132.3 296.9,149.6 323.1,166.8 349.4,168.5 375.7,168.5 402.0,168.5 402.0,172.0" fill="rgba(69,78,108,.12)"/><polyline points="34.0,161.7 60.3,170.3 86.6,172.0 112.9,172.0 139.1,172.0 165.4,118.5 191.7,35.7 218.0,34.0 244.3,132.3 270.6,132.3 296.9,149.6 323.1,166.8 349.4,168.5 375.7,168.5 402.0,168.5" fill="none" stroke="#454e6c" stroke-width="2.4" stroke-linejoin="round"/><circle cx="34.0" cy="161.7" r="3" fill="#454e6c"/><circle cx="60.3" cy="170.3" r="3" fill="#454e6c"/><circle cx="86.6" cy="172.0" r="3" fill="#454e6c"/><circle cx="112.9" cy="172.0" r="3" fill="#454e6c"/><circle cx="139.1" cy="172.0" r="3" fill="#454e6c"/><circle cx="165.4" cy="118.5" r="3" fill="#454e6c"/><circle cx="191.7" cy="35.7" r="3" fill="#454e6c"/><circle cx="218.0" cy="34.0" r="3" fill="#454e6c"/><circle cx="244.3" cy="132.3" r="3" fill="#454e6c"/><circle cx="270.6" cy="132.3" r="3" fill="#454e6c"/><circle cx="296.9" cy="149.6" r="3" fill="#454e6c"/><circle cx="323.1" cy="166.8" r="3" fill="#454e6c"/><circle cx="349.4" cy="168.5" r="3" fill="#454e6c"/><circle cx="375.7" cy="168.5" r="3" fill="#454e6c"/><circle cx="402.0" cy="168.5" r="3" fill="#454e6c"/><text x="218.0" y="24.0" text-anchor="middle" font-size="14" font-weight="700" fill="#454e6c">80</text><text x="218.0" y="9.0" text-anchor="middle" font-size="11" fill="rgba(44,49,67,.62)">49 tools</text><circle cx="402.0" cy="168.5" r="6" fill="#a06e00"/><text x="414.0" y="169.5" font-size="14" font-weight="700" fill="#a06e00">2</text><text x="414.0" y="185.5" font-size="11" fill="rgba(44,49,67,.62)">today</text><text x="34.0" y="192" text-anchor="middle" font-size="11" fill="rgba(44,49,67,.62)">07-03</text><text x="218.0" y="192" text-anchor="middle" font-size="11" fill="rgba(44,49,67,.62)">08-01</text><text x="402.0" y="192" text-anchor="middle" font-size="11" fill="rgba(44,49,67,.62)">09-14</text><text x="34" y="208" font-size="11.5" fill="rgba(44,49,67,.62)">tests the typed path could not build a request for</text></svg></div>
+  </div>
+  <p class="note">The legacy path silently ignores a declared parameter and still records a pass. Removing
+  that fallback exposed 80 such tests across 49 tools.</p>
   <span class="slide__num"></span>
 </section>
 
