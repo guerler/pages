@@ -74,7 +74,8 @@
                 color: rgba(44, 49, 67, .38); font-variant-numeric: tabular-nums; }
   .slide__num::after { content: counter(slide) " / " var(--deck-total, ""); }
   .slide--title .slide__num { color: rgba(255, 255, 255, .5); }
-  .slide__meta { position: absolute; left: 8vw; bottom: 4vh; font-size: .8rem; color: rgba(255, 255, 255, .55); }
+  .slide__meta { position: absolute; left: 8vw; bottom: 10vh; font-size: .8rem; color: rgba(255, 255, 255, .55); }
+  @media print { .slide__meta { bottom: 4vh; } }
 
   /* Screen-only controls: a progress bar along the top and a pager bottom left. */
   .deck-progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%;
